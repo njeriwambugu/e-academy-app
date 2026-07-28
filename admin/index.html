@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Esoma Academy</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body class="login-active">
+  <section class="login-page" id="loginPage" aria-label="ESOMA Academy sign in">
+    <div class="login-panel-shell">
+      <section class="login-panel" aria-labelledby="loginTitle">
+        <img class="login-logo-mobile" src="assets/images/school-logo-v2.png" alt="ESOMA Academy">
+        <h1 id="loginTitle">Welcome back</h1>
+
+        <form class="login-form" id="loginForm" autocomplete="on">
+          <label class="login-field" for="loginIdentity">
+            Username / Phone Number
+            <span class="login-input-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true">
+                <path d="M20 21a8 8 0 0 0-16 0" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <input id="loginIdentity" name="identity" type="text" value="demo" autocomplete="username" required>
+            </span>
+          </label>
+
+          <label class="login-field" for="loginPassword">
+            Password
+            <span class="login-input-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true">
+                <rect x="5" y="11" width="14" height="10" rx="2" />
+                <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+              </svg>
+              <input id="loginPassword" name="password" type="password" value="password" autocomplete="current-password"
+                required>
+              <button class="password-toggle" id="togglePassword" type="button" aria-label="Show password"
+                aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true">
+                  <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </button>
+            </span>
+          </label>
+
+          <div class="login-options">
+            <button class="forgot-link" id="forgotPasswordBtn" type="button">Forgot password?</button>
+          </div>
+
+          <button class="login-submit" type="submit">
+            <span>Sign In</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+              <path d="M5 12h14" />
+              <path d="m13 6 6 6-6 6" />
+            </svg>
+          </button>
+        </form>
+
+    </section>
+    </div>
+  </section>
+
+  <!--modal for successful login-->
+  <div class="login-success-modal" id="loginSuccessModal" aria-hidden="true">
+    <div class="login-success-content">
+      <div class="login-success-tick">
+        <img class="login-logo-mobile" src="assets/icons/check-mark.svg" alt="Success">
+      </div>
+      <div class="login-success-message">Successful Login</div>
+      <div class="login-success-subtitle">Welcome to your dashboard</div>
+    </div>
+  </div>
+
+  <div class="modal-layer" id="forgotPasswordModal" aria-hidden="true">
+    <form class="modal-form forgot-password-form" id="forgotPasswordForm" aria-label="Password reset form">
+      <div class="modal-head">
+        <div>
+          <h2>Password Reset</h2>
+        </div>
+        <button class="modal-close" type="button" data-close-modal aria-label="Close password reset form">X</button>
+      </div>
+      <div class="form-grid">
+        <label class="field full">
+          Phone Number
+          <input id="forgotIdentity" name="forgotIdentity" type="text" required>
+        </label>
+        <p class="modal-note full" id="forgotFeedback"></p>
+      </div>
+      <div class="modal-actions">
+        <button class="button soft" type="button" data-close-modal>Cancel</button>
+        <button class="button" type="submit">Send Reset</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="app" id="appShell" aria-hidden="true">
+    <header class="app-header">
+      <div class="brand-mark" aria-label="ESOMA Academy">
+        <img class="logo" src="assets/images/school-logo-v.png" alt="ESOMA Academy">
+      </div>
+      <div class="header-actions">
+        <button class="user-menu" id="userMenu" aria-expanded="false" aria-controls="profileDropdown">
+          <span class="avatar">A</span>
+          <span class="profile-copy">
+            <strong>Admin</strong>
+          </span>
+          <img src="assets/icons/arrow_down.svg" alt="dropdown" class="chevron">
+        </button>
+        <div class="profile-dropdown" id="profileDropdown" role="menu" aria-label="Profile menu">
+          
+          <button class="menu-item" id="teachersManagementBtn" role="menuitem">
+            <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2.2"
+              aria-hidden="true">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+            <span>Teachers Management</span>
+          </button>
+          <button class="logout" id="logoutBtn" role="menuitem">
+            <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2.2"
+              aria-hidden="true">
+              <path d="M9 18l-6-6 6-6" />
+              <path d="M3 12h13" />
+              <path d="M14 4h5v16h-5" />
+            </svg>
+            <span>Log Out</span>
+          </button>
+        </div>
+      </div>
+    </header>
+    <!--Dashboard page(php)-->
+    <main class="main">
+      <div class="topbar">
+        <div class="breadcrumb" id="breadcrumb">
+          <span>Dashboard</span>
+          <span>/</span>
+          <span>All Classes</span>
+        </div>
+        <label class="class-switcher" id="classSwitcherWrap">
+          Class
+          <select id="classSwitcher" aria-label="Switch class"></select>
+        </label>
+      </div>
+
+      <section class="view active" id="dashboardView">
+        <div class="stats">
+          <article class="stat">
+            <!-- <div class="stat-mark">
+              <img class="stat-gif" src="assets/icons/classes.gif" alt="" aria-hidden="true">
+            </div>-->
+            <div>
+              <div class="stat-label">Total Classes</div>
+              <div class="stat-value" id="totalClasses">14</div>
+            </div>
+          </article>
+          <article class="stat">
+            <!--<div class="stat-mark">
+              <img class="stat-gif" src="assets/icons/students.gif" alt="" aria-hidden="true">
+            </div>-->
+            <div>
+              <div class="stat-label">Total Students</div>
+              <div class="stat-value" id="totalStudents">350</div>
+            </div>
+          </article>
+          <article class="stat">
+            <!--<div class="stat-mark">
+              <img class="stat-gif" src="assets/icons/invites.gif" alt="" aria-hidden="true">
+            </div>-->
+            <div>
+              <div class="stat-label">Total Teachers</div>
+              <div class="stat-value" id="totalTeachers">13</div>
+            </div>
+          </article>
+        </div>
+
+        <div class="grade-tabs" id="gradeTabs" aria-label="Class filters"></div>
+
+        <h1 class="section-title">All Classes</h1>
+        <div class="toolbar">
+          <label class="search">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#26325d" stroke-width="1.8">
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="m16 16 5 5" />
+            </svg>
+            <input id="searchInput" type="search" placeholder="Search classes">
+          </label>
+          <button class="button soft" id="addClassBtn">+ Add Class</button>
+        </div>
+
+        <div class="class-grid" id="classGrid"></div>
+      </section>
+
+      <section class="view" id="detailView">
+        <div class="hero">
+          <div class="shape hero-shape one"></div>
+          <div class="shape hero-shape two"></div>
+          <div class="shape hero-shape three"></div>
+          <div class="shape hero-shape four"></div>
+          <div class="shape hero-shape five"></div>
+          <div class="shape hero-shape six"></div>
+          <div>
+            <h1 id="detailTitle">Grade 1 North</h1>
+            <!--<div class="hero-metrics">
+              <span class="metric-pill" id="detailStudents">26 Students</span>
+              <span class="metric-pill">6 Subjects</span>
+              <span class="metric-pill">6 Teachers</span>
+              <span class="metric-pill">Attendance: 94%</span>
+            </div>-->
+          </div>
+          <img class="hero-art" id="heroArt" src="assets/images/grade_1.webp" alt="Grade artwork">
+        </div>
+
+        <div class="detail-stats">
+          <article class="stat">
+            <div class="stat-mark" id="studentMark">
+              <img class="stat-gif" src="assets/icons/students.gif" alt="" aria-hidden="true">
+            </div>
+            <div>
+              <div class="stat-value" id="detailStudentNumber">26</div>
+              <div class="stat-label">Students</div>
+            </div>
+          </article>
+          <article class="stat">
+            <div class="stat-mark">
+              <img class="stat-gif" src="assets/icons/subjects.gif" alt="" aria-hidden="true">
+            </div>
+            <div>
+              <div class="stat-value" id="detailSubjectNumber">6</div>
+              <div class="stat-label">Subjects</div>
+            </div>
+          </article>
+          <article class="stat">
+            <div class="stat-mark">
+              <img class="stat-gif" src="assets/icons/teachers.gif" alt="" aria-hidden="true">
+            </div>
+            <div>
+              <div class="stat-value" id="detailTeacherNumber">6</div>
+              <div class="stat-label">Teachers</div>
+            </div>
+          </article>
+        </div>
+
+        <div class="detail-actions">
+          <div class="segmented">
+            <button class="segment active" data-panel="teachers">Subject Distribution</button>
+            <button class="segment" data-panel="students">Students Distribution</button>
+          </div>
+          <div class="detail-right-actions">
+            <button class="button soft" id="importStudentsBtn" hidden>Bulk Import ⭳</button>
+            <button class="button soft" id="detailAddBtn">Add teacher to subjects +</button>
+          </div>
+        </div>
+
+        <div class="student-tools detail-tools">
+          <label class="search">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#26325d" stroke-width="1.8">
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="m16 16 5 5" />
+            </svg>
+            <input id="detailSearchInput" type="search" placeholder="Search this class">
+          </label>
+          <select class="student-filter" id="studentStatusFilter" aria-label="Filter student status">
+            <option value="all">All status</option>
+            <option value="active">Active</option>
+            <option value="Inactive">Inactive</option>
+            <option value="pending">Pending</option>
+          </select>
+        </div>
+
+        <div class="student-panel" id="studentPanel">
+          <div class="student-summary">
+            <article class="student-summary-card sent">
+              <div class="summary-art" aria-hidden="true">
+                <svg viewBox="0 0 360 104" fill="none" preserveAspectRatio="none">
+                  <path class="summary-trail" d="M154 48 C186 76 216 26 246 46 C268 61 280 76 314 72"
+                    stroke="var(--theme-deep)" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="7 9" />
+                  <g class="sent-envelope" transform="translate(134 31)">
+                    <rect x="0" y="0" width="37" height="24" rx="4" fill="#fff" stroke="var(--theme-deep)"
+                      stroke-width="3" />
+                    <path d="M3 3 19 15 35 3M3 22 14 12M35 22 24 12" stroke="var(--theme-deep)" stroke-width="2.4"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                  </g>
+                  <g class="paper-plane">
+                    <path d="M0 19 48 3 34 54 24 31 0 19Z" fill="#fff" stroke="var(--theme-deep)" stroke-width="3"
+                      stroke-linejoin="round" />
+                    <path d="M24 31 48 3 15 38 12 54 24 31Z" fill="var(--theme-soft)" opacity=".78"
+                      stroke="var(--theme-deep)" stroke-width="3" stroke-linejoin="round" />
+                  </g>
+                </svg>
+              </div>
+              <div class="student-summary-label">Invites Sent</div>
+              <div class="student-summary-value" id="studentInvitesSent">0</div>
+            </article>
+            <article class="student-summary-card accepted">
+              <div class="summary-art" aria-hidden="true">
+                <svg viewBox="0 0 96 86" fill="none">
+                  <g class="accepted-envelope">
+                    <rect x="13" y="21" width="55" height="38" rx="4" fill="#fff" stroke="var(--theme-deep)"
+                      stroke-width="4" />
+                    <path d="M15 24 40 44 66 24M15 56 34 39M66 56 47 39" stroke="var(--theme-deep)" stroke-width="4"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                  </g>
+                  <g class="check-badge">
+                    <circle cx="68" cy="56" r="19" fill="#fff" stroke="var(--theme)" stroke-width="4" />
+                    <path class="letter-check" d="M56 54 66 64 84 42" stroke="var(--theme-deep)" stroke-width="7"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                  </g>
+                </svg>
+              </div>
+              <div class="student-summary-label">Invites Accepted</div>
+              <div class="student-summary-value" id="studentInvitesAccepted">0</div>
+            </article>
+            <article class="student-summary-card active-students">
+              <div class="summary-art" aria-hidden="true">
+                <svg viewBox="0 0 96 86" fill="none">
+                  <circle class="active-ring" cx="53" cy="39" r="24" fill="none" stroke="var(--theme)"
+                    stroke-width="5" />
+                  <g class="active-dot anim-delay-80">
+                    <circle cx="36" cy="31" r="10" fill="#fff" stroke="var(--theme-deep)" stroke-width="3" />
+                    <path d="M19 66c3-14 10-22 17-22s14 8 17 22" fill="var(--theme-soft)" stroke="var(--theme-deep)"
+                      stroke-width="3" stroke-linecap="round" />
+                  </g>
+                  <g class="active-dot anim-delay-210">
+                    <circle cx="61" cy="29" r="12" fill="#fff" stroke="var(--theme-deep)" stroke-width="3" />
+                    <path d="M38 69c4-16 13-25 23-25s19 9 23 25" fill="var(--theme-soft)" stroke="var(--theme-deep)"
+                      stroke-width="3" stroke-linecap="round" />
+                  </g>
+                  <path d="M46 24 61 17l17 7-17 7-15-7Z" fill="var(--theme)" stroke="var(--theme-deep)"
+                    stroke-width="2.6" stroke-linejoin="round" />
+                  <path class="active-check" d="M50 55 58 63 75 44" stroke="var(--theme-deep)" stroke-width="5"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div class="student-summary-label">Active Students</div>
+              <div class="student-summary-value" id="studentActiveTotal">0</div>
+            </article>
+          </div>
+
+          <section class="assignment-summary" id="classAssignmentSummary" aria-label="Assignment summary">
+            <div class="panel-head">
+              <h2 class="panel-title">Assignment Summary</h2>
+              <span class="profile-badge">This class</span>
+            </div>
+            <div class="assignment-summary-grid">
+              <article class="assignment-summary-card done">
+                <div class="assignment-summary-label">Done</div>
+                <div class="assignment-summary-value" id="classAssignmentDone">0</div>
+              </article>
+              <article class="assignment-summary-card retake">
+                <div class="assignment-summary-label">Retake</div>
+                <div class="assignment-summary-value" id="classAssignmentRetake">0</div>
+              </article>
+              <article class="assignment-summary-card pending">
+                <div class="assignment-summary-label">Pending</div>
+                <div class="assignment-summary-value" id="classAssignmentPending">0</div>
+              </article>
+              <article class="assignment-summary-card ongoing">
+                <div class="assignment-summary-label">Ongoing</div>
+                <div class="assignment-summary-value" id="classAssignmentOngoing">0</div>
+              </article>
+              <article class="assignment-summary-card overdue">
+                <div class="assignment-summary-label">Overdue</div>
+                <div class="assignment-summary-value" id="classAssignmentOverdue">0</div>
+              </article>
+            </div>
+          </section>
+        </div>
+
+        <div class="table" id="detailTableWrap">
+          <table>
+            <thead>
+              <tr id="tableHead">
+                <th>Teacher Name</th>
+                <th>Subject</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="detailTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="view" id="teachersManagementView">
+        <div class="toolbar">
+          <label class="search">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#26325d" stroke-width="1.8">
+              <circle cx="10.5" cy="10.5" r="6.5" />
+              <path d="m16 16 5 5" />
+            </svg>
+            <input id="teacherSearchInput" type="search" placeholder="Search teachers">
+          </label>
+          <div class="detail-right-actions">
+
+            <button class="button soft" id="bulkImportTeachersBtn">
+             Bulk Import ⭳
+            </button>
+
+            <button class="button soft" id="addTeacherFormBtn">
+              Add Teacher +
+            </button>
+          </div>
+
+        </div>
+
+        <div class="table" id="teachersTableWrap">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-name">Teacher Name</th>
+                <th>Contact</th>
+                <th class="col-mgmt-actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="teachersTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="view" id="teacherProfileView">
+        <div class="profile-shell">
+          <section class="profile-hero teacher-profile-hero">
+            <div class="teacher-profile-avatar" aria-hidden="true">
+              <img src="assets/icons/teacher.svg" alt="">
+            </div>
+            <div class="profile-title">
+              <div>
+                <div class="editable-heading">
+                  <h1 id="teacherProfileName">Teacher Name</h1>
+                  <button class="inline-edit" type="button" data-edit-current-teacher data-edit-field="name"
+                    aria-label="Edit teacher name">
+                    <img src="assets/icons/edit.svg" alt="">
+                  </button>
+                </div>
+              </div>
+              <div class="teacher-hero-info">
+                <div class="hero-info-row">
+                  <span>Contact</span>
+                  <strong id="teacherProfileInfoContact">—</strong>
+                  <button class="inline-edit" type="button" data-edit-current-teacher data-edit-field="contact"
+                    aria-label="Edit teacher contact">
+                    <img src="assets/icons/edit.svg" alt="">
+                  </button>
+                </div>
+                <div class="hero-info-row">
+                  <span>Email</span>
+                  <strong id="teacherProfileInfoEmail">—</strong>
+                </div>
+              </div>
+              <div class="profile-badges">
+                <span class="profile-badge" id="teacherProfileSubjectBadge">0 Subjects</span>
+                <span class="profile-badge" id="teacherProfileClassBadge">0 Classes</span>
+              </div>
+            </div>
+          </section>
+
+          <article class="profile-panel">
+            <h2 class="panel-title">Assigned Subjects</h2>
+            <div class="profile-tag-grid" id="teacherProfileSubjects"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="view" id="studentProfileView">
+        <div class="profile-shell">
+          <section class="profile-hero student-profile-hero">
+            <div class="profile-title">
+              <div>
+                <h1 id="profileName">Timothy</h1>
+                <p id="profileSummary">Student information is ready for review.</p>
+              </div>
+              <div class="profile-badges">
+                <span class="profile-badge" id="profileClassBadge">Grade 4 East</span>
+                <span class="profile-badge" id="profileInviteBadge">Invite Accepted</span>
+                <span class="profile-badge" id="profileActiveBadge">Active</span>
+              </div>
+            </div>
+            <article class="profile-card student-profile-card">
+              <div class="teacher-profile-avatar">
+                <img src="assets/icons/student.png" alt="student-avatar">
+              </div>
+              <div class="profile-info-grid">
+                <div class="profile-info-row editable-row">
+                  <span>Student Name / Nickname</span>
+                  <strong id="profileInfoName">Timothy</strong>
+                  <button class="inline-edit" type="button" data-edit-current-student data-edit-field="name"
+                    aria-label="Edit student name and nickname">
+                    <img src="assets/icons/edit.svg" alt="">
+                  </button>
+                </div>
+                <div class="profile-info-row"><span>Parent/Guardian Name</span><strong id="profileGuardian">Kevin
+                    Mutiso</strong></div>
+                <div class="profile-info-row"><span>Parent/Guardian Contact</span><strong
+                    id="profileContact">0721859532</strong></div>
+                <div class="profile-info-row editable-row">
+                  <span>Class</span>
+                  <strong id="profileClassName">Grade 4 East</strong>
+                  <button class="inline-edit" type="button" data-edit-current-student data-edit-field="class"
+                    aria-label="Edit student class">
+                    <img src="assets/icons/edit.svg" alt="">
+                  </button>
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <div class="profile-metrics">
+            <article class="profile-metric">
+              <img src="assets/icons/online-presence.svg" alt="" aria-hidden="true">
+              <div class="metric-copy">
+                <strong id="profileEngagement">-</strong>
+                <span>Engagement</span>
+              </div>
+            </article>
+            <article class="profile-metric">
+              <img src="assets/icons/high-performance.svg" alt="" aria-hidden="true">
+              <div class="metric-copy">
+                <strong id="profilePerformance">85%</strong>
+                <span>Performance Average</span>
+              </div>
+            </article>
+            <article class="profile-metric">
+              <img src="assets/icons/book.svg" alt="" aria-hidden="true">
+              <div class="metric-copy">
+                <strong id="profileBestSubject">CRE</strong>
+                <span>Strongest Subject</span>
+              </div>
+            </article>
+          </div>
+
+          <section class="assignment-summary" aria-label="Assignment summary">
+            <div class="panel-head">
+              <h2 class="panel-title">Assignment Summary</h2>
+              <span class="profile-badge">Latest assignments</span>
+            </div>
+            <div class="assignment-summary-grid">
+              <article class="assignment-summary-card done">
+                <div class="assignment-summary-label">Done</div>
+                <div class="assignment-summary-value" id="assignmentDone">0</div>
+              </article>
+              <article class="assignment-summary-card retake">
+                <div class="assignment-summary-label">Retake</div>
+                <div class="assignment-summary-value" id="assignmentRetake">0</div>
+              </article>
+              <article class="assignment-summary-card pending">
+                <div class="assignment-summary-label">Pending</div>
+                <div class="assignment-summary-value" id="assignmentPending">0</div>
+              </article>
+              <article class="assignment-summary-card ongoing">
+                <div class="assignment-summary-label">Ongoing</div>
+                <div class="assignment-summary-value" id="assignmentOngoing">0</div>
+              </article>
+              <article class="assignment-summary-card overdue">
+                <div class="assignment-summary-label">Overdue</div>
+                <div class="assignment-summary-value" id="assignmentOverdue">0</div>
+              </article>
+            </div>
+          </section>
+
+          <div id="profilePerformancePanel"></div>
+        </div>
+      </section>
+    </main>
+
+    <div class="modal-layer" id="addClassModal" aria-hidden="true">
+      <form class="modal-form add-class-form" id="addClassForm" aria-label="Add class form">
+        <div class="modal-head">
+          <div>
+            <h2>Add Class</h2>
+          </div>
+          <button class="modal-close" type="button" data-close-modal aria-label="Close add class form">X</button>
+        </div>
+        <div class="form-grid">
+          <label class="field">
+            Class name
+            <input name="className" type="text" placeholder="Grade 1 New Stream" required>
+          </label>
+          <label class="field">
+            Class group
+            <select name="classGroup" required>
+              <option value="PP1">PP1</option>
+              <option value="PP2">PP2</option>
+              <option value="Grade 1">Grade 1</option>
+              <option value="Grade 2">Grade 2</option>
+              <option value="Grade 3">Grade 3</option>
+              <option value="Grade 4">Grade 4</option>
+              <option value="Grade 5">Grade 5</option>
+              <option value="Grade 6">Grade 6</option>
+              <option value="Grade 7">Grade 7</option>
+              <option value="Grade 8">Grade 8</option>
+              <option value="Grade 9">Grade 9</option>
+            </select>
+          </label>
+
+        </div>
+        <div class="modal-actions">
+          <button class="button soft" type="button" data-close-modal>Cancel</button>
+          <button class="button" type="submit">Add Class</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-layer" id="addTeacherModal" aria-hidden="true">
+      <form class="modal-form add-teacher-form" id="addTeacherForm" aria-label="Add teacher form">
+        <div class="modal-head">
+          <div>
+            <h2>Add Teacher</h2>
+          </div>
+          <button class="modal-close" type="button" data-close-modal aria-label="Close add teacher form">X</button>
+        </div>
+        <div class="form-grid">
+          <label class="field">
+            Title
+            <select name="teacherTitle" required>
+              <option value="">Select title</option>
+              <option value="Mr">Tr</option>
+              <option value="Mr">Mr</option>
+              <option value="Mrs">Mrs</option>
+              <option value="Ms">Ms</option>
+            </select>
+          </label>
+          <label class="field">
+            Teacher name
+            <input name="teacherName" type="text" placeholder="Sammy" required>
+          </label>
+          <label class="field">
+            Contact
+            <input name="teacherContact" type="tel" placeholder="0721859532" required>
+          </label>
+          <label class="field full">
+            Email (optional)
+            <input name="teacherEmail" type="email" placeholder="name@gmail.com">
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button class="button soft" type="button" data-close-modal>Cancel</button>
+          <button class="button" type="submit">Add Teacher</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-layer" id="addClassTeacherModal" aria-hidden="true">
+      <form class="modal-form add-teacher-form" id="addClassTeacherForm" aria-label="Add teacher to class form">
+        <div class="modal-head">
+          <div>
+            <h2>Add Teacher</h2>
+            <p>Assign a teacher to a subject in this class.</p>
+          </div>
+          <button class="modal-close" type="button" data-close-modal aria-label="Close add teacher form">X</button>
+        </div>
+        <div class="form-grid">
+          <label class="field suggest-field">
+            Teacher name
+            <input name="teacherName" type="text" placeholder="Mr Sammy" autocomplete="off" aria-autocomplete="list"
+              aria-controls="addTeacherNameSuggestions" required>
+            <div class="suggestion-list" id="addTeacherNameSuggestions" role="listbox"></div>
+          </label>
+          <label class="field suggest-field">
+            Subject
+            <input name="subjectName" type="text" placeholder="Mathematics" autocomplete="off" aria-autocomplete="list"
+              aria-controls="addSubjectNameSuggestions" required>
+            <div class="suggestion-list" id="addSubjectNameSuggestions" role="listbox"></div>
+          </label>
+          <label class="field full">
+            Role
+            <select name="teacherRole" required>
+              <option value="">Select role</option>
+              <option value="Main">Main</option>
+              <option value="Temporary">Temporary</option>
+              <option value="Assistant">Assistant</option>
+              <option value="Co-Teacher">Co-Teacher</option>
+            </select>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button class="button soft" type="button" data-close-modal>Cancel</button>
+          <button class="button" type="submit">Add Teacher</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-layer" id="addChildModal" aria-hidden="true">
+      <form class="modal-form add-child-form" id="addChildForm" aria-label="Add student form">
+        <div class="modal-head">
+          <div>
+            <h2>Add Student</h2>
+          </div>
+          <button class="modal-close" type="button" data-close-modal aria-label="Close add student form">X</button>
+        </div>
+        <div class="form-grid">
+          <label class="field">
+            Student name
+            <input name="studentName" type="text" placeholder="Liam Juma" required>
+          </label>
+          <label class="field">
+            Nickname
+            <input name="nickname" type="text" placeholder="Amani">
+          </label>
+          <label class="field">
+            Guardian name
+            <input name="guardian" type="text" placeholder="Kevin Mutiso">
+          </label>
+          <label class="field">
+            Guardian contact
+            <input name="contact" type="tel" placeholder="0721859532">
+          </label>
+          <label class="field">
+            Invite status
+            <select name="inviteStatus">
+              <option value="Pending">Pending</option>
+              <option value="Accepted">Accepted</option>
+            </select>
+          </label>
+          <label class="field">
+            Active status
+            <select name="active">
+              <option value="false">Pending</option>
+              <option value="true">Active</option>
+              <option value="true">Inactive</option>
+            </select>
+          </label>
+          <label class="field">
+            Admission Number
+            <input name="admissionNumber" type="text" placeholder="EA-2026-06-03" required>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button class="button soft" type="button" data-close-modal>Cancel</button>
+          <button class="button" type="submit">Add Student</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-layer" id="editTeacherModal" aria-hidden="true">
+      <form class="modal-form add-teacher-form" id="editTeacherForm" aria-label="Edit teacher form">
+        <div class="modal-head">
+          <div>
+            <h2>Edit Teacher</h2>
+          </div>
+          <button class="modal-close" type="button" data-close-modal aria-label="Close edit teacher form">X</button>
+        </div>
+        <div class="form-grid">
+          <label class="field">
+            Teacher name
+            <input id="editTeacherName" name="teacherName" type="text" required>
+          </label>
+          <label class="field full">
+            Contact
+            <input id="editTeacherContact" name="teacherContact" type="tel" required>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button class="button soft" type="button" data-close-modal>Cancel</button>
+          <button class="button" type="submit">Save Changes</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-layer" id="editClassTeacherModal" aria-hidden="true">
+      <form class="modal-form add-teacher-form" id="editClassTeacherForm" aria-label="Edit teacher form">
+        <div class="modal-head">
+          <div>
+            <h2>Edit Teacher</h2>
+          </div>
+          <button class="modal-close" type="button" data-close-modal aria-label="Close edit teacher form">X</button>
+        </div>
+        <div class="form-grid">
+          <label class="field suggest-field">
+            Teacher name
+            <input id="editClassTeacherName" name="teacherName" type="text" autocomplete="off" aria-autocomplete="list"
+              aria-controls="editTeacherNameSuggestions" required>
+            <div class="suggestion-list" id="editTeacherNameSuggestions" role="listbox"></div>
+          </label>
+          <label class="field suggest-field">
+            Subject
+            <input id="editClassTeacherSubject" name="subjectName" type="text" autocomplete="off"
+              aria-autocomplete="list" aria-controls="editSubjectNameSuggestions" required>
+            <div class="suggestion-list" id="editSubjectNameSuggestions" role="listbox"></div>
+          </label>
+          <label class="field full">
+            Role
+            <select id="editClassTeacherRole" name="teacherRole" required>
+              <option value="">Select role</option>
+              <option value="Main">Main</option>
+              <option value="Temporary">Temporary</option>
+              <option value="Assistant">Assistant</option>
+              <option value="Co-Teacher">Co-Teacher</option>
+            </select>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button class="button soft" type="button" data-close-modal>Cancel</button>
+          <button class="button" type="submit">Save Changes</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-layer" id="editStudentModal" aria-hidden="true">
+      <form class="modal-form student-edit-form" id="editStudentForm" aria-label="Edit student form">
+        <div class="modal-head">
+          <div>
+            <h2>Edit Student</h2>
+            <p>Update this child profile.</p>
+          </div>
+          <button class="modal-close" type="button" data-close-modal aria-label="Close edit student form">X</button>
+        </div>
+        <div class="form-grid">
+          <label class="field">
+            Student name
+            <input id="editStudentName" name="studentName" type="text" required>
+          </label>
+          <label class="field">
+            Nickname
+            <input id="editStudentNickname" name="nickname" type="text">
+          </label>
+          <label class="field">
+            Active status
+            <select id="editStudentActiveStatus" name="activeStatus" class="student-filter" aria-label="Edit active status">
+              <option value="pending">Pending</option>
+              <option value="active">Active</option>
+              <option value="suspended">Suspended</option>
+            </select>
+          </label>
+          <label class="field">
+            Class
+            <select id="editStudentClass" name="classId"></select>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button class="button soft" type="button" data-close-modal>Cancel</button>
+          <button class="button" type="submit">Save Changes</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-layer" id="deleteStudentModal" aria-hidden="true">
+      <form class="modal-form delete-modal-form" id="deleteStudentForm" aria-label="Delete student confirmation">
+        <div class="modal-head">
+          <div>
+            <h2>Delete Student</h2>
+            <p id="deleteStudentMessage">Are you sure you want to delete this student?</p>
+          </div>
+          <button class="modal-close" type="button" data-close-modal
+            aria-label="Close delete student confirmation">X</button>
+        </div>
+        <div class="modal-actions">
+          <button class="button soft" type="button" data-close-modal>Cancel</button>
+          <button class="button danger" type="submit">Delete</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="modal-layer" id="deleteTeacherModal" aria-hidden="true">
+      <form class="modal-form delete-modal-form" id="deleteTeacherForm" aria-label="Delete teacher confirmation">
+        <div class="modal-head">
+          <div>
+            <h2>Delete Teacher</h2>
+            <p id="deleteTeacherMessage">Are you sure you want to delete this teacher?</p>
+          </div>
+          <button class="modal-close" type="button" data-close-modal
+            aria-label="Close delete teacher confirmation">X</button>
+        </div>
+        <div class="modal-actions">
+          <button class="button soft" type="button" data-close-modal>Cancel</button>
+          <button class="button danger" type="submit">Delete</button>
+        </div>
+      </form>
+    </div>
+    <div class="modal-layer" id="bulkImportModal" aria-hidden="true">
+      <div class="modal-form bulk-import-form" aria-label="Import students in bulk">
+        <div class="modal-head">
+          <div>
+            <h2 id="bulkImportTitle">Import Students</h2>
+            <p id="bulkImportSubtitle">
+              Add multiple students from an Excel or CSV file.
+            </p>
+          </div>
+          <button class="modal-close" type="button" data-close-modal aria-label="Close import modal">X</button>
+        </div>
+        <div class="bulk-import-body">
+          <div class="drop-zone" id="dropZone" tabindex="0" role="button"
+            aria-label="Click or drop a file here to upload">
+            <input type="file" id="bulkFileInput" accept=".xlsx,.xls,.csv" aria-hidden="true">
+            <svg class="drop-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2"
+              aria-hidden="true">
+              <rect x="10" y="20" width="28" height="22" rx="4" />
+              <path d="M24 12v18M17 19l7-7 7 7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <p class="drop-title">Drag &amp; drop your file here</p>
+            <p class="drop-sub">or <span class="drop-link">click to browse</span></p>
+            <p class="drop-hint">.xlsx &nbsp;·&nbsp; .xls &nbsp;·&nbsp; .csv &nbsp;—&nbsp; max 5 MB</p>
+            <!--change to your preference limit--->
+          </div>
+
+          <div class="import-preview-wrap" id="importPreviewWrap" hidden>
+            <div class="import-preview-header">
+              <span class="import-count" id="importPreviewCount">0 students ready</span>
+              <button class="import-clear-btn" type="button" id="importClearBtn">✕ Clear file</button>
+            </div>
+            <div class="import-preview-scroll">
+              <table class="import-preview-table">
+                <thead>
+                  <tr>
+                    <th>Student Name</th>
+                    <th>Nickname</th>
+                    <th>Guardian</th>
+                    <th>Contact</th>
+                    <th>Adm. No.</th>
+                  </tr>
+                </thead>
+                <tbody id="importPreviewBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="button soft" type="button" data-close-modal>Cancel</button>
+          <button class="button" type="button" id="importSubmitBtn" disabled>Import Students</button>
+        </div>
+      </div>
+    </div>
+
+    <!--sub modal-->
+    <div class="login-success-modal" id="actionSuccessModal" aria-hidden="true">
+      <div class="login-success-content">
+        <div class="login-success-tick">
+          <img class="login-logo-mobile" src="assets/icons/check-mark.svg" alt="Success">
+        </div>
+        <div class="login-success-message" id="actionSuccessTitle">Done</div>
+        <div class="login-success-subtitle" id="actionSuccessSubtitle">Changes saved.</div>
+      </div>
+    </div>
+
+    <div class="modal-layer" id="teacherActionsModal" aria-hidden="true">
+      <div class="modal-form teacher-actions-form" aria-label="Teacher actions">
+        <div class="modal-head">
+          <div>
+            <h2 id="teacherActionsTitle">Teacher Name</h2>
+            <p id="teacherActionsMeta">Subject</p>
+          </div>
+          <button class="modal-close" type="button" data-close-modal aria-label="Close teacher actions">X</button>
+        </div>
+        <div class="teacher-actions-content" id="teacherActionsMenu">
+          <button class="teacher-action-btn edit-btn" id="editTeacherBtn" type="button">
+            <span>Edit Teacher</span>
+          </button>
+          <button class="teacher-action-btn delete-btn" id="deleteTeacherBtn" type="button">
+            <span>Delete Teacher</span>
+          </button>
+        </div>
+        <div class="teacher-delete-confirm" id="teacherDeleteConfirm" hidden>
+          <p id="teacherDeleteWarning">This removes the teacher assignment from this subject.</p>
+        </div>
+        <div class="modal-actions teacher-actions-footer" id="teacherActionsFooter">
+          <button class="button soft is-full" type="button" data-close-modal>Close</button>
+        </div>
+        <div class="modal-actions teacher-delete-footer" id="teacherDeleteFooter" hidden>
+          <button class="button soft" type="button" data-close-modal>Cancel</button>
+          <button class="button danger" type="button" id="confirmTeacherDeleteBtn">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-layer" id="studentActionsModal" aria-hidden="true">
+      <div class="modal-form student-actions-form" aria-label="Student actions">
+        <div class="modal-head">
+          <div>
+            <h2 id="studentActionsName">Student Name</h2>
+            <p id="studentActionsStatus">Status</p>
+          </div>
+          <button class="modal-close" type="button" data-close-modal aria-label="Close student actions">X</button>
+        </div>
+        <div class="student-actions-content">
+          <button class="teacher-action-btn edit-btn" id="editStudentBtn" type="button">
+            <span>Edit Student</span>
+          </button>
+          <button class="teacher-action-btn delete-btn" id="deleteStudentBtn" type="button">
+            <span>Delete Student</span>
+          </button>
+        </div>
+        <div class="modal-actions">
+          <button class="button soft is-full" type="button" data-close-modal>Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="../shared/scripts/modal.js"></script>
+  <script type="module" src="scripts/app.js"></script>
+</body>
+
+</html>

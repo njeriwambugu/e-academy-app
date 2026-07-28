@@ -1,0 +1,204 @@
+
+.sk-loading {
+    pointer-events: none;
+    user-select: none;
+}
+
+/*  what becomes a skeleton block */
+.sk-loading .welcome-pill,
+.sk-loading .stat,
+.sk-loading .segmented,
+.sk-loading .toolbar .search,
+.sk-loading .kid-card,
+.sk-loading .kid-pill,
+.sk-loading .status-key,
+.sk-loading .info-note,
+.sk-loading .table,
+.sk-loading .table-pagination,
+.sk-loading .profile-metric,
+.sk-loading .notif-item,
+.sk-loading .manage-title-bar,
+.sk-loading .manage-card,
+.sk-loading .kid-detail-hero,
+.sk-loading .kid-detail-actions > *,
+.sk-loading .report-kid-card,
+.sk-loading .report-dots,
+.sk-loading .swipe-hint,
+.sk-loading .chart-card,
+.sk-loading .help-card,
+.sk-loading .mobile-placeholder-card,
+.sk-loading .breadcrumb-back,
+.sk-loading .section-head,
+.sk-loading .page-subtitle {
+    position: relative;
+    overflow: hidden;
+    background: #e7ebf2 !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    color: transparent !important;
+    isolation: isolate;
+}
+
+/* children vanish but keep their space, so nothing jumps on load */
+.sk-loading .welcome-pill > *,
+.sk-loading .stat > *,
+.sk-loading .segmented > *,
+.sk-loading .toolbar .search > *,
+.sk-loading .kid-card > *,
+.sk-loading .kid-pill > *,
+.sk-loading .status-key > *,
+.sk-loading .info-note > *,
+.sk-loading .table > *,
+.sk-loading .table-pagination > *,
+.sk-loading .profile-metric > *,
+.sk-loading .notif-item > *,
+.sk-loading .manage-title-bar > *,
+.sk-loading .manage-card > *,
+.sk-loading .kid-detail-hero > *,
+.sk-loading .kid-detail-actions > * > *,
+.sk-loading .report-kid-card > *,
+.sk-loading .report-dots > *,
+.sk-loading .chart-card > *,
+.sk-loading .help-card > *,
+.sk-loading .mobile-placeholder-card > *,
+.sk-loading .breadcrumb-back > *,
+.sk-loading .section-head > * {
+    visibility: hidden !important;
+}
+
+
+.sk-loading .kid-card::before,
+.sk-loading .kid-card::after,
+.sk-loading .kid-detail-hero::before,
+.sk-loading .kid-detail-hero::after {
+    content: none !important;
+}
+
+
+.sk-loading .report-kid-card.active {
+    outline-color: #d3d9e3 !important;
+}
+
+/* the shimmer sweep*/
+.sk-loading .welcome-pill::after,
+.sk-loading .stat::after,
+.sk-loading .segmented::after,
+.sk-loading .toolbar .search::after,
+.sk-loading .kid-card::after,
+.sk-loading .kid-pill::after,
+.sk-loading .status-key::after,
+.sk-loading .info-note::after,
+.sk-loading .table::after,
+.sk-loading .profile-metric::after,
+.sk-loading .notif-item::after,
+.sk-loading .manage-title-bar::after,
+.sk-loading .manage-card::after,
+.sk-loading .kid-detail-hero::after,
+.sk-loading .kid-detail-actions > *::after,
+.sk-loading .report-kid-card::after,
+.sk-loading .chart-card::after,
+.sk-loading .help-card::after,
+.sk-loading .mobile-placeholder-card::after,
+.sk-loading .section-head::after {
+    content: "" !important;
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    background: linear-gradient(
+        100deg,
+        transparent 20%,
+        rgba(255, 255, 255, .65) 50%,
+        transparent 80%
+    ) !important;
+    border-radius: inherit;
+    transform: translateX(-100%);
+    animation: sk-shimmer 1.4s ease-in-out infinite !important;
+    opacity: 1 !important;
+    pointer-events: none;
+    -webkit-mask: none !important;
+    mask: none !important;
+}
+
+@keyframes sk-shimmer {
+    to {
+        transform: translateX(100%);
+    }
+}
+
+.sk-loading .kid-card:nth-child(2)::after,
+.sk-loading .kid-pill:nth-child(2)::after,
+.sk-loading .notif-item:nth-child(2)::after,
+.sk-loading .report-kid-card:nth-child(2)::after,
+.sk-loading .stat:nth-child(2)::after,
+.sk-loading .help-card:nth-child(2)::after {
+    animation-delay: 120ms !important;
+}
+
+.sk-loading .kid-card:nth-child(3)::after,
+.sk-loading .kid-pill:nth-child(3)::after,
+.sk-loading .notif-item:nth-child(3)::after,
+.sk-loading .report-kid-card:nth-child(3)::after,
+.sk-loading .stat:nth-child(3)::after,
+.sk-loading .help-card:nth-child(3)::after {
+    animation-delay: 240ms !important;
+}
+
+.sk-loading .kid-card:nth-child(n+4)::after,
+.sk-loading .kid-pill:nth-child(n+4)::after,
+.sk-loading .notif-item:nth-child(n+4)::after,
+.sk-loading .report-kid-card:nth-child(n+4)::after,
+.sk-loading .help-card:nth-child(n+4)::after {
+    animation-delay: 360ms !important;
+}
+
+/* shape fidelity tweaks*/
+.sk-loading .welcome-pill,
+.sk-loading .kid-pill,
+.sk-loading .breadcrumb-back {
+    border-radius: 999px;
+}
+
+.sk-loading .table {
+    min-height: 220px;
+    border-radius: 18px;
+}
+
+.sk-loading .kid-detail-hero {
+    min-height: 200px;
+}
+
+.sk-loading .chart-card {
+    min-height: 320px;
+}
+
+.sk-loading .section-head {
+    max-width: 320px;
+    min-height: 26px;
+    border-radius: 8px;
+}
+
+.sk-loading .page-subtitle {
+    max-width: 240px;
+    min-height: 14px;
+    border-radius: 6px;
+}
+
+/* topbar breadcrumb text turns into a short bar */
+.sk-loading .breadcrumb > * {
+    visibility: hidden !important;
+}
+
+.sk-loading .breadcrumb {
+    position: relative;
+    min-width: 140px;
+    min-height: 18px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: #e7ebf2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sk-loading *::after {
+        animation: none !important;
+    }
+}

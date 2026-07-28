@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 760" width="420" height="760">
+  <defs>
+    <linearGradient id="leafDark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1f5c34"/>
+      <stop offset="100%" stop-color="#2f7a45"/>
+    </linearGradient>
+    <linearGradient id="leafMid" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2f8a4c"/>
+      <stop offset="100%" stop-color="#4caf5f"/>
+    </linearGradient>
+    <linearGradient id="leafLight" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#79c25d"/>
+      <stop offset="100%" stop-color="#a8d86b"/>
+    </linearGradient>
+    <linearGradient id="leafPale" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c7e4a0"/>
+      <stop offset="100%" stop-color="#e4f0c2"/>
+    </linearGradient>
+    <radialGradient id="gloss" cx="30%" cy="22%" r="55%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity=".55"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- reusable leaf families -->
+    <g id="monstera">
+      <path d="M60 4 C24 10 4 44 4 84 C4 130 30 168 66 176 C60 150 56 128 58 108
+               C42 112 30 104 26 88 C40 90 50 82 52 68 C36 68 28 58 28 44
+               C42 46 52 40 56 26 C46 24 40 16 40 6 C48 2 54 0 60 4 Z"/>
+      <path d="M66 176 C40 168 22 144 16 116" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <g id="paddle">
+      <path d="M40 0 C10 8 0 46 6 92 C12 138 34 172 40 200 C46 172 68 138 74 92
+               C80 46 70 8 40 0 Z"/>
+      <path d="M40 4 L40 196" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <g id="fern">
+      <path d="M0 150 C6 110 14 70 34 34 C48 10 62 -2 62 -2
+               C58 14 50 30 40 44 C52 34 62 24 70 10
+               C64 28 54 44 42 56 C54 48 64 38 72 24
+               C64 44 52 58 38 68 C50 62 60 54 68 42
+               C58 62 44 76 28 84 C40 80 50 72 58 62
+               C46 84 30 98 12 106 C22 102 32 96 40 88
+               C28 108 12 122 -6 128 Z"/>
+    </g>
+
+    <g id="frond">
+      <path d="M0 220 C4 160 14 100 40 50 C54 24 70 6 70 6
+               C64 26 54 46 42 62 L70 30 C62 50 50 68 36 80
+               L68 56 C58 76 44 92 28 100 L62 82
+               C50 102 34 116 16 122 L52 108
+               C38 128 20 140 0 144 L40 132
+               C24 152 4 164 -16 168 L26 158
+               C8 178 -14 190 -38 194 Z"/>
+    </g>
+  </defs>
+
+  <!-- back layer: dark, large, anchoring the mass -->
+  <use href="#paddle" x="250" y="-30" width="170" height="220" fill="url(#leafDark)" transform="rotate(18 335 80)"/>
+  <use href="#paddle" x="300" y="480" width="180" height="240" fill="url(#leafDark)" transform="rotate(-24 390 600)"/>
+  <use href="#monstera" x="260" y="60" width="150" height="170" fill="url(#leafDark)" transform="rotate(-6 335 145)"/>
+  <use href="#monstera" x="270" y="520" width="150" height="170" fill="url(#leafDark)" transform="rotate(14 345 605)"/>
+
+  <!-- mid layer: mid-green fronds and paddles, fanning outward -->
+  <use href="#frond" x="150" y="10" width="200" height="230" fill="url(#leafMid)" transform="rotate(-58 150 30)"/>
+  <use href="#frond" x="150" y="330" width="220" height="250" fill="url(#leafMid)" transform="rotate(48 150 350)"/>
+  <use href="#frond" x="180" y="560" width="210" height="240" fill="url(#leafMid)" transform="rotate(-38 190 580)"/>
+  <use href="#monstera" x="200" y="260" width="160" height="180" fill="url(#leafMid)" transform="rotate(-10 280 350)"/>
+  <use href="#paddle" x="230" y="620" width="150" height="190" fill="url(#leafMid)" transform="rotate(10 305 715)"/>
+
+  <!-- front layer: light + pale accents, catching the light -->
+  <use href="#fern" x="190" y="40" width="140" height="150" fill="url(#leafLight)" transform="rotate(6 260 110)"/>
+  <use href="#fern" x="210" y="300" width="150" height="160" fill="url(#leafLight)" transform="rotate(-8 285 375)"/>
+  <use href="#fern" x="230" y="600" width="150" height="160" fill="url(#leafLight)" transform="rotate(4 305 675)"/>
+  <use href="#monstera" x="310" y="180" width="120" height="135" fill="url(#leafLight)" transform="rotate(20 370 245)"/>
+  <use href="#monstera" x="320" y="420" width="110" height="125" fill="url(#leafPale)" transform="rotate(-16 375 480)"/>
+  <use href="#paddle" x="340" y="20" width="100" height="130" fill="url(#leafPale)" transform="rotate(30 390 85)"/>
+  <use href="#paddle" x="350" y="640" width="95" height="120" fill="url(#leafLight)" transform="rotate(-14 397 700)"/>
+
+  <!-- small filler sprigs for density near the seam -->
+  <use href="#fern" x="130" y="150" width="90" height="96" fill="url(#leafMid)" opacity=".85" transform="rotate(30 175 198)"/>
+  <use href="#fern" x="140" y="440" width="90" height="96" fill="url(#leafLight)" opacity=".85" transform="rotate(-24 185 488)"/>
+
+  <!-- soft gloss highlights on the front leaves -->
+  <ellipse cx="290" cy="90" rx="70" ry="46" fill="url(#gloss)" transform="rotate(-18 290 90)"/>
+  <ellipse cx="320" cy="360" rx="70" ry="46" fill="url(#gloss)" transform="rotate(10 320 360)"/>
+  <ellipse cx="300" cy="650" rx="70" ry="46" fill="url(#gloss)" transform="rotate(-14 300 650)"/>
+</svg>

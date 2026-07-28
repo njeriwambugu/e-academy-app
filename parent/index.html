@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Esoma Academy - Parents</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="../shared/styles/base.css" />
+  <link rel="stylesheet" href="../shared/styles/components.css" />
+  <link rel="stylesheet" href="../shared/styles/utilities.css" />
+  <link rel="stylesheet" href="./styles/pmain.css?v=16" />
+  <link rel="stylesheet" href="./styles/pskeleton.css" />
+  <link rel="stylesheet" href="../shared/styles/responsive.css" />
+</head>
+
+<body class="login-active">
+  <section class="login-page" id="loginPage" aria-label="ESOMA Academy sign in">
+    <div class="login-panel-shell">
+      <section class="login-panel" aria-labelledby="loginTitle">
+        <img class="login-logo-mobile" src="assets/images/school-logo-v.png" alt="ESOMA Academy">
+        <h1 id="loginTitle">Welcome back</h1>
+
+        <form class="login-form" id="loginForm" autocomplete="on">
+          <label class="login-field" for="loginIdentity">
+            Username / Phone Number
+            <span class="login-input-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true">
+                <path d="M20 21a8 8 0 0 0-16 0" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <input id="loginIdentity" name="identity" type="text" value="demo" autocomplete="username" required>
+            </span>
+          </label>
+
+          <label class="login-field" for="loginPassword">
+            Password
+            <span class="login-input-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true">
+                <rect x="5" y="11" width="14" height="10" rx="2" />
+                <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+              </svg>
+              <input id="loginPassword" name="password" type="password" value="password" autocomplete="current-password"
+                required>
+              <button class="password-toggle" id="togglePassword" type="button" aria-label="Show password"
+                aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true">
+                  <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </button>
+            </span>
+          </label>
+
+          <div class="login-options">
+            <button class="forgot-link" id="forgotPasswordBtn" type="button">Forgot password?</button>
+          </div>
+
+          <button class="login-submit" type="submit">
+            <span>Sign In</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+              <path d="M5 12h14" />
+              <path d="m13 6 6 6-6 6" />
+            </svg>
+          </button>
+        </form>
+      </section>
+    </div>
+  </section>
+
+  <!--modal for successful login just like the admin so backend should be based by role-->
+  <div class="login-success-modal" id="loginSuccessModal" aria-hidden="true">
+    <div class="login-success-content">
+      <div class="login-success-tick">
+        <img class="login-logo-mobile" src="assets/icons/check-mark.svg" alt="Success">
+      </div>
+      <div class="login-success-message">Successful Login</div>
+      <div class="login-success-subtitle">Welcome to your dashboard</div>
+    </div>
+  </div>
+
+  <div class="modal-layer" id="forgotPasswordModal" aria-hidden="true">
+    <form class="modal-form forgot-password-form" id="forgotPasswordForm" aria-label="Password reset form">
+      <div class="modal-head">
+        <div>
+          <h2>Password Reset</h2>
+        </div>
+        <button class="modal-close" type="button" data-close-modal aria-label="Close password reset form">X</button>
+      </div>
+      <div class="form-grid">
+        <label class="field full">
+          Phone Number
+          <input id="forgotIdentity" name="forgotIdentity" type="text" required>
+        </label>
+        <p class="modal-note full" id="forgotFeedback"></p>
+      </div>
+      <div class="modal-actions">
+        <button class="button soft" type="button" data-close-modal>Cancel</button>
+        <button class="button" type="submit">Send Reset</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- mobile top bar -->
+  <header class="app-header">
+    <div class="brand-mark" aria-label="ESOMA Academy">
+      <img class="logo" src="assets/images/school-logo-v.png" alt="ESOMA Academy">
+    </div>
+    <div class="header-actions">
+
+      <!-- notification bell (auto animates when a new notification lands) -->
+      <button class="notify-bell" id="parentNotifyBtn" type="button" aria-label="Notifications">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+        </svg>
+        <span class="notify-count" id="parentNotifyCount" hidden>0</span>
+      </button>
+
+      <button class="user-menu" id="parentProfileBtn" aria-expanded="false" aria-controls="parentProfileDropdown">
+        <span class="avatar" aria-hidden="true">
+          <img src="assets/icons/profile.png" alt="avatar" class="icon avatar-img">
+        </span>
+        <span class="profile-copy">
+          <strong>Parent</strong>
+        </span>
+        <img src="assets/icons/arrow_down.svg" alt="dropdown" class="chevron">
+      </button>
+
+      <div class="profile-dropdown" id="parentProfileDropdown" role="menu" aria-label="Profile menu">
+        <button class="button soft menu-item" id="parentProfileMenuBtn" type="button" role="menuitem">
+          <img src="assets/icons/user.svg" alt="" class="nav-img" aria-hidden="true">
+          <span>Profile</span>
+        </button>
+
+        <button class="menu-item" id="parentHelpDeskBtn" type="button" role="menuitem">
+          <img src="assets/icons/help-center.svg" alt="" class="nav-img" aria-hidden="true">
+          <span>Help Desk</span>
+        </button>
+
+        <button class="menu-item" id="parentLicensesMenuBtn" type="button" role="menuitem">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="6" width="18" height="14" rx="2"></rect>
+            <circle cx="9" cy="12" r="2"></circle>
+            <path d="M14 10h4"></path>
+            <path d="M14 14h4"></path>
+            <path d="M8 3v3"></path>
+            <path d="M16 3v3"></path>
+          </svg>
+          <span>Licenses</span>
+        </button>
+
+        <button class="logout" id="parentMobileLogoutBtn" type="button" role="menuitem">
+          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2.2"
+            aria-hidden="true">
+            <path d="M9 18l-6-6 6-6" />
+            <path d="M3 12h13" />
+            <path d="M14 4h5v16h-5" />
+          </svg>
+          <span>Log Out</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="teacher-app parent-app" id="parentApp">
+
+    <!-- sidebar (desktop) -->
+    <aside class="sidebar" aria-label="Parent navigation">
+
+      <div class="brand-block" aria-label="ESOMA Academy">
+        <img class="teacher-logo" src="./assets/images/school-logo-v.png" alt="ESOMA Academy" />
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Parent sections">
+
+        <button class="nav-item active" type="button" data-parent-nav="dashboard">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+              <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+              <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+              <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+            </svg>
+          </span>
+          <span>Dashboard</span>
+        </button>
+
+        <button class="nav-item" type="button" data-parent-nav="kids">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path>
+              <circle cx="10" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </span>
+          <span>Learners</span>
+        </button>
+
+        <button class="nav-item" type="button" data-parent-nav="licenses">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="6" width="18" height="14" rx="2"></rect>
+              <circle cx="9" cy="12" r="2"></circle>
+              <path d="M14 10h4"></path>
+              <path d="M14 14h4"></path>
+              <path d="M8 3v3"></path>
+              <path d="M16 3v3"></path>
+            </svg>
+          </span>
+          <span>Licenses</span>
+        </button>
+
+        <button class="nav-item" type="button" data-parent-nav="reports">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 21V11"></path>
+              <path d="M12 21V5"></path>
+              <path d="M19 21v-7"></path>
+            </svg>
+          </span>
+          <span>Reports</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="button soft switch-admin" id="parentHelpDeskSideBtn" type="button">
+          <span class="nav-icon" aria-hidden="true">
+            <img src="assets/icons/help-center.svg" alt="" class="nav-img">
+          </span>
+          <span>Help Desk</span>
+        </button>
+        <button class="logout" id="parentLogoutBtn" type="button">
+          <span class="nav-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
+              aria-hidden="true">
+              <path d="M9 18l-6-6 6-6"></path>
+              <path d="M3 12h13"></path>
+              <path d="M14 4h5v16h-5"></path>
+            </svg>
+          </span>
+          <span>Log Out</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main" aria-label="Parent portal content">
+
+      <!-- single shared sticky back button, shown/hidden per view -->
+      <button type="button" class="breadcrumb-back floating-back" id="parentFloatingBack" hidden aria-label="Back">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.6"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M15 6l-6 6 6 6"></path>
+        </svg>
+        <span class="back-label">Back</span>
+      </button>
+
+      <div class="topbar">
+        <div class="breadcrumb-row">
+          <div class="breadcrumb" id="parentBreadcrumb">
+            <span>Dashboard</span>
+          </div>
+        </div>
+        <div class="topbar-actions-right">
+          <!-- desktop notification bell (mobile one lives in the app header) -->
+          <button class="notify-bell desktop-bell" id="parentNotifyBtnDesktop" type="button" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="notify-count" id="parentNotifyCountDesktop" hidden>0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- dashboard -->
+      <section class="view active" id="parentDashboardView" aria-label="Parent dashboard">
+        <div class="dashboard-header">
+          <div>
+            <p class="page-subtitle welcome-pill">
+              Welcome back, <span id="parentDashboardName">Parent</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="segmented parent-dash-segments" id="parentDashSegments" role="tablist"
+          aria-label="Dashboard sections">
+          <button class="segment active" type="button" data-dash-panel="kids">Learners</button>
+          <button class="segment" type="button" data-dash-panel="summary">Assignments</button>
+        </div>
+
+        <!-- kids segment -->
+        <div class="dash-panel active" data-dash-content="kids">
+
+          <div class="stats parent-stats" id="parentStats" aria-label="Family overview">
+            <article class="stat">
+              <div>
+                <div class="stat-value" id="parentActiveLicenses">0</div>
+                <div class="stat-label">Active Licenses</div>
+              </div>
+            </article>
+            <article class="stat">
+              <div>
+                <div class="stat-value" id="parentPendingAssignments">0</div>
+                <div class="stat-label">Pending Assignments</div>
+              </div>
+            </article>
+            <article class="stat">
+              <div>
+                <div class="stat-value" id="parentPendingRetakes">0</div>
+                <div class="stat-label">Retakes Pending</div>
+              </div>
+            </article>
+          </div>
+
+          <div class="section">
+            <div class="section-head">
+              <h2>Learners</h2>
+            </div>
+            <div class="toolbar kid-search-toolbar">
+              <label class="search" aria-label="Search by name">
+                <img src="assets/icons/student-search.svg" alt="" class="search-img" aria-hidden="true">
+                <input type="search" id="parentKidSearch" placeholder="Search by name...">
+              </label>
+            </div>
+            <div class="kid-card-grid" id="parentKidsGrid" aria-label="Kids overview"></div>
+            <div class="mobile-placeholder-card" id="parentKidsNoMatch" hidden>
+              <h3 class="card-title">No learner matches that name</h3>
+              <p class="card-meta muted">Try a different spelling.</p><!--not sure-->
+            </div>
+          </div>
+        </div>
+
+        <!-- assignment summary segment -->
+        <div class="dash-panel" data-dash-content="summary">
+          <div class="status-key" aria-label="Column colour key">
+            <span class="status-key-item completed"><i class="learner-dot completed"
+                aria-hidden="true"></i>Completed</span>
+            <span class="status-key-item retake"><i class="learner-dot retake" aria-hidden="true"></i>Retakes</span>
+            <span class="status-key-item ongoing"><i class="learner-dot ongoing" aria-hidden="true"></i>Ongoing</span>
+            <span class="status-key-item not-started"><i class="learner-dot not-started" aria-hidden="true"></i>Not
+              Started</span>
+          </div>
+
+          <div class="table parent-summary-table">
+            <table aria-label="Assignments summary per kid">
+              <thead>
+                <tr>
+                  <th class="col-name">Learner</th>
+                  <th><span class="th-text">Completed</span><span class="th-mobile-label">Status</span></th>
+                  <th class="col-ongoing"><span class="th-text">Ongoing</span></th>
+                  <th class="col-pending"><span class="th-text">Not Started</span></th>
+                  <th><span class="th-text">Retakes</span></th>
+                </tr>
+              </thead>
+              <tbody id="parentSummaryBody"></tbody>
+            </table>
+          </div>
+
+          <!-- mobile-only: same dataset/markup helpers as the desktop table
+               above, rendered as cards instead of forcing a 5-column table
+               into a narrow screen. Table and cards are swapped purely via
+               CSS (see the max-width:880px rule), never both visible. -->
+          <ul class="summary-mobile-cards" id="parentSummaryCards" aria-label="Assignments summary per kid"></ul>
+
+          <div class="table-pagination" id="parentSummaryPagination" hidden></div>
+        </div>
+      </section>
+
+      <!-- kids accounts -->
+      <section class="view" id="parentKidsView" aria-label="Kids accounts">
+        <div class="section-head">
+          <h2>Select Learners' Account to Manage</h2>
+        </div>
+        <div class="kid-pill-list" id="parentKidsAccountsList" aria-label="Kids accounts"></div>
+      </section>
+
+      <!-- licenses -->
+      <section class="view" id="parentLicensesView" aria-label="Licenses">
+
+        <div class="info-note warning" role="note">
+          <span class="info-note-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"></path>
+              <path d="M12 9v4"></path>
+              <path d="M12 17h.01"></path>
+            </svg>
+          </span>
+          <div class="info-note-body">
+            <p>
+              As part of our school program with <strong id="licenseSchoolName">Esoma School</strong>, your
+              licenses have been activated. If you see a "Get License" notification, kindly contact us.
+            </p>
+            <p>
+              Click <strong>Learn</strong> and under your child's name, to start the Esoma Kids Learning experience.
+            </p>
+          </div>
+        </div>
+
+        <div class="section-head">
+          <h2>Learners Licenses</h2>
+        </div>
+        <div class="license-list" id="parentLicenseList" aria-label="Kids licenses"></div>
+      </section>
+
+      <section class="view" id="parentManageView" aria-label="Manage child account">
+
+        <div class="manage-title-bar">
+          <h2>Manage Learner Account: <span id="manageKidName">-</span></h2>
+        </div>
+
+        <div class="manage-layout">
+          <!-- avatar + profile + school + reports, one card -->
+          <section class="manage-card manage-identity">
+            <div class="manage-avatar-side">
+              <span class="kid-avatar manage-avatar" id="manageAvatar" aria-hidden="true"></span>
+              <p class="manage-avatar-note muted">To change the avatar, go to the child's learning dashboard</p>
+            </div>
+
+            <div class="manage-info-side">
+              <div class="manage-info-cols">
+                <div class="manage-info-group">
+                  <h3 class="manage-heading">Profile</h3>
+                  <div class="manage-row"><span>Nickname:</span><strong id="manageNickname">-</strong></div>
+                  <div class="manage-row"><span>Gender:</span><strong id="manageGender">-</strong></div>
+                  <div class="manage-row"><span>Learner's Grade:</span><strong id="manageGrade">-</strong></div>
+                  <button type="button" class="manage-edit-btn" id="manageEditProfileBtn">Edit Profile Details</button>
+                </div>
+
+                <div class="manage-info-group">
+                  <h3 class="manage-heading">School</h3>
+                  <div class="manage-row"><span>School:</span><strong id="manageSchool">-</strong></div>
+                  <div class="manage-row"><span>Nearest Town:</span><strong id="manageTown">-</strong></div>
+                  <button type="button" class="manage-edit-btn" id="manageEditSchoolBtn">Edit School Details</button>
+                </div>
+              </div>
+
+              <button type="button" class="reports-btn" id="manageReportsBtn">Reports</button>
+            </div>
+          </section>
+
+          <!-- account status on the other side -->
+          <aside class="manage-card manage-status-card">
+            <h3 class="manage-heading centered">Account Status</h3>
+            <span class="kid-license ok" id="manageLicense">-</span>
+            <button type="button" class="pay-btn" id="managePayBtn">
+              <img src="assets/icons/mpesa.png" alt="" class="pay-img" aria-hidden="true">
+              <span>Pay for <em id="managePayName">-</em></span>
+            </button>
+          </aside>
+        </div>
+      </section>
+
+      <!-- kid detail (opened by tapping a dashboard kid card) -->
+      <section class="view" id="parentKidDetailView" aria-label="Kid details">
+
+        <div class="kid-detail-hero" id="kidDetailHero">
+          <div class="kid-detail-art">
+            <img id="kidDetailImg" src="" alt="">
+          </div>
+          <div class="kid-detail-copy">
+            <h2 id="kidDetailName">-</h2>
+            <span class="kid-detail-class" id="kidDetailClass">-</span>
+            <div class="kid-chips" id="kidDetailChips"></div>
+            <span class="kid-license ok" id="kidDetailLicense">-</span>
+          </div>
+        </div>
+
+        <div class="kid-detail-actions">
+          <button type="button" class="kid-learn-btn" id="kidDetailLearnBtn" data-kid-learn="">
+            <span>Learn</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z">
+              </path>
+              <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z">
+              </path>
+              <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+              <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+            </svg>
+          </button>
+          <button type="button" class="pay-btn" id="kidDetailPayBtn">
+            <img src="assets/icons/mpesa.png" alt="" class="pay-img" aria-hidden="true">
+            <span>Pay for <em id="kidDetailPayName">-</em></span>
+          </button>
+          <button type="button" class="reports-btn" id="kidDetailReportsBtn">Reports</button>
+          <button type="button" class="manage-edit-btn kid-detail-manage" id="kidDetailManageBtn">Manage
+            Account</button>
+        </div>
+      </section>
+
+      <!-- customer service/help desk replace with the actual one-->
+      <section class="view" id="parentHelpView" aria-label="Help desk">
+        <div class="manage-title-bar">
+          <h2>Help Desk</h2>
+        </div>
+        <div class="manage-card help-shell">
+          <div class="help-grid">
+            <article class="help-card">
+              <div class="help-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <circle cx="12" cy="8" r="4"></circle>
+                  <path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"></path>
+                </svg>
+              </div>
+              <div class="help-body">
+                <h3><span class="help-num">1</span> Parent's dashboard</h3>
+                <p>Understanding how to manage children accounts and monitoring learning</p>
+                <button type="button" class="help-link">View help <span aria-hidden="true">&#8594;</span></button>
+              </div>
+            </article>
+
+            <article class="help-card">
+              <div class="help-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <circle cx="10" cy="8" r="4"></circle>
+                  <path d="M2 21c0-4 3.6-6.5 8-6.5 1.4 0 2.7.25 3.8.7"></path>
+                  <circle cx="18" cy="17" r="4.5"></circle>
+                  <path d="M18 15v4"></path>
+                  <path d="M16 17h4"></path>
+                </svg>
+              </div>
+              <div class="help-body">
+                <h3><span class="help-num">2</span> Child onboarding</h3>
+                <p>Creating your child's profile and assigning licenses</p>
+                <button type="button" class="help-link">View help <span aria-hidden="true">&#8594;</span></button>
+              </div>
+            </article>
+
+            <article class="help-card">
+              <div class="help-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M8.5 10 12 7.5l3.5 2.5-3.5 6z"></path>
+                </svg>
+              </div>
+              <div class="help-body">
+                <h3><span class="help-num">3</span> Buying and assigning user licenses</h3>
+                <p>Complete guide to purchasing premium licenses and assigning them to user accounts.</p>
+                <button type="button" class="help-link">View help <span aria-hidden="true">&#8594;</span></button>
+              </div>
+            </article>
+
+            <article class="help-card">
+              <div class="help-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M12 4 2 8l10 4 10-4z"></path>
+                  <path d="M6 10v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"></path>
+                </svg>
+              </div>
+              <div class="help-body">
+                <h3><span class="help-num">4</span> Child's learning environment</h3>
+                <p>Complete guide on child learning processes within their environment</p>
+                <button type="button" class="help-link">View help <span aria-hidden="true">&#8594;</span></button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- child learning page (opened via a kid card's Learn button) -->
+      <section class="view" id="parentLearnView" aria-label="Child learning page">
+        <div class="mobile-placeholder-card learn-placeholder">
+          <h3 class="card-title" id="parentLearnTitle">Learning Page</h3>
+          <p class="card-meta muted">This is the child's learning page.</p>
+        </div>
+      </section>
+
+      <!-- notifications (report status updates from the admin based on muy understanding) -->
+      <section class="view" id="parentNotificationsView" aria-label="Notifications">
+        <div class="section-head">
+          <h2>Notifications</h2>
+          <span class="profile-badge" id="parentNotifBadge">0 new</span>
+        </div>
+        <p class="page-subtitle muted">
+          Status updates on the question reports you have sent for review.
+        </p>
+        <div class="notif-list" id="parentNotifList"></div>
+        <div class="mobile-placeholder-card" id="parentNotifEmpty" hidden>
+          <h3 class="card-title">No notifications yet</h3>
+          <p class="card-meta muted">When the admin replies to one of your reports, it will show up here.</p>
+        </div>
+      </section>
+
+      <!-- reports -->
+      <section class="view" id="parentReportsView" aria-label="Reports">
+        <div class="section-head">
+          <h2>Reports and Analytics</h2>
+        </div>
+        <p class="page-subtitle muted">Select a child account below:</p>
+        <div class="report-kid-tabs" id="reportKidTabs" role="tablist" aria-label="Select child"></div>
+        <p class="swipe-hint muted" aria-hidden="true">Swipe to see all your kids</p>
+        <div class="report-dots" id="reportKidDots" aria-hidden="true"></div>
+
+        <div class="section-head report-kid-heading">
+          <h2 id="reportKidTitle">Reports</h2>
+        </div>
+
+        <div class="segmented parent-dash-segments report-segments" id="reportSegments" role="tablist"
+          aria-label="Report sections">
+          <button class="segment active" type="button" data-report-panel="overview">Overview</button>
+          <button class="segment" type="button" data-report-panel="insight">Insights</button>
+          <button class="segment" type="button" data-report-panel="graph">Performance</button>
+        </div>
+
+        <div class="report-panel active" data-report-content="overview">
+          <div class="profile-metrics report-metrics">
+            <article class="profile-metric">
+              <img src="assets/icons/online-presence.svg" alt="" aria-hidden="true">
+              <div class="metric-copy">
+                <strong data-report-stat="engagement">-</strong>
+                <span>Engagement</span>
+              </div>
+            </article>
+            <article class="profile-metric">
+              <img src="assets/icons/high-performance.svg" alt="" aria-hidden="true">
+              <div class="metric-copy">
+                <strong data-report-stat="average">-</strong>
+                <span>Performance Average</span>
+              </div>
+            </article>
+            <article class="profile-metric">
+              <img src="assets/icons/book.svg" alt="" aria-hidden="true">
+              <div class="metric-copy">
+                <strong data-report-stat="bestSubject">-</strong>
+                <span>Strongest Learning Area</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="section-head">
+            <h2>Assignments' Performance</h2>
+          </div>
+          <div class="table report-table">
+            <table aria-label="Assignment performance">
+              <thead>
+                <tr>
+                  <th>Assignment Title</th>
+                  <th class="report-subject-col">Learning Area</th>
+                  <th>Score</th>
+                  <th>Last Attempt</th>
+                </tr>
+              </thead>
+              <tbody id="reportAssignmentsBody"></tbody>
+            </table>
+          </div>
+          <div class="table-pagination" id="reportAssignmentsPagination" hidden></div>
+        </div>
+
+
+        <!--insight-->
+        <div class="report-panel" data-report-content="insight">
+          
+
+          <div class="insights-card">
+            <div class="section-head">
+              <h2>Performance Insights</h2>
+            </div>
+            <div id="reportInsights" class="insight-rows"></div>
+          </div>
+        </div>
+
+        <!-- graph segment -->
+        <div class="report-panel" data-report-content="graph">
+          <div id="profilePerformancePanel"></div>
+        </div>
+      </section>
+
+      <!-- assignment details (opened from a report's assignment link) -->
+      <section class="view" id="parentAssignmentView" aria-label="Assignment details">
+
+        <div class="manage-card assign-detail-card">
+          <div class="assign-detail-rows">
+            <div class="assign-detail-row"><span>Assignment Name:</span><strong id="assignName">-</strong></div>
+            <div class="assign-detail-row"><span>Learning Area:</span><strong id="assignArea">-</strong></div>
+            <div class="assign-detail-row"><span>Class:</span><strong id="assignClass">-</strong></div>
+            <div class="assign-detail-row"><span>Taught By:</span><strong id="assignTeacher">-</strong></div>
+            <div class="assign-detail-row"><span>Your score:</span><strong id="assignScore"
+                class="assign-score">-</strong></div>
+            <div class="assign-detail-row"><span>Last attempt:</span><strong id="assignLast">-</strong></div>
+          </div>
+        </div>
+
+        <!-- assignment content lands here later (questions & answers) -->
+        <div class="mobile-placeholder-card assign-content-placeholder">
+          <h3 class="card-title">Assignment content</h3>
+          <p class="card-meta muted">The questions and your child's answers will load here.</p>
+        </div>
+      </section>
+
+      <!-- parent profile -->
+      <section class="view" id="parentProfileView" aria-label="Parent profile">
+        <div class="section-head">
+          <h2>My Profile</h2>
+        </div>
+
+        <div class="manage-card parent-profile-card">
+          <div class="parent-profile-head">
+            <span class="avatar parent-profile-avatar" aria-hidden="true">
+              <img src="assets/icons/profile.png" alt="" class="avatar-img">
+            </span>
+            <div>
+              <h3 id="parentProfileName">-</h3>
+              <p class="muted">Parent account</p>
+            </div>
+          </div>
+
+          <div class="form-grid parent-profile-form">
+            <label class="deploy-field">
+              <span>Phone Contact</span>
+              <input type="tel" id="parentProfileContact" inputmode="tel" placeholder="07XX XXX XXX" />
+            </label>
+            <label class="deploy-field">
+              <span>Email (optional)</span>
+              <input type="email" id="parentProfileEmail" placeholder="Add an email address" />
+            </label>
+          </div>
+
+          <p class="profile-saved-note" id="parentProfileSaved" hidden>Profile updated.</p>
+
+          <div class="parent-profile-actions">
+            <button class="button" type="button" id="parentProfileSaveBtn">Save Changes</button>
+            <button class="button soft" type="button" id="parentChangePasswordBtn">Change Password</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- mobile bottom nav -->
+  <nav class="teacher-bottom-nav" id="parentBottomNav" aria-label="Parent bottom navigation" style="--active-index: 1;">
+    <span class="nav-notch" aria-hidden="true"></span>
+    <span class="nav-float" aria-hidden="true"><span class="nav-float-icon"></span></span>
+    <button type="button" data-parent-nav="kids" data-nav-index="0" aria-label="Kids Accounts">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path>
+          <circle cx="10" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+      </span>
+      <span class="nav-label">Learners</span>
+    </button>
+    <button type="button" class="active" data-parent-nav="dashboard" data-nav-index="1" aria-label="Dashboard">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+          <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+          <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+          <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+        </svg>
+      </span>
+      <span class="nav-label">Dashboard</span>
+    </button>
+    <button type="button" data-parent-nav="reports" data-nav-index="2" aria-label="Reports">
+      <span class="nav-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 21V11"></path>
+          <path d="M12 21V5"></path>
+          <path d="M19 21v-7"></path>
+        </svg>
+      </span>
+      <span class="nav-label">Reports</span>
+    </button>
+  </nav>
+
+  <!-- change password modal -->
+  <div class="modal-layer" id="parentPasswordModal" aria-hidden="true">
+    <div class="modal-form" role="dialog" aria-modal="true" aria-labelledby="parentPasswordTitle">
+      <div class="modal-head">
+        <div>
+          <h2 id="parentPasswordTitle">Change Password</h2>
+          <p class="modal-note">Choose a new password for your parent account.</p>
+        </div>
+        <button class="modal-close" type="button" data-close-modal aria-label="Close modal">
+          <img src="assets/icons/delete.png" alt="" class="modal-close-img">
+        </button>
+      </div>
+      <div class="form-grid" id="parentPasswordFields">
+        <label class="deploy-field">
+          <span>Current Password</span>
+          <span class="pw-field">
+            <input type="password" id="pwCurrent" autocomplete="current-password" />
+            <button type="button" class="pw-toggle" data-pw-toggle="pwCurrent" aria-label="Show current password"
+              aria-pressed="false">
+              <svg class="pw-eye" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+              <svg class="pw-eye-off" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden>
+                <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"></path>
+                <path d="M6.61 6.61C3.13 8.83 1 12 1 12s4 8 11 8a9.26 9.26 0 0 0 5.39-1.61"></path>
+                <path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"></path>
+                <path d="M1 1l22 22"></path>
+              </svg>
+            </button>
+          </span>
+        </label>
+        <label class="deploy-field">
+          <span>New Password</span>
+          <span class="pw-field">
+            <input type="password" id="pwNew" autocomplete="new-password" />
+            <button type="button" class="pw-toggle" data-pw-toggle="pwNew" aria-label="Show new password"
+              aria-pressed="false">
+              <svg class="pw-eye" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+              <svg class="pw-eye-off" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden>
+                <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"></path>
+                <path d="M6.61 6.61C3.13 8.83 1 12 1 12s4 8 11 8a9.26 9.26 0 0 0 5.39-1.61"></path>
+                <path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"></path>
+                <path d="M1 1l22 22"></path>
+              </svg>
+            </button>
+          </span>
+        </label>
+        <label class="deploy-field">
+          <span>Confirm New Password</span>
+          <span class="pw-field">
+            <input type="password" id="pwConfirm" autocomplete="new-password" />
+            <button type="button" class="pw-toggle" data-pw-toggle="pwConfirm" aria-label="Show confirm password"
+              aria-pressed="false">
+              <svg class="pw-eye" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+              <svg class="pw-eye-off" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden>
+                <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"></path>
+                <path d="M6.61 6.61C3.13 8.83 1 12 1 12s4 8 11 8a9.26 9.26 0 0 0 5.39-1.61"></path>
+                <path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"></path>
+                <path d="M1 1l22 22"></path>
+              </svg>
+            </button>
+          </span>
+        </label>
+        <p class="pay-error" id="pwError" hidden>Passwords must match and be at least 6 characters.</p>
+      </div>
+      <div class="deploy-success" id="pwSuccess" hidden>
+        <span class="deploy-success-ring" aria-hidden="true">
+          <svg viewBox="0 0 52 52">
+            <circle class="deploy-success-circle" cx="26" cy="26" r="23" fill="none"></circle>
+            <path class="deploy-success-check" fill="none" d="M14 27l8 8 16-17"></path>
+          </svg>
+        </span>
+        <strong>Password Changed</strong>
+        <span class="deploy-success-note">Use your new password the next time you log in.</span>
+      </div>
+      <div class="modal-actions" id="pwActions">
+        <button class="button soft" type="button" data-close-modal>Cancel</button>
+        <button class="button" type="button" id="pwSaveBtn">Update Password</button>
+      </div>
+      <div class="modal-actions" id="pwDoneActions" hidden>
+        <button class="button" type="button" id="pwOkBtn">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- edit profile details modal -->
+  <div class="modal-layer" id="parentProfileEditModal" aria-hidden="true">
+    <div class="modal-form" role="dialog" aria-modal="true" aria-labelledby="parentProfileEditTitle">
+      <div class="modal-head">
+        <div>
+          <h2 id="parentProfileEditTitle">Edit Profile Details</h2>
+          <p class="modal-note" id="parentProfileEditNote">Update your child's profile.</p>
+        </div>
+        <button class="modal-close" type="button" data-close-modal aria-label="Close modal">
+          <img src="assets/icons/delete.png" alt="" class="modal-close-img">
+        </button>
+      </div>
+      <div class="form-grid">
+        <label class="deploy-field">
+          <span>Nickname</span>
+          <input type="text" id="editNickname" maxlength="40" />
+        </label>
+        <label class="deploy-field">
+          <span>Gender</span>
+          <select id="editGender">
+            <option value="NONE">None</option>
+            <option value="FEMALE">Female</option>
+            <option value="MALE">Male</option>
+          </select>
+        </label>
+        <label class="deploy-field">
+          <span>Child's Grade</span>
+          <select id="editGrade">
+            <option value="PP1">PP1</option>
+            <option value="PP2">PP2</option>
+            <option value="GRADE_1">Grade 1</option>
+            <option value="GRADE_2">Grade 2</option>
+            <option value="GRADE_3">Grade 3</option>
+            <option value="GRADE_4">Grade 4</option>
+            <option value="GRADE_5">Grade 5</option>
+            <option value="GRADE_6">Grade 6</option>
+            <option value="GRADE_7">Grade 7</option>
+            <option value="GRADE_8">Grade 8</option>
+            <option value="GRADE_9">Grade 9</option>
+          </select>
+        </label>
+      </div>
+      <div class="modal-actions">
+        <button class="button soft" type="button" data-close-modal>Cancel</button>
+        <button class="button" type="button" id="editProfileSave">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- edit school details modal -->
+  <div class="modal-layer" id="parentSchoolEditModal" aria-hidden="true">
+    <div class="modal-form" role="dialog" aria-modal="true" aria-labelledby="parentSchoolEditTitle">
+      <div class="modal-head">
+        <div>
+          <h2 id="parentSchoolEditTitle">Edit School Details</h2>
+          <p class="modal-note" id="parentSchoolEditNote">Update your child's school information.</p>
+        </div>
+        <button class="modal-close" type="button" data-close-modal aria-label="Close modal">
+          <img src="assets/icons/delete.png" alt="" class="modal-close-img">
+        </button>
+      </div>
+      <div class="form-grid">
+        <label class="deploy-field">
+          <span>School</span>
+          <input type="text" id="editSchool" maxlength="60" />
+        </label>
+        <label class="deploy-field">
+          <span>Nearest Town</span>
+          <input type="text" id="editTown" maxlength="40" />
+        </label>
+      </div>
+      <div class="modal-actions">
+        <button class="button soft" type="button" data-close-modal>Cancel</button>
+        <button class="button" type="button" id="editSchoolSave">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- pay (mock STK push) modal -->
+  <div class="modal-layer" id="parentPayModal" aria-hidden="true">
+    <div class="modal-form" role="dialog" aria-modal="true" aria-labelledby="parentPayTitle">
+      <div class="modal-head">
+        <div>
+          <h2 id="parentPayTitle">Pay for <span id="parentPayKidName">-</span></h2>
+          <p class="modal-note">Renews the monthly learning licence via M-Pesa.</p>
+        </div>
+        <button class="modal-close" type="button" data-close-modal aria-label="Close modal">
+          <img src="assets/icons/delete.png" alt="" class="modal-close-img">
+        </button>
+      </div>
+
+      <div class="form-grid" id="parentPayFields">
+        <div class="pay-plan-field">
+          <span>Choose a Plan</span>
+          <div class="pay-plan-select" id="parentPayPlanSelect" role="group" aria-label="Choose a plan">
+            <button type="button" class="pay-plan-btn active" data-plan="monthly" data-amount="125">
+              <span class="pay-plan-name">Monthly</span>
+              <span class="pay-plan-meta">30 days &middot; KES 125</span>
+            </button>
+            <button type="button" class="pay-plan-btn" data-plan="termly" data-amount="500">
+              <span class="pay-plan-name">Termly</span>
+              <span class="pay-plan-meta">120 days &middot; KES 500</span>
+            </button>
+            <button type="button" class="pay-plan-btn" data-plan="yearly" data-amount="1500">
+              <span class="pay-plan-name">Yearly</span>
+              <span class="pay-plan-meta">365 days &middot; KES 1500</span>
+            </button>
+          </div>
+        </div>
+
+        <label class="deploy-field">
+          <span>Amount (KES)</span>
+          <input type="number" id="parentPayAmount" min="1" value="125" inputmode="numeric" />
+        </label>
+        <label class="deploy-field">
+          <span>M-Pesa Phone Number</span>
+          <input type="tel" id="parentPayPhone" placeholder="07XX XXX XXX" inputmode="tel" />
+        </label>
+        <p class="pay-error" id="parentPayError" hidden>Enter a valid amount and phone number.</p>
+      </div>
+
+      <div class="deploy-success" id="parentPaySuccess" hidden>
+        <span class="deploy-success-ring" aria-hidden="true">
+          <svg viewBox="0 0 52 52">
+            <circle class="deploy-success-circle" cx="26" cy="26" r="23" fill="none"></circle>
+            <path class="deploy-success-check" fill="none" d="M14 27l8 8 16-17"></path>
+          </svg>
+        </span>
+        <strong>STK Push Sent</strong>
+        <span class="deploy-success-note" id="parentPaySuccessNote">Check your phone and enter your M-Pesa PIN to
+          complete the payment.</span>
+      </div>
+
+      <div class="modal-actions" id="parentPayActions">
+        <button class="button soft" type="button" data-close-modal>Cancel</button>
+        <button class="button" type="button" id="parentPaySend">Pay</button>
+      </div>
+      <div class="modal-actions" id="parentPayDoneActions" hidden>
+        <button class="button" type="button" id="parentPayOk">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../shared/scripts/modal.js"></script>
+  <script type="module" src="./scripts/app.js"></script>
+
+</body>
+
+</html>

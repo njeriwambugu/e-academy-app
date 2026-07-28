@@ -1,0 +1,14 @@
+/* teacher-only residual — everything else teacher's overlay stylesheet used
+   to contain is now identical to parent's and lives in
+   shared/styles/components.css. This file is just the one rule that's
+   actually different per portal: which wrapper id to hide behind the login
+   gate (teacher's is #teacherApp, parent's #parentApp lives in pmain.css). */
+
+/* login gate — hides the teacher app shell while body.login-active is set,
+   same convention as admin's `body.login-active .app`; teacher's wrapper
+   uses a different class/id so it needs its own scoped rule (see index.html
+   login-page markup and teacher-app.js's bindTeacherLogin). */
+body.login-active .app-header,
+body.login-active #teacherApp {
+    display: none;
+}

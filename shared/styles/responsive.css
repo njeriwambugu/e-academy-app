@@ -1,0 +1,11 @@
+/*
+ * Shared responsive overrides — cross-portal @media rules that don't belong
+ * next to one specific component's base styles.
+ *
+ * Currently empty: base.css and components.css keep their existing @media
+ * blocks inline, right next to the rules they override — moving 56+
+ * interleaved breakpoint blocks out of components.css into this file would
+ * mean manually re-verifying cascade order for every one of them, for no
+ * duplication removed (nothing in this file yet, so nothing changes).
+ * Loaded last so future additions here reliably win at their breakpoint.
+ */
