@@ -321,6 +321,96 @@ body {
     color: #3f2d63;
 }
 
+/* desktop-only profile entry point in the sidebar footer */
+.parent-app .sidebar-footer .side-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid rgba(169, 139, 230, .38);
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(169, 139, 230, .16), rgba(239, 230, 255, .55));
+    color: #3f2d63;
+    cursor: pointer;
+    text-align: left;
+    font: inherit;
+    transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.parent-app .sidebar-footer .side-profile:hover,
+.parent-app .sidebar-footer .side-profile:focus-visible {
+    border-color: rgba(169, 139, 230, .75);
+    background: linear-gradient(135deg, rgba(169, 139, 230, .3), rgba(239, 230, 255, .8));
+    outline: 0;
+}
+
+.parent-app .sidebar-footer .side-profile.active {
+    border-color: var(--theme, #a98be6);
+    background: linear-gradient(135deg, rgba(169, 139, 230, .38), rgba(239, 230, 255, .9));
+}
+
+.side-profile-avatar {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    width: 36px;
+    height: 36px;
+    padding: 2px;
+    border-radius: 50%;
+    background: conic-gradient(from 210deg,
+            #ffcf5c 0deg,
+            #7fd18b 90deg,
+            #6fb6f0 180deg,
+            #f28fb4 270deg,
+            #ffcf5c 360deg);
+}
+
+.side-profile-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    object-fit: cover;
+    background: #fff;
+    display: block;
+}
+
+.side-profile-copy {
+    display: grid;
+    gap: 1px;
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.side-profile-copy strong {
+    font-size: 13px;
+    font-weight: 900;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.side-profile-copy small {
+    color: #6e5b93;
+    font-size: 10.5px;
+    font-weight: 700;
+}
+
+.side-profile-chevron {
+    flex: 0 0 auto;
+    opacity: .55;
+}
+
+/* collapsed rail: keep the photo, drop the text and chevron */
+.parent-app.sidebar-collapsed .sidebar-footer .side-profile>.side-profile-avatar {
+    display: grid;
+}
+
+.parent-app.sidebar-collapsed .sidebar-footer .side-profile .side-profile-chevron {
+    display: none;
+}
+
 .pay-btn .pay-img {
     width: 24px;
     height: 24px;
@@ -697,8 +787,7 @@ body {
     background: #ef4444;
 }
 
-/* dashboard card only: two rows of two, with the status word always shown
-   (kid-detail's own .kid-chips override at .kid-detail-copy stays untouched) */
+/* dashboard card only: two rows of two, with the status word always shown */
 #parentKidsGrid .kid-chips {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1120,102 +1209,6 @@ body {
     }
 }
 
-.kid-detail-hero {
-    display: grid;
-    grid-template-columns: minmax(180px, .8fr) minmax(0, 1.4fr);
-    gap: 20px;
-    align-items: center;
-    margin: 44px 0 18px;
-    padding: 22px 24px;
-    border-radius: 26px;
-    background:
-        linear-gradient(160deg, color-mix(in srgb, var(--kc1, #dbe7ff) 70%, #fff) 0%, var(--kc-accent, #5f7bb1) 135%);
-    box-shadow:
-        inset 0 1.5px 0 rgba(255, 255, 255, .5),
-        0 20px 44px -14px color-mix(in srgb, var(--kc-accent, #5f7bb1) 55%, transparent);
-}
-
-.kid-detail-art {
-    display: grid;
-    place-items: center;
-}
-
-.kid-detail-art img {
-    height: 220px;
-    max-width: 100%;
-    object-fit: contain;
-    margin-top: -58px;
-    /* head breaks out of the hero */
-    filter: drop-shadow(0 14px 18px rgba(31, 39, 72, .32));
-}
-
-.kid-detail-copy {
-    display: grid;
-    justify-items: start;
-    gap: 10px;
-}
-
-.kid-detail-copy h2 {
-    margin: 0;
-    color: #fff;
-    font-size: clamp(26px, 4vw, 34px);
-    font-weight: 950;
-    letter-spacing: -.02em;
-    text-shadow: 0 2px 10px rgba(23, 32, 56, .5);
-}
-
-.kid-detail-class {
-    padding: 4px 14px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, .88);
-    color: #1b2440;
-    font-size: 12.5px;
-    font-weight: 900;
-}
-
-.kid-detail-copy .kid-chips {
-    justify-content: flex-start;
-}
-
-.kid-detail-copy .kid-license {
-    align-self: auto;
-    padding: 6px 16px;
-}
-
-.kid-detail-actions {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 12px;
-}
-
-.kid-detail-actions .kid-learn-btn {
-    margin-top: 0;
-}
-
-.kid-detail-actions .manage-edit-btn.kid-detail-manage {
-    margin: 0;
-    min-height: 46px;
-    border-radius: 999px;
-}
-
-@media (max-width: 880px) {
-    .kid-detail-hero {
-        grid-template-columns: 1fr;
-        justify-items: center;
-        text-align: center;
-        margin-top: 56px;
-        padding-bottom: 26px;
-    }
-
-    .kid-detail-art img {
-        height: 180px;
-        margin-top: -64px;
-    }
-
-    .kid-detail-copy {
-        justify-items: center;
-    }
-}
 
 .help-shell {
     /*help desk*/
@@ -1458,11 +1451,6 @@ body {
     display: block;
 }
 
-.parent-profile-avatar .avatar-img {
-    width: 32px;
-    height: 32px;
-}
-
 .teacher-bottom-nav .nav-icon .nav-img,
 .teacher-bottom-nav .nav-float-icon .nav-img {
     width: 24px;
@@ -1696,22 +1684,34 @@ body {
     }
 }
 
-.parent-profile-card {
-    max-width: 560px;
+.manage-card.parent-profile-card {
     display: grid;
     gap: 18px;
+    padding: 0 22px 22px;
+    overflow: hidden;
+}
+
+
+.parent-profile-banner {
+    position: relative;
+    height: 118px;
+    margin: 0 -22px;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, .62), rgba(255, 255, 255, .48)),
+        var(--bc);
 }
 
 .parent-profile-head {
-    display: flex;
-    align-items: center;
-    gap: 14px;
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    margin-top: -66px;
 }
 
 .parent-profile-head h3 {
-    margin: 0;
+    margin: 10px 0 0;
     color: #1b2440;
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 900;
 }
 
@@ -1721,15 +1721,159 @@ body {
     font-weight: 700;
 }
 
+/* rainbow ring around the photo, same idea as the kid avatars */
 .parent-profile-avatar {
-    width: 56px;
-    height: 56px;
+    display: grid;
+    place-items: center;
+    width: 104px;
+    height: 104px;
+    padding: 4px;
+    border-radius: 50%;
+    background: conic-gradient(from 210deg,
+            #e3c7ae 0deg,
+            #8a5a3b 90deg,
+            #f6ebdd 180deg,
+            #5d3a1e 270deg,
+            #ffcf5c 360deg);
+    box-shadow: 0 12px 26px -12px rgba(169, 139, 230, .16);
+}
+
+.parent-profile-avatar .avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    object-fit: cover;
+    background: var(--theme-soft, #efe6ff);
+    display: block;
 }
 
 .parent-profile-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
+}
+
+/* learner avatars parked at the bottom of the profile card */
+.parent-profile-kids {
+    padding-top: 16px;
+    border-top: 1px dashed var(--line, #e4e8f1);
+}
+
+.parent-profile-kids h4 {
+    margin: 0 0 12px;
+    color: var(--muted, #6e7593);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+}
+
+.parent-profile-kid-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.parent-profile-kid {
+    display: grid;
+    justify-items: center;
+    gap: 6px;
+    width: 76px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    font: inherit;
+}
+
+.parent-profile-kid .kid-avatar {
+    width: 62px;
+    height: 62px;
+    font-size: 22px;
+    transition: transform 200ms cubic-bezier(.2, 1.3, .32, 1);
+}
+
+.parent-profile-kid:hover .kid-avatar,
+.parent-profile-kid:focus-visible .kid-avatar {
+    transform: translateY(-3px);
+}
+
+.parent-profile-kid:focus-visible {
+    outline: 0;
+}
+
+.parent-profile-kid-name {
+    color: #1b2440;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+.parent-profile-kid-meta {
+    color: var(--muted, #6e7593);
+    font-size: 10.5px;
+    font-weight: 700;
+}
+
+/* .form-grid is modal-shaped by default (capped height + scroll) - the card
+   version is just a plain two-up grid */
+.parent-profile-form {
+    max-height: none;
+    overflow: visible;
+}
+
+.parent-profile-form .deploy-field input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line, #e4e8f1);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--ink, #121936);
+    font: inherit;
+    font-weight: 700;
+    transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+.parent-profile-form .deploy-field input:focus-visible {
+    outline: 0;
+    border-color: var(--theme, #a98be6);
+    box-shadow: 0 0 0 3px rgba(169, 139, 230, .18);
+}
+
+@media (max-width: 640px) {
+    .parent-profile-form {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .parent-profile-banner {
+        height: 104px;
+    }
+
+    .parent-profile-head {
+        margin-top: -58px;
+    }
+
+    .parent-profile-avatar {
+        width: 92px;
+        height: 92px;
+    }
+
+    .parent-profile-actions .button {
+        flex: 1 1 100%;
+        justify-content: center;
+    }
+
+    .parent-profile-kid-strip {
+        gap: 12px;
+    }
 }
 
 .profile-saved-note {
@@ -2698,6 +2842,38 @@ body.login-active #parentApp {
     gap: 14px;
 }
 
+/* insights period picker, sits inline opposite the section title */
+.insight-period-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.insight-period-field span {
+    color: var(--muted, #6e7593);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+    .insights-card .section-head {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .insight-period-field {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .insight-period-field .student-filter {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+}
+
 .insight-rows {
     display: grid;
     gap: 12px;
@@ -3060,13 +3236,517 @@ body.login-active #parentApp {
 .insight-card-stat.attention { background: #fdeaea; color: #b93232; }
 .insight-card-stat.info { background: #e8f1fb; color: #2b6fb3; }
 
-/* Overview tab's stat tiles (Engagement/Performance Average/Strongest
-   Learning Area) used a much bigger, unrelated type scale than the
-   Insights cards right next to them — match the same label size/weight and
-   bring the hero number down to a size that still reads as the headline
-   figure without being a completely different typographic voice.
-   Scoped to .report-metrics (parent-only — admin/teacher's own
-   .profile-metrics tiles elsewhere are untouched). */
+
+/* =========================================================================
+   Performance Insights — visual refresh
+   Hero-first responsive grid, glass gradients + depth, SVG trend marks, 3D
+   icon tiles, a reserved faint 3D art layer per insight type, hover motion
+   and reduced-motion support. Presentation only — no IDs, data, filters or
+   rendering logic depend on anything below.
+   ========================================================================= */
+
+/* ---- tone tokens --------------------------------------------------------
+   insights-engine.js tags every card with one of four tones (good / info /
+   focus / attention). Each tone sets the card's whole palette once, so the
+   surface, tile, trend mark and stat pill stay in step instead of being
+   re-declared per element. `focus` is the amber "below the 70% support
+   target" tone — warm and constructive rather than alarming, because it is
+   guidance, not a failure. */
+.insight-card {
+    --tone-ink: #4c53bb;
+    --tone-tint: #e3e7fc;
+    --tone-tint-2: #d3daf9;
+    --tone-deep-1: #6366d8;
+    --tone-deep-2: #4338a8;
+    --tone-glow: rgba(76, 83, 187, .26);
+}
+
+.insight-card.good {
+    --tone-ink: #147a44;
+    --tone-tint: #d6f3e2;
+    --tone-tint-2: #c2ecd4;
+    --tone-deep-1: #34b56f;
+    --tone-deep-2: #10794a;
+    --tone-glow: rgba(20, 122, 68, .24);
+}
+
+.insight-card.info {
+    --tone-ink: #4c53bb;
+    --tone-tint: #e3e7fc;
+    --tone-tint-2: #d3daf9;
+    --tone-deep-1: #6366d8;
+    --tone-deep-2: #4338a8;
+    --tone-glow: rgba(76, 83, 187, .26);
+}
+
+.insight-card.focus {
+    --tone-ink: #a5620a;
+    --tone-tint: #fde9cd;
+    --tone-tint-2: #fadcb6;
+    --tone-deep-1: #f0a13a;
+    --tone-deep-2: #b26a09;
+    --tone-glow: rgba(165, 98, 10, .26);
+}
+
+.insight-card.attention {
+    --tone-ink: #c0355c;
+    --tone-tint: #fcdde6;
+    --tone-tint-2: #f9cbd9;
+    --tone-deep-1: #ef5f86;
+    --tone-deep-2: #b32b52;
+    --tone-glow: rgba(192, 53, 92, .26);
+}
+
+/* ---- panel shell --------------------------------------------------------
+   Soft tinted sheet with one large out-of-frame highlight blob, so the cards
+   read as sitting on a surface instead of floating on flat white. */
+.insights-card {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    padding: 22px;
+    border-radius: 24px;
+    background: linear-gradient(158deg, #fdfdff 0%, #f5f6fe 44%, #edf2fd 100%);
+}
+
+.insights-card::before {
+    content: "";
+    position: absolute;
+    top: -84px;
+    right: -46px;
+    width: 268px;
+    height: 268px;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 36% 34%, rgba(150, 188, 240, .34) 0%, rgba(178, 170, 235, .16) 56%, transparent 72%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.insights-card>* {
+    position: relative;
+    z-index: 1;
+}
+
+/* ring-and-dot marker in front of the panel title */
+.insights-card .section-head h2 {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+
+
+.insight-card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+    align-items: stretch;
+}
+
+@media (min-width: 700px) {
+    .insight-card-grid {
+        grid-auto-flow: row dense;
+    }
+
+    .insight-card-grid>.insight-card:first-child {
+        grid-row: span 2;
+        justify-content: flex-start;
+    }
+}
+
+/* ---- hero card ----------------------------------------------------------
+   The headline card carries the learner's overall average, so it is the one
+   saturated surface on the panel — the same tone the data assigned, at full
+   strength, with the copy inverted onto it. Everything else stays tinted so
+   the hero keeps the emphasis. */
+.insight-card-grid>.insight-card:first-child {
+    background:
+        radial-gradient(90% 70% at 8% 6%, rgba(255, 255, 255, .26) 0%, transparent 56%),
+        linear-gradient(152deg, var(--tone-deep-1) 0%, var(--tone-deep-2) 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .28),
+        0 16px 30px -16px var(--tone-glow),
+        0 22px 40px -22px rgba(20, 30, 60, .55);
+}
+
+.insight-card-grid>.insight-card:first-child .insight-card-title {
+    color: #fff;
+    font-size: 17px;
+}
+
+.insight-card-grid>.insight-card:first-child .insight-card-desc {
+    color: #fff;
+    opacity: .82;
+}
+
+.insight-card-grid>.insight-card:first-child .insight-card-stat {
+    margin-top: 6px;
+    font-size: 30px;
+    padding: 6px 18px;
+    color: var(--tone-deep-2);
+    background: rgba(255, 255, 255, .94);
+    box-shadow: none;
+}
+
+/* the tile and trend mark switch to white on the saturated hero surface */
+.insight-card-grid>.insight-card:first-child .insight-card-anim {
+    color: #fff;
+    background:
+        radial-gradient(74% 74% at 28% 20%, rgba(255, 255, 255, .26) 0%, transparent 58%),
+        linear-gradient(152deg, rgba(255, 255, 255, .2) 0%, rgba(0, 0, 0, .1) 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .42),
+        inset 0 -8px 13px rgba(0, 0, 0, .18),
+        0 12px 22px -12px rgba(0, 0, 0, .4);
+}
+
+.insight-card-grid>.insight-card:first-child .insight-card-anim::after {
+    background: rgba(255, 255, 255, .7);
+    box-shadow: none;
+}
+
+.insight-card-grid>.insight-card:first-child::after {
+    background: #fff;
+    opacity: .32;
+}
+
+.insight-card-grid>.insight-card:first-child:hover::after {
+    opacity: .42;
+}
+
+.insight-card-grid>.insight-card:first-child .insight-card-art {
+    opacity: .16;
+}
+
+.insight-card-grid>.insight-card:first-child:hover .insight-card-art {
+    opacity: .2;
+}
+
+/* below 700px the hero stops spanning rows; the existing @media 768/480
+   blocks further down already own the phone column count (2-up), so nothing
+   is re-declared for it here. */
+
+/* ---- card surface -------------------------------------------------------
+   Borderless tinted glass: the tone washes in from the top-left and returns
+   at the lower-right corner, with the depth carried by shadow rather than a
+   hard outline. */
+.insight-card {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    align-items: flex-start;
+    text-align: left;
+    gap: 9px;
+    padding: 17px 16px 18px;
+    border: 0;
+    border-radius: 20px;
+    background:
+        radial-gradient(120% 80% at 100% 100%, var(--tone-tint-2) 0%, transparent 58%),
+        linear-gradient(158deg, var(--tone-tint) 0%, rgba(255, 255, 255, .96) 46%, var(--tone-tint) 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .9),
+        0 1px 2px rgba(20, 30, 60, .04),
+        0 14px 28px -16px var(--tone-glow),
+        0 18px 34px -24px rgba(20, 30, 60, .45);
+    transition: transform 220ms cubic-bezier(.22, .8, .3, 1), box-shadow 220ms ease;
+}
+
+.insight-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .9),
+        0 6px 14px rgba(20, 30, 60, .06),
+        0 24px 42px -18px var(--tone-glow),
+        0 28px 50px -28px rgba(20, 30, 60, .5);
+}
+
+/* ---- SVG trend marks ----------------------------------------------------
+   The rising arc and the wave under it are the card's signature decoration.
+   Drawn as a masked SVG rather than a background image so a single shape
+   picks up whichever tone the data assigned — no per-tone asset needed. */
+.insight-card::after {
+    content: "";
+    position: absolute;
+    right: 6px;
+    bottom: 4px;
+    width: 118px;
+    height: 78px;
+    background: var(--tone-ink);
+    opacity: .5;
+    pointer-events: none;
+    z-index: 0;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 92'%3E%3Cg fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M50 74C80 74 104 54 110 14' stroke-width='7'/%3E%3Cpath d='M6 70C19 53 31 84 47 69C59 57 71 80 88 66' stroke-width='6'/%3E%3C/g%3E%3C/svg%3E") right bottom / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 92'%3E%3Cg fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M50 74C80 74 104 54 110 14' stroke-width='7'/%3E%3Cpath d='M6 70C19 53 31 84 47 69C59 57 71 80 88 66' stroke-width='6'/%3E%3C/g%3E%3C/svg%3E") right bottom / contain no-repeat;
+    transition: opacity 220ms ease, transform 220ms cubic-bezier(.22, .8, .3, 1);
+}
+
+.insight-card:hover::after {
+    opacity: .62;
+    transform: translate(-2px, -2px);
+}
+
+@media (min-width: 700px) {
+    .insight-card-grid>.insight-card:first-child::after {
+        width: 214px;
+        height: 148px;
+        right: 12px;
+        bottom: 14px;
+        opacity: .42;
+    }
+}
+
+/* ---- reserved 3D art layer ----------------------------------------------
+   insight-cards.js renders an empty .insight-card-art div on every card; the
+   illustration is chosen here from the card's data-insight-type. Files live
+   in shared/scripts/assets/icons/ named after the insight type, so a type
+   with no file simply stays blank and nothing else shifts. Kept faint on
+   purpose — it sits behind both the trend mark and the text. */
+.insight-card-art {
+    position: absolute;
+    right: -10px;
+    bottom: -10px;
+    width: 100px;
+    height: 100px;
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: .12;
+    pointer-events: none;
+    z-index: -1;
+    transition: opacity 220ms ease, transform 220ms cubic-bezier(.22, .8, .3, 1);
+}
+
+.insight-card:hover .insight-card-art {
+    opacity: .16;
+    transform: translate(-2px, -3px) scale(1.04);
+}
+
+/* card content always rides above both decoration layers */
+.insight-card>*:not(.insight-card-art) {
+    position: relative;
+    z-index: 1;
+}
+
+@media (min-width: 700px) {
+    .insight-card-grid>.insight-card:first-child .insight-card-art {
+        width: 168px;
+        height: 168px;
+    }
+}
+
+@media (max-width: 480px) {
+    .insight-card-art {
+        width: 84px;
+        height: 84px;
+    }
+}
+
+.insight-card[data-insight-type="excellentPerformance"] .insight-card-art {
+    background-image: url("../../shared/scripts/assets/icons/excellentPerformance.png");
+}
+
+.insight-card[data-insight-type="overallPerformance"] .insight-card-art {
+    background-image: url("../../shared/scripts/assets/icons/overallPerformance.png");
+}
+
+.insight-card[data-insight-type="bestSubject"] .insight-card-art,
+.insight-card[data-insight-type="bestStrand"] .insight-card-art {
+    background-image: url("../../shared/scripts/assets/icons/bestSubject.png");
+}
+
+.insight-card[data-insight-type="weakestSubject"] .insight-card-art,
+.insight-card[data-insight-type="weakestStrand"] .insight-card-art {
+    background-image: url("../../shared/scripts/assets/icons/weakestSubject.png");
+}
+
+.insight-card[data-insight-type="monthlyImprovement"] .insight-card-art {
+    background-image: url("../../shared/scripts/assets/icons/monthlyImprovement.png");
+}
+
+.insight-card[data-insight-type="performanceDecline"] .insight-card-art {
+    background-image: url("../../shared/scripts/assets/icons/performanceDecline.png");
+}
+
+.insight-card[data-insight-type="outstandingCompletion"] .insight-card-art,
+.insight-card[data-insight-type="assignmentCompletion"] .insight-card-art {
+    background-image: url("../../shared/scripts/assets/icons/outstandingCompletion.png");
+}
+
+.insight-card[data-insight-type="pendingAssignments"] .insight-card-art {
+    background-image: url("../../shared/scripts/assets/icons/pendingAssignments.png");
+}
+
+.insight-card[data-insight-type="retakeAssignments"] .insight-card-art {
+    background-image: url("../../shared/scripts/assets/icons/retakeAssignments.png");
+}
+
+.insight-card[data-insight-type="learningStreak"] .insight-card-art {
+    background-image: url("../../shared/scripts/assets/icons/learningStreak.png");
+}
+
+.insight-card[data-insight-type="recommendations"] .insight-card-art {
+    background-image: url("../../shared/scripts/assets/icons/recommendations.png");
+}
+
+/* ---- 3D icon tile -------------------------------------------------------
+   The flat tone circle becomes a lit, beveled squircle: highlight from the
+   upper left, tone-colored inner shade at the base, a soft cast shadow, and
+   a small gloss dot at the top-right corner. The per-icon SVG motion defined
+   in the block above still runs inside it. */
+.insight-card .insight-card-anim {
+    position: relative;
+    width: 62px;
+    height: 62px;
+    border-radius: 20px;
+    color: var(--tone-ink);
+    background:
+        radial-gradient(74% 74% at 28% 20%, rgba(255, 255, 255, .96) 0%, transparent 58%),
+        linear-gradient(152deg, color-mix(in srgb, var(--tone-ink) 14%, #fff) 0%, var(--tone-tint-2) 100%);
+    box-shadow:
+        inset 0 2px 3px rgba(255, 255, 255, .95),
+        inset 0 -8px 13px color-mix(in srgb, var(--tone-ink) 20%, transparent),
+        0 12px 22px -10px var(--tone-glow);
+    animation:
+        insightIconPop 420ms cubic-bezier(.22, .8, .3, 1) both,
+        insightTileFloat 4.2s ease-in-out 600ms infinite;
+}
+
+.insight-card .insight-card-anim::after {
+    content: "";
+    position: absolute;
+    top: 7px;
+    right: 8px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .92);
+    box-shadow: 0 1px 2px color-mix(in srgb, var(--tone-ink) 22%, transparent);
+}
+
+.insight-card .insight-card-anim svg {
+    width: 30px;
+    height: 30px;
+    filter: drop-shadow(0 2px 2px color-mix(in srgb, var(--tone-ink) 26%, transparent));
+}
+
+@keyframes insightTileFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+/* stat pill + momentum marks*/
+.insight-card .insight-card-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 2px;
+    background: var(--tone-tint-2);
+    color: var(--tone-ink);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tone-ink) 16%, transparent);
+}
+
+.insight-card[data-insight-type="monthlyImprovement"] .insight-card-stat::before,
+.insight-card[data-insight-type="performanceDecline"] .insight-card-stat::before,
+.insight-card[data-insight-type="performanceStable"] .insight-card-stat::before {
+    content: "";
+    flex: 0 0 auto;
+    width: 0;
+    height: 0;
+}
+
+.insight-card[data-insight-type="monthlyImprovement"] .insight-card-stat::before {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 8px solid currentColor;
+}
+
+.insight-card[data-insight-type="performanceDecline"] .insight-card-stat::before {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 8px solid currentColor;
+}
+
+.insight-card[data-insight-type="performanceStable"] .insight-card-stat::before {
+    width: 11px;
+    height: 3px;
+    border-radius: 2px;
+    background: currentColor;
+}
+
+
+.insight-card-anim.focus { background: #fdefdf; color: #b8730a; }
+.insight-card-stat.focus { background: #fdefdf; color: #b8730a; }
+
+/* card action link  */
+.insight-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    padding: 6px 13px;
+    border: 1px solid color-mix(in srgb, var(--tone-ink) 26%, transparent);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .78);
+    color: var(--tone-ink);
+    font: inherit;
+    font-size: 12.5px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.insight-card-link:hover,
+.insight-card-link:focus-visible {
+    background: #fff;
+    border-color: color-mix(in srgb, var(--tone-ink) 55%, transparent);
+    transform: translateX(2px);
+    outline: 0;
+}
+
+.insight-card-link svg {
+    flex: 0 0 auto;
+}
+
+.insight-card .insight-card-body {
+    align-items: flex-start;
+    text-align: left;
+    gap: 5px;
+}
+
+.insight-card .insight-card-title {
+    font-size: 15px;
+    font-weight: 900;
+    line-height: 1.25;
+}
+
+.insight-card .insight-card-desc {
+    opacity: .68;
+}
+
+/*reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .insight-card {
+        opacity: 1;
+        animation: none;
+        transition: none;
+    }
+
+    .insight-card::after,
+    .insight-card-art,
+    .insight-card .insight-card-anim {
+        animation: none;
+        transition: none;
+    }
+
+    .insight-card:hover,
+    .insight-card:hover::after,
+    .insight-card:hover .insight-card-art {
+        transform: none;
+    }
+}
+
+
 .report-metrics .metric-copy strong {
     font-size: 24px;
     font-weight: 900;
@@ -3106,11 +3786,6 @@ body.login-active #parentApp {
     }
 }
 
-/* ==========================================================================
-   Dashboard kid card — expired-plan lock state + Pay button. Learn/Edit turn
-   grey and inert once the plan runs out; Pay never locks (a parent can pay
-   any day) and sits right under the license status.
-   ========================================================================== */
 .kid-card .kid-pay-btn {
     align-self: stretch;
     min-height: 40px;
@@ -3147,10 +3822,7 @@ body.login-active #parentApp {
     filter: grayscale(1);
 }
 
-/* ==========================================================================
-   Kids Accounts pills — on very small phones, shrink the name instead of
-   letting it ellipsis-cut.
-   ========================================================================== */
+
 @media (max-width: 380px) {
     .kid-pill {
         min-height: 46px;
@@ -3169,19 +3841,12 @@ body.login-active #parentApp {
     }
 }
 
-/* the mobile-only "Status" header label — real element, hidden by default
-   (desktop keeps the per-column "Completed" text); never affects desktop. */
+
 .th-mobile-label {
     display: none;
 }
 
-/* ==========================================================================
-   Assignments summary — desktop keeps the real 5-column <table> untouched.
-   Below 880px the table is swapped for a dedicated card list (same
-   dataset/pagination, rendered by the same countCell()/kidCellMarkup()
-   helpers -- see renderSummaryTable() in app.js) instead of forcing 5
-   columns into a narrow screen via CSS table-layout tricks.
-   ========================================================================== */
+
 .summary-mobile-cards {
     display: none;
 }
@@ -3227,9 +3892,6 @@ body.login-active #parentApp {
         min-width: 0;
     }
 
-    /* the 2x2 status grid -- a full card width to work with instead of
-       fighting a learner column for space, so the label can stay visible
-       without wrapping. */
     .summary-mobile-status {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -3268,8 +3930,6 @@ body.login-active #parentApp {
         font-weight: 900;
     }
 
-    /* a zero count still belongs to its tone here (a "0" reads as a real
-       status, not a muted afterthought, once it's sitting in a 2x2 grid). */
     .summary-mobile-status .count-chip.done.is-zero { background: #e9f9ef; color: #1d7c3f; }
     .summary-mobile-status .count-chip.ongoing.is-zero { background: #e8f1fb; color: #2b6fb3; }
     .summary-mobile-status .count-chip.pending.is-zero { background: #eef1f6; color: #5b6474; }

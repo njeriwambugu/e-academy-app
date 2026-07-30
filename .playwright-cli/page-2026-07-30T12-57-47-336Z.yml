@@ -1,0 +1,113 @@
+- generic [ref=e36]:
+  - complementary "Parent navigation" [ref=e37]:
+    - generic "ESOMA Academy" [ref=e38]:
+      - img "ESOMA Academy" [ref=e39]
+    - navigation "Parent sections" [ref=e40]:
+      - button "Dashboard" [ref=e41] [cursor=pointer]
+      - button "Learners" [ref=e49] [cursor=pointer]
+      - button "Licenses" [ref=e57] [cursor=pointer]
+      - button "Reports" [ref=e63] [cursor=pointer]
+    - generic [ref=e67]:
+      - button "My profile" [ref=e68] [cursor=pointer]:
+        - generic [ref=e70]:
+          - strong [ref=e71]: Kevin Kamau
+          - generic [ref=e72]: View profile
+      - button "Help Desk" [ref=e75] [cursor=pointer]
+      - button "Log Out" [ref=e78] [cursor=pointer]
+  - main "Parent portal content" [ref=e84]:
+    - generic [ref=e85]:
+      - generic [ref=e86]: Reports
+      - button "Notifications" [ref=e90] [cursor=pointer]:
+        - generic [ref=e94]: 9+
+    - region "Reports" [ref=e345]:
+      - heading "Reports and Analytics" [level=2] [ref=e347]
+      - paragraph [ref=e348]: "Select a child account below:"
+      - tablist "Select child" [ref=e349]:
+        - tab "Timothy Grade 1 North" [selected] [ref=e350] [cursor=pointer]:
+          - generic [ref=e351]:
+            - generic [ref=e352]: Timothy
+            - generic [ref=e353]: Grade 1 North
+        - tab "Bethany Grade 4 North" [ref=e354] [cursor=pointer]:
+          - generic [ref=e355]:
+            - generic [ref=e356]: Bethany
+            - generic [ref=e357]: Grade 4 North
+        - tab "Kelvin Grade 5 South" [ref=e358] [cursor=pointer]:
+          - generic [ref=e359]:
+            - generic [ref=e360]: Kelvin
+            - generic [ref=e361]: Grade 5 South
+        - tab "Viola Grade 7 Central" [ref=e362] [cursor=pointer]:
+          - generic [ref=e363]:
+            - generic [ref=e364]: Viola
+            - generic [ref=e365]: Grade 7 Central
+        - tab "Cherop Grade 8 South" [ref=e366] [cursor=pointer]:
+          - generic [ref=e367]:
+            - generic [ref=e368]: Cherop
+            - generic [ref=e369]: Grade 8 South
+        - tab "James Grade 2 North East" [ref=e370] [cursor=pointer]:
+          - generic [ref=e371]:
+            - generic [ref=e372]: James
+            - generic [ref=e373]: Grade 2 North East
+        - tab "Brian PP2 North East" [ref=e374] [cursor=pointer]:
+          - generic [ref=e375]:
+            - generic [ref=e376]: Brian
+            - generic [ref=e377]: PP2 North East
+        - tab "Purity Grade 9 North" [ref=e378] [cursor=pointer]:
+          - generic [ref=e379]:
+            - generic [ref=e380]: Purity
+            - generic [ref=e381]: Grade 9 North
+      - paragraph [ref=e382]: Swipe to see all your kids
+      - generic [ref=e383]:
+        - button [ref=e384] [cursor=pointer]
+        - button [ref=e385] [cursor=pointer]
+        - button [ref=e386] [cursor=pointer]
+        - button [ref=e387] [cursor=pointer]
+        - button [ref=e388] [cursor=pointer]
+        - button [ref=e389] [cursor=pointer]
+        - button [ref=e390] [cursor=pointer]
+        - button [ref=e391] [cursor=pointer]
+      - heading "Timothy's School Assignment Reports and Analytics" [level=2] [ref=e393]
+      - tablist "Report sections" [ref=e394]:
+        - button "Overview" [ref=e395] [cursor=pointer]
+        - button "Insights" [active] [ref=e396] [cursor=pointer]
+        - button "Performance" [ref=e397] [cursor=pointer]
+      - generic [ref=e483]:
+        - generic [ref=e484]:
+          - heading "Performance Insights" [level=2] [ref=e485]
+          - generic [ref=e486]:
+            - generic [ref=e487]: Insights period
+            - combobox "Insights period" [ref=e488] [cursor=pointer]:
+              - option "All activity" [selected]
+              - option "June 2026"
+              - option "Term 2 · 2026"
+              - option "2026 academic year"
+        - generic [ref=e490]:
+          - article [ref=e491]:
+            - generic [ref=e506]:
+              - heading "Overall Performance" [level=3] [ref=e507]
+              - paragraph [ref=e508]: Average across every learning area this learner takes.
+              - generic [ref=e509]: 75%
+          - article [ref=e510]:
+            - generic [ref=e514]:
+              - heading "Best Learning Area" [level=3] [ref=e515]
+              - paragraph [ref=e516]: Creative Arts and Sports is currently the learner's strongest learning area.
+              - generic [ref=e517]: 84%
+          - article [ref=e518]:
+            - generic [ref=e524]:
+              - heading "Focus Learning Area" [level=3] [ref=e525]
+              - paragraph [ref=e526]: Kiswahili is below the 70% support target for this period.
+              - generic [ref=e527]: 69%
+          - article [ref=e528]:
+            - generic [ref=e534]:
+              - heading "Performance Momentum" [level=3] [ref=e535]
+              - paragraph [ref=e536]: Scores have held steady across the last 6 scored assignments.
+              - generic [ref=e537]: Steady
+          - article [ref=e538]:
+            - generic [ref=e543]:
+              - heading "Retake Assignments" [level=3] [ref=e544]
+              - paragraph [ref=e545]: 6 assignments marked for retake.
+              - generic [ref=e546]: "6"
+          - article [ref=e547]:
+            - generic [ref=e551]:
+              - heading "Learning Consistency" [level=3] [ref=e552]
+              - paragraph [ref=e553]: Longest run of consecutive active learning days in this period.
+              - generic [ref=e554]: 6 days

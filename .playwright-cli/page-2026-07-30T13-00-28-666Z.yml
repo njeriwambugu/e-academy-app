@@ -1,0 +1,104 @@
+- generic [ref=f1e1]:
+  - banner [ref=f1e2]:
+    - generic "ESOMA Academy" [ref=f1e3]:
+      - img "ESOMA Academy" [ref=f1e4]
+    - generic [ref=f1e5]:
+      - button "Notifications" [ref=f1e6] [cursor=pointer]:
+        - generic [ref=f1e10]: 9+
+      - button [ref=f1e11] [cursor=pointer]:
+        - strong [ref=f1e14]: Parent
+        - img "dropdown" [ref=f1e15]
+  - main "Parent portal content" [ref=f1e39]:
+    - generic [ref=f1e40]: Reports
+    - region "Reports" [ref=f1e294]:
+      - heading "Reports and Analytics" [level=2] [ref=f1e296]
+      - paragraph [ref=f1e297]: "Select a child account below:"
+      - tablist "Select child" [ref=f1e298]:
+        - tab "Timothy Grade 1 North" [selected] [ref=f1e299] [cursor=pointer]:
+          - generic [ref=f1e300]:
+            - generic [ref=f1e301]: Timothy
+            - generic [ref=f1e302]: Grade 1 North
+        - tab "Bethany Grade 4 North" [ref=f1e303] [cursor=pointer]:
+          - generic [ref=f1e304]:
+            - generic [ref=f1e305]: Bethany
+            - generic [ref=f1e306]: Grade 4 North
+        - tab "Kelvin Grade 5 South" [ref=f1e307] [cursor=pointer]:
+          - generic [ref=f1e308]:
+            - generic [ref=f1e309]: Kelvin
+            - generic [ref=f1e310]: Grade 5 South
+        - tab "Viola Grade 7 Central" [ref=f1e311] [cursor=pointer]:
+          - generic [ref=f1e312]:
+            - generic [ref=f1e313]: Viola
+            - generic [ref=f1e314]: Grade 7 Central
+        - tab "Cherop Grade 8 South" [ref=f1e315] [cursor=pointer]:
+          - generic [ref=f1e316]:
+            - generic [ref=f1e317]: Cherop
+            - generic [ref=f1e318]: Grade 8 South
+        - tab "James Grade 2 North East" [ref=f1e319] [cursor=pointer]:
+          - generic [ref=f1e320]:
+            - generic [ref=f1e321]: James
+            - generic [ref=f1e322]: Grade 2 North East
+        - tab "Brian PP2 North East" [ref=f1e323] [cursor=pointer]:
+          - generic [ref=f1e324]:
+            - generic [ref=f1e325]: Brian
+            - generic [ref=f1e326]: PP2 North East
+        - tab "Purity Grade 9 North" [ref=f1e327] [cursor=pointer]:
+          - generic [ref=f1e328]:
+            - generic [ref=f1e329]: Purity
+            - generic [ref=f1e330]: Grade 9 North
+      - paragraph [ref=f1e331]: Swipe to see all your kids
+      - generic [ref=f1e332]:
+        - button [ref=f1e333] [cursor=pointer]
+        - button [ref=f1e334] [cursor=pointer]
+        - button [ref=f1e335] [cursor=pointer]
+        - button [ref=f1e336] [cursor=pointer]
+        - button [ref=f1e337] [cursor=pointer]
+        - button [ref=f1e338] [cursor=pointer]
+        - button [ref=f1e339] [cursor=pointer]
+        - button [ref=f1e340] [cursor=pointer]
+      - heading "Timothy's School Assignment Reports and Analytics" [level=2] [ref=f1e342]
+      - tablist "Report sections" [ref=f1e343]:
+        - button "Overview" [ref=f1e344] [cursor=pointer]
+        - button "Insights" [active] [ref=f1e345] [cursor=pointer]
+        - button "Performance" [ref=f1e346] [cursor=pointer]
+      - generic [ref=f1e433]:
+        - generic [ref=f1e434]:
+          - heading "Performance Insights" [level=2] [ref=f1e435]
+          - generic [ref=f1e436]:
+            - generic [ref=f1e437]: Insights period
+            - combobox "Insights period" [ref=f1e438] [cursor=pointer]:
+              - option "All activity" [selected]
+              - option "June 2026"
+              - option "Term 2 · 2026"
+              - option "2026 academic year"
+        - generic [ref=f1e440]:
+          - article [ref=f1e441]:
+            - generic [ref=f1e456]:
+              - heading "Overall Performance" [level=3] [ref=f1e457]
+              - paragraph [ref=f1e458]: Average across every learning area this learner takes.
+              - generic [ref=f1e459]: 71%
+          - article [ref=f1e460]:
+            - generic [ref=f1e464]:
+              - heading "Best Learning Area" [level=3] [ref=f1e465]
+              - paragraph [ref=f1e466]: English is currently the learner's strongest learning area.
+              - generic [ref=f1e467]: 71%
+          - article [ref=f1e468]:
+            - generic [ref=f1e474]:
+              - heading "Performance Momentum" [level=3] [ref=f1e475]
+              - paragraph [ref=f1e476]: Scores have held steady across the last 6 scored assignments.
+              - generic [ref=f1e477]: Steady
+          - article [ref=f1e478]:
+            - generic [ref=f1e483]:
+              - heading "Retake Assignments" [level=3] [ref=f1e484]
+              - paragraph [ref=f1e485]: 6 assignments marked for retake.
+              - generic [ref=f1e486]: "6"
+          - article [ref=f1e487]:
+            - generic [ref=f1e491]:
+              - heading "Learning Consistency" [level=3] [ref=f1e492]
+              - paragraph [ref=f1e493]: Longest run of consecutive active learning days in this period.
+              - generic [ref=f1e494]: 6 days
+  - navigation "Parent bottom navigation" [ref=f1e16]:
+    - button "Kids Accounts" [ref=f1e24] [cursor=pointer]:
+      - generic [ref=f1e31]: Learners
+    - button "Dashboard" [ref=f1e32] [cursor=pointer]
+    - button "Reports" [ref=f1e34] [cursor=pointer]

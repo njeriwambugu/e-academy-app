@@ -64,8 +64,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
 
   function kidCardHtml(kid) {
     const tone = licenseTone(kid.daysLeft);
-    // an expired plan doesn't hide the card — it locks the actions that lead
-    // into paid learning content, while Pay stays available every day.
+    // an expired plan doesn't hide the card, it locks the actions that lead into paid learning content, while Pay stays available every day.
     const locked = kid.daysLeft <= 0;
 
     return `
@@ -98,7 +97,6 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
       </article>`;
   }
 
-  /*pill row per kid - avatar far left, name far right mmmh aesthetics */
   function kidPillHtml(kid) {
     return `
       <button type="button" class="kid-pill" style="${themeVars(kid)}" data-kid-manage="${kid.id}"
@@ -123,20 +121,12 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
 
     if (dashGrid) dashGrid.innerHTML = dashKids.map(kidCardHtml).join("");
     if (noMatch) noMatch.hidden = dashKids.length > 0;
-    // accounts page always shows the full roster
     if (accountsList) accountsList.innerHTML = KIDS.map(kidPillHtml).join("");
   }
 
 
-  // matches the tone names on the legend's .learner-dot chips above the
-  // table, so the dot color here is literally the same swatch, not a
-  // separate palette to keep in sync.
   const COUNT_CHIP_DOT_TONE = { done: "completed", ongoing: "ongoing", pending: "not-started", retake: "retake" };
 
-  // desktop keeps a bare number (the column header already says what it
-  // is) — pass visibleLabel to also show the word, used by the mobile card
-  // list below where there's a full card width to work with instead of a
-  // table column fighting the learner column for space.
   function countCell(value, tone, label, { visibleLabel = false } = {}) {//summary table
     const zero = !value;
     return `
@@ -163,8 +153,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
     onPageChange: () => renderSummaryTable(),
   });
 
-  // one dataset, one pagination pass — renders the real desktop <table> and
-  // the mobile card list from the exact same page of kids; CSS (not JS)
+  // one dataset, one pagination pass, renders the real desktop <table> and the mobile card list from the exact same page of kids; CSS (not JS)
   // decides which one is actually visible at a given width.
   function renderSummaryTable() {
     const body = $("#parentSummaryBody");
@@ -208,7 +197,6 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
     notifications: $("#parentNotificationsView"),
     manage: $("#parentManageView"),
     profile: $("#parentProfileView"),
-    kiddetail: $("#parentKidDetailView"),
     help: $("#parentHelpView"),
     assignment: $("#parentAssignmentView"),
     licenses: $("#parentLicensesView"),
@@ -222,17 +210,14 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
     notifications: "Notifications",
     manage: "Manage Account",
     profile: "My Profile",
-    kiddetail: "Kid Details",
     help: "Help Desk",
     assignment: "Assignment Details",
     licenses: "Licenses",
   };
 
-  // parent crumbs shown before the current page in the breadcrumb
   const TRAIL = {
     manage: ["kids"],
     learn: ["dashboard"],
-    kiddetail: ["dashboard"],
     assignment: ["reports"],
   };
 
@@ -313,6 +298,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
 
   function goToNav(name, crumbLabel) {
     if (!VIEWS[name]) return;
+    if (name === "profile") fillParentProfile(); // sidebar, dropdown and crumbs all land here
     currentNav = name;
     flashSkeleton();
     hideFloatingBack(); // each view that needs it re-shows it with its own target
@@ -347,7 +333,6 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
       });
     });
 
-    // breadcrumb parents navigate back up the trail
     $("#parentBreadcrumb")?.addEventListener("click", (event) => {
       const crumb = event.target.closest("[data-crumb]");
       if (crumb) goToNav(crumb.dataset.crumb);
@@ -421,7 +406,6 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
   function animateBells() {
     bells.forEach(({ btn }) => {
       if (!btn) return;
-      // restart the swing even if the class is already there(change it)
       btn.classList.remove("has-new");
       void btn.offsetWidth;
       btn.classList.add("has-new");
@@ -445,9 +429,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
     return KIDS.find((k) => String(k.id) === String(id));
   }
 
-  // assignment-deployed/due-soon notifications (n.title) vs. the older
-  // parent-reported question-issue ones (n.question/n.status) — same list,
-  // two shapes, rendered differently.
+  // assignment-deployed/due-soon notifications (n.title), parent-reported question-issue ones (n.question/n.status) same list two shapes, rendered differently.
   function notifItemHTML(n) {
     const kid = kidById(n.kidId);
 
@@ -535,12 +517,12 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
   // setSkeleton(true/false) wraps future data fetches
   window.parentPortal = { pushNotification, openNotifications, setSkeleton };
 
-  function bindLearn() {//childs learning page(esomakids.com)
+  function bindLearn() {//childs learning page(esomakids.com/user=?)
     const openLearn = (kidIdValue) => {
       const kid = kidById(kidIdValue);
       if (!kid) return;
 
-      const backTarget = ["kids", "kiddetail"].includes(currentNav) ? currentNav : "dashboard";
+      const backTarget = ["kids", "manage"].includes(currentNav) ? currentNav : "dashboard";
       const title = $("#parentLearnTitle");
       if (title) title.textContent = `${kid.name}'s Learning Page`;
       goToNav("learn", `${kid.name}'s Learning`);
@@ -553,8 +535,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
       openLearn(btn.dataset.kidLearn);
     });
 
-    // the kid name doubles as a link to the same place (not a real <button>
-    // or <a>), so it needs its own Enter/Space activation.
+    // the kid name doubles as a link to the same place (not a real <button> or <a>), so it needs its own Enter/Space activation.
     document.addEventListener("keydown", (event) => {
       if (event.key !== "Enter" && event.key !== " ") return;
       const el = event.target.closest?.(".kid-name-clickable[data-kid-learn]");
@@ -605,10 +586,14 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
   }
 
   function openManage(kid) {
+    // opened from the learner avatars on My Profile as well as the pills and
+    // pencils, so the crumb and back button follow whichever one you came from
+    const fromProfile = currentNav === "profile";
     manageKid = kid;
     fillManage(kid);
+    TRAIL.manage = [fromProfile ? "profile" : "kids"];
     goToNav("manage", kid.name);
-    showFloatingBack("kids", "Change Child Account");
+    showFloatingBack(fromProfile ? "profile" : "kids", fromProfile ? "Back to My Profile" : "Change Child Account");
   }
 
   function bindManage() {
@@ -732,59 +717,6 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
   }
 
 
-  let detailKid = null;//child details
-
-  function openKidDetail(kid) {
-    detailKid = kid;
-
-    const hero = $("#kidDetailHero");
-    if (hero) hero.setAttribute("style", themeVars(kid));
-    hero?.setAttribute("data-avatar", kid.avatar);
-
-    $("#kidDetailImg").src = avatarSrc(kid);
-    $("#kidDetailName").textContent = kid.name;
-    $("#kidDetailClass").textContent = kid.cls;
-    $("#kidDetailChips").innerHTML = chipsHtml(kid);
-
-    const license = $("#kidDetailLicense");
-    license.textContent = `${kid.plan.toUpperCase()}: ${kid.daysLeft} Days Left`;
-    license.className = `kid-license ${licenseTone(kid.daysLeft)}`;
-
-    $("#kidDetailLearnBtn").dataset.kidLearn = kid.id;
-    $("#kidDetailPayName").textContent = kid.name;
-    $("#kidDetailReportsBtn").textContent = `${kid.name}'s Reports`;
-
-    goToNav("kiddetail", kid.name);
-    showFloatingBack("dashboard");
-  }
-
-  function bindKidDetail() {
-    document.addEventListener("click", (event) => {
-      const card = event.target.closest("[data-kid-open]");
-      if (!card) return;
-      if (event.target.closest("[data-kid-edit]")) return; // pencil goes to manage just like yours'
-      const kid = kidById(card.dataset.kidOpen);
-      if (kid) openKidDetail(kid);
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key !== "Enter" && event.key !== " ") return;
-      const card = event.target.closest?.("[data-kid-open]");
-      if (!card) return;
-      event.preventDefault();
-      const kid = kidById(card.dataset.kidOpen);
-      if (kid) openKidDetail(kid);
-    });
-
-    $("#kidDetailPayBtn")?.addEventListener("click", () => openPayModal(detailKid));
-    $("#kidDetailManageBtn")?.addEventListener("click", () => { if (detailKid) openManage(detailKid); });
-    $("#kidDetailReportsBtn")?.addEventListener("click", () => {
-      if (!detailKid) return;
-      goToNav("reports");
-      selectReportKid(detailKid);
-    });
-  }
-
 
   function bindHelpDesk() {//customer service/help
     $("#parentHelpDeskBtn")?.addEventListener("click", () => goToNav("help"));
@@ -807,11 +739,26 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
     });
   }
 
+  function renderProfileKids() {//learner strip at the bottom of the profile card
+    const strip = $("#parentProfileKids");
+    if (!strip) return;
+    strip.innerHTML = KIDS.map((kid) => `
+      <li>
+        <button class="parent-profile-kid" type="button" data-kid-manage="${kid.id}"
+          aria-label="Manage ${kid.name}'s account">
+          ${avatarHtml(kid)}
+          <span class="parent-profile-kid-name">${kid.name}</span>
+          <span class="parent-profile-kid-meta">${kid.cls}</span>
+        </button>
+      </li>`).join("");
+  }
+
   function fillParentProfile() {//parents profile
     $("#parentProfileName").textContent = PARENT.fullName || PARENT.name;
     $("#parentProfileContact").value = PARENT.contact || "";
     $("#parentProfileEmail").value = PARENT.email || "";
     $("#parentProfileSaved").hidden = true;
+    renderProfileKids();
   }
 
   function resetPasswordModal() {
@@ -860,6 +807,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
 
   const REPORTS = MOCK.reports || {};//reports & analytics
   let reportKid = KIDS[0] || null;
+  let reportInsightPeriod = "all";
 
   const assignmentsPager = createPager({
     container: "#reportAssignmentsPagination",
@@ -910,15 +858,67 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
     }
   }
 
-  // animated insight-card dashboard — cards/numbers come from the shared,
-  // rule-based insights engine (no AI, no invented data); this just renders
-  // them. `report` isn't needed here anymore (the engine derives everything
-  // from kid.id directly) but stays in the signature so the one call site
-  // below doesn't need to change.
-  function renderInsights(kid) {
+  function formatReportPeriodDate(date) {
+    return date.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+  }
+
+  function dateOnly(date) {
+    return [date.getFullYear(), String(date.getMonth() + 1).padStart(2, "0"), String(date.getDate()).padStart(2, "0")].join("-");
+  }
+
+  function latestReportActivityDate(report) {
+    const dates = (report?.assignments || [])
+      .map((assignment) => new Date(String(assignment.last || "").replace(" ", "T")))
+      .filter((date) => !Number.isNaN(date.getTime()));
+    return dates.length ? new Date(Math.max(...dates.map((date) => date.getTime()))) : null;
+  }
+
+  // The available period is anchored to the latest real assignment in this
+  // learner's report. This avoids a misleading "this month" choice when the
+  // data snapshot belongs to an earlier school month.
+  function insightPeriodRange(report, period) {
+    const latest = latestReportActivityDate(report);
+    if (!latest || period === "all") return null;
+
+    const year = latest.getFullYear();
+    const month = latest.getMonth();
+    if (period === "month") {
+      return { start: dateOnly(new Date(year, month, 1)), end: dateOnly(new Date(year, month + 1, 0)) };
+    }
+
+    if (period === "term") {
+      const termStartMonth = month <= 3 ? 0 : month <= 7 ? 4 : 8;
+      return { start: dateOnly(new Date(year, termStartMonth, 1)), end: dateOnly(new Date(year, termStartMonth + 4, 0)) };
+    }
+
+    return { start: `${year}-01-01`, end: `${year}-12-31` };
+  }
+
+  function refreshInsightPeriodLabels(report) {
+    const select = $("#reportInsightsPeriod");
+    const latest = latestReportActivityDate(report);
+    if (!select || !latest) return;
+
+    const month = latest.getMonth();
+    const term = month <= 3 ? 1 : month <= 7 ? 2 : 3;
+    const setLabel = (value, label) => {
+      const option = select.querySelector(`option[value="${value}"]`);
+      if (option) option.textContent = label;
+    };
+
+    setLabel("month", formatReportPeriodDate(latest));
+    setLabel("term", `Term ${term} · ${latest.getFullYear()}`);
+    setLabel("year", `${latest.getFullYear()} academic year`);
+  }
+
+  // The filter deliberately scopes the insight cards only. The legacy
+  // assignment table and comparison chart use a separate, all-time data
+  // source and therefore do not pretend to be period-filtered.
+  function renderInsights(kid, report) {
     const el = $("#reportInsights");
     if (!el) return;
-    const cards = calculateInsightCards(kid.id);
+    refreshInsightPeriodLabels(report);
+    const cards = calculateInsightCards(kid.id, insightPeriodRange(report, reportInsightPeriod));
     renderInsightCards(el, cards);
   }
 
@@ -962,9 +962,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
 
     $("#profileChartTitle").textContent = `${reportKid.name}'s Overall Performance`;
 
-    // same shared chart admin/teacher use — same structure, colors, and
-    // learning-area order (subjectLabels), so the same student's chart looks
-    // and reads identically everywhere.
+    // same shared chart admin/teacher use
     const { subjects, student, classAvg } = report.chart;
     const scoresByCode = {};
     const classAvgByCode = {};
@@ -972,11 +970,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
       scoresByCode[code] = student[i];
       classAvgByCode[code] = classAvg[i];
     });
-    // report.chart.subjects is already this kid's real grade-band learning
-    // areas (see mock-data.js's reports builder) — use that list, not the
-    // fixed 8-code set, so a lower-grade kid's chart doesn't show phantom
-    // bars for learning areas their grade doesn't take yet.
-    const labels = subjects.map(([code]) => code);
+    const labels = subjects.map(([code]) => code);//just show the subjects for empty data
     if (!hasAnyScore(labels, scoresByCode)) {
       $("#profileChart").innerHTML = "";
     } else {
@@ -1033,6 +1027,10 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
     };
     $("#reportKidTabs")?.addEventListener("click", pickKid);
     $("#reportKidDots")?.addEventListener("click", pickKid);
+    $("#reportInsightsPeriod")?.addEventListener("change", (event) => {
+      reportInsightPeriod = event.target.value;
+      if (reportKid) renderInsights(reportKid, REPORTS[reportKid.id]);
+    });
 
     const segments = $$("#reportSegments .segment");
     const panels = $$("#parentReportsView .report-panel");
@@ -1090,8 +1088,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
     });
   }
 
-  /* demo login gate — shared/scripts/ui/login-gate.js; no real auth backend,
-     any submission succeeds. */
+  /* demo login gate....shared/scripts/ui/login-gate.js; no real auth backend, any submission succeeds. thats will be on your end */
 
   const parentLoginGate = createLoginGate({
     storageKey: "esomaParentLoggedIn",
@@ -1104,6 +1101,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
   mountPerformancePanel($("#profilePerformancePanel"));
 
   $("#parentDashboardName").textContent = PARENT.name;
+  $("#parentSideProfileName").textContent = PARENT.fullName || PARENT.name;
   renderStats();
   renderKidGrids();
   renderSummaryTable();
@@ -1117,7 +1115,6 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
   bindEditModals();
   bindPayModal();
   bindDashboardPay();
-  bindKidDetail();
   bindHelpDesk();
   bindParentProfile();
   bindPasswordToggles();
@@ -1131,7 +1128,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
   updateBellBadge();
   syncBottomNav("dashboard");
 
-  // mock data is instant, so flash the skeletons briefly on boot; with a real API: setSkeleton(true) before the fetch, false after
+  // NB: mock data is instant, so flash the skeletons briefly on boot with a real API: setSkeleton(true) before the fetch, false after
   setSkeleton(true);
   window.setTimeout(() => setSkeleton(false), 900);
 })();

@@ -1,0 +1,40 @@
+- generic [active] [ref=f1e1]:
+  - generic:
+    - complementary "Parent navigation":
+      - generic "ESOMA Academy":
+        - img "ESOMA Academy"
+      - navigation "Parent sections":
+        - button "Dashboard"
+        - button "Learners"
+        - button "Licenses"
+        - button "Reports"
+      - generic:
+        - button "My profile":
+          - generic:
+            - strong: Kevin Kamau
+            - generic: View profile
+        - button "Help Desk"
+        - button "Log Out"
+    - main "Parent portal content":
+      - generic:
+        - generic:
+          - button "Notifications":
+            - generic: 9+
+      - region "Parent dashboard":
+        - generic:
+          - generic:
+            - paragraph: Welcome back,
+        - tablist "Dashboard sections"
+        - generic:
+          - generic:
+            - generic:
+              - generic "Search by name"
+            - generic "Kids overview":
+              - article
+              - article
+              - article
+              - article
+              - article
+              - article
+              - article
+              - article

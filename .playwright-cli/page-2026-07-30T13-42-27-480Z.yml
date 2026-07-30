@@ -1,0 +1,146 @@
+- generic [ref=f3e2]:
+  - complementary "Parent navigation" [ref=f3e3]:
+    - generic "ESOMA Academy" [ref=f3e4]:
+      - img "ESOMA Academy" [ref=f3e5]
+    - navigation "Parent sections" [ref=f3e6]:
+      - button "Dashboard" [ref=f3e7] [cursor=pointer]
+      - button "Learners" [ref=f3e15] [cursor=pointer]
+      - button "Licenses" [ref=f3e23] [cursor=pointer]
+      - button "Reports" [active] [ref=f3e29] [cursor=pointer]
+    - generic [ref=f3e33]:
+      - button "My profile" [ref=f3e34] [cursor=pointer]:
+        - generic [ref=f3e36]:
+          - strong [ref=f3e37]: Kevin Kamau
+          - generic [ref=f3e38]: View profile
+      - button "Help Desk" [ref=f3e41] [cursor=pointer]
+      - button "Log Out" [ref=f3e44] [cursor=pointer]
+  - main "Parent portal content" [ref=f3e50]:
+    - generic [ref=f3e51]:
+      - generic [ref=f3e52]: Reports
+      - button "Notifications" [ref=f3e56] [cursor=pointer]:
+        - generic [ref=f3e60]: 9+
+    - region "Reports" [ref=f3e327]:
+      - heading "Reports and Analytics" [level=2] [ref=f3e329]
+      - paragraph [ref=f3e330]: "Select a child account below:"
+      - tablist "Select child" [ref=f3e331]:
+        - tab "Timothy Grade 1 North" [selected] [ref=f3e332] [cursor=pointer]:
+          - generic [ref=f3e333]:
+            - generic [ref=f3e334]: Timothy
+            - generic [ref=f3e335]: Grade 1 North
+        - tab "Bethany Grade 4 North" [ref=f3e336] [cursor=pointer]:
+          - generic [ref=f3e337]:
+            - generic [ref=f3e338]: Bethany
+            - generic [ref=f3e339]: Grade 4 North
+        - tab "Kelvin Grade 5 South" [ref=f3e340] [cursor=pointer]:
+          - generic [ref=f3e341]:
+            - generic [ref=f3e342]: Kelvin
+            - generic [ref=f3e343]: Grade 5 South
+        - tab "Viola Grade 7 Central" [ref=f3e344] [cursor=pointer]:
+          - generic [ref=f3e345]:
+            - generic [ref=f3e346]: Viola
+            - generic [ref=f3e347]: Grade 7 Central
+        - tab "Cherop Grade 8 South" [ref=f3e348] [cursor=pointer]:
+          - generic [ref=f3e349]:
+            - generic [ref=f3e350]: Cherop
+            - generic [ref=f3e351]: Grade 8 South
+        - tab "James Grade 2 North East" [ref=f3e352] [cursor=pointer]:
+          - generic [ref=f3e353]:
+            - generic [ref=f3e354]: James
+            - generic [ref=f3e355]: Grade 2 North East
+        - tab "Brian PP2 North East" [ref=f3e356] [cursor=pointer]:
+          - generic [ref=f3e357]:
+            - generic [ref=f3e358]: Brian
+            - generic [ref=f3e359]: PP2 North East
+        - tab "Purity Grade 9 North" [ref=f3e360] [cursor=pointer]:
+          - generic [ref=f3e361]:
+            - generic [ref=f3e362]: Purity
+            - generic [ref=f3e363]: Grade 9 North
+      - paragraph [ref=f3e364]: Swipe to see all your kids
+      - generic [ref=f3e365]:
+        - button [ref=f3e366] [cursor=pointer]
+        - button [ref=f3e367] [cursor=pointer]
+        - button [ref=f3e368] [cursor=pointer]
+        - button [ref=f3e369] [cursor=pointer]
+        - button [ref=f3e370] [cursor=pointer]
+        - button [ref=f3e371] [cursor=pointer]
+        - button [ref=f3e372] [cursor=pointer]
+        - button [ref=f3e373] [cursor=pointer]
+      - heading "Timothy's School Assignment Reports and Analytics" [level=2] [ref=f3e375]
+      - tablist "Report sections" [ref=f3e376]:
+        - button "Overview" [ref=f3e377] [cursor=pointer]
+        - button "Insights" [ref=f3e378] [cursor=pointer]
+        - button "Performance" [ref=f3e379] [cursor=pointer]
+      - generic [ref=f3e380]:
+        - generic [ref=f3e381]:
+          - article [ref=f3e382]:
+            - generic [ref=f3e384]:
+              - strong [ref=f3e385]: 100%
+              - generic [ref=f3e386]: Engagement
+          - article [ref=f3e387]:
+            - generic [ref=f3e389]:
+              - strong [ref=f3e390]: 75.00%
+              - generic [ref=f3e391]: Performance Average
+          - article [ref=f3e392]:
+            - generic [ref=f3e394]:
+              - strong [ref=f3e395]: Creative Arts and Sports
+              - generic [ref=f3e396]: Strongest Learning Area
+        - heading "Assignments' Performance" [level=2] [ref=f3e398]
+        - table "Assignment performance" [ref=f3e400]:
+          - rowgroup [ref=f3e401]:
+            - row [ref=f3e402]:
+              - columnheader "Assignment Title" [ref=f3e403]
+              - columnheader "Learning Area" [ref=f3e404]
+              - columnheader "Score" [ref=f3e405]
+              - columnheader "Last Attempt" [ref=f3e406]
+          - rowgroup [ref=f3e407]:
+            - row [ref=f3e408]:
+              - cell [ref=f3e409]:
+                - button "The Creation Story Practice 1" [ref=f3e410] [cursor=pointer]
+              - cell "Christian Religious Education" [ref=f3e411]
+              - cell "73%" [ref=f3e412]
+              - cell "2026-06-09 09:30" [ref=f3e414]:
+                - generic [ref=f3e415]:
+                  - generic [ref=f3e416]: 2026-06-09
+                  - generic [ref=f3e417]: 09:30
+            - row [ref=f3e418]:
+              - cell [ref=f3e419]:
+                - button "Drawing and Painting Practice 1" [ref=f3e420] [cursor=pointer]
+              - cell "Creative Arts and Sports" [ref=f3e421]
+              - cell "85%" [ref=f3e422]
+              - cell "2026-06-09 09:30" [ref=f3e424]:
+                - generic [ref=f3e425]:
+                  - generic [ref=f3e426]: 2026-06-09
+                  - generic [ref=f3e427]: 09:30
+            - row [ref=f3e428]:
+              - cell [ref=f3e429]:
+                - button "Pronunciation Practice 1" [ref=f3e430] [cursor=pointer]
+              - cell "English" [ref=f3e431]
+              - cell "68%" [ref=f3e432]
+              - cell "2026-06-09 09:30" [ref=f3e434]:
+                - generic [ref=f3e435]:
+                  - generic [ref=f3e436]: 2026-06-09
+                  - generic [ref=f3e437]: 09:30
+            - row [ref=f3e438]:
+              - cell [ref=f3e439]:
+                - button "Matamshi Practice 1" [ref=f3e440] [cursor=pointer]
+              - cell "Kiswahili" [ref=f3e441]
+              - cell "64%" [ref=f3e442]
+              - cell "2026-06-09 09:30" [ref=f3e444]:
+                - generic [ref=f3e445]:
+                  - generic [ref=f3e446]: 2026-06-09
+                  - generic [ref=f3e447]: 09:30
+            - row [ref=f3e448]:
+              - cell [ref=f3e449]:
+                - button "Counting and Number Names Practice 1" [ref=f3e450] [cursor=pointer]
+              - cell "Mathematics" [ref=f3e451]
+              - cell "74%" [ref=f3e452]
+              - cell "2026-06-09 09:30" [ref=f3e454]:
+                - generic [ref=f3e455]:
+                  - generic [ref=f3e456]: 2026-06-09
+                  - generic [ref=f3e457]: 09:30
+        - generic [ref=f3e458]:
+          - generic [ref=f3e459]: 1- 5 of 5
+          - generic [ref=f3e460]:
+            - button "Previous page" [disabled] [ref=f3e461]: ‹
+            - button "1" [ref=f3e462]
+            - button "Next page" [disabled] [ref=f3e463]: ›

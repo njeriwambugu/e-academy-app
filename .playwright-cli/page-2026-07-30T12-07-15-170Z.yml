@@ -1,0 +1,106 @@
+- generic [ref=e36]:
+  - complementary "Parent navigation" [ref=e37]:
+    - generic "ESOMA Academy" [ref=e38]:
+      - img "ESOMA Academy" [ref=e39]
+    - navigation "Parent sections" [ref=e40]:
+      - button "Dashboard" [ref=e41] [cursor=pointer]
+      - button "Learners" [ref=e49] [cursor=pointer]
+      - button "Licenses" [ref=e57] [cursor=pointer]
+      - button "Reports" [ref=e63] [cursor=pointer]
+    - generic [ref=e67]:
+      - button "Help Desk" [ref=e68] [cursor=pointer]
+      - button "Log Out" [ref=e71] [cursor=pointer]
+  - main "Parent portal content" [ref=e77]:
+    - generic [ref=e78]:
+      - generic [ref=e79]: Reports
+      - button "Notifications" [ref=e83] [cursor=pointer]:
+        - generic [ref=e87]: 9+
+    - region "Reports" [ref=e354]:
+      - heading "Reports and Analytics" [level=2] [ref=e356]
+      - paragraph [ref=e357]: "Select a child account below:"
+      - tablist "Select child" [ref=e358]:
+        - tab "Timothy Grade 1 North" [selected] [ref=e359] [cursor=pointer]:
+          - generic [ref=e360]:
+            - generic [ref=e361]: Timothy
+            - generic [ref=e362]: Grade 1 North
+        - tab "Bethany Grade 4 North" [ref=e363] [cursor=pointer]:
+          - generic [ref=e364]:
+            - generic [ref=e365]: Bethany
+            - generic [ref=e366]: Grade 4 North
+        - tab "Kelvin Grade 5 South" [ref=e367] [cursor=pointer]:
+          - generic [ref=e368]:
+            - generic [ref=e369]: Kelvin
+            - generic [ref=e370]: Grade 5 South
+        - tab "Viola Grade 7 Central" [ref=e371] [cursor=pointer]:
+          - generic [ref=e372]:
+            - generic [ref=e373]: Viola
+            - generic [ref=e374]: Grade 7 Central
+        - tab "Cherop Grade 8 South" [ref=e375] [cursor=pointer]:
+          - generic [ref=e376]:
+            - generic [ref=e377]: Cherop
+            - generic [ref=e378]: Grade 8 South
+        - tab "James Grade 2 North East" [ref=e379] [cursor=pointer]:
+          - generic [ref=e380]:
+            - generic [ref=e381]: James
+            - generic [ref=e382]: Grade 2 North East
+        - tab "Brian PP2 North East" [ref=e383] [cursor=pointer]:
+          - generic [ref=e384]:
+            - generic [ref=e385]: Brian
+            - generic [ref=e386]: PP2 North East
+        - tab "Purity Grade 9 North" [ref=e387] [cursor=pointer]:
+          - generic [ref=e388]:
+            - generic [ref=e389]: Purity
+            - generic [ref=e390]: Grade 9 North
+      - paragraph [ref=e391]: Swipe to see all your kids
+      - generic [ref=e392]:
+        - button [ref=e393] [cursor=pointer]
+        - button [ref=e394] [cursor=pointer]
+        - button [ref=e395] [cursor=pointer]
+        - button [ref=e396] [cursor=pointer]
+        - button [ref=e397] [cursor=pointer]
+        - button [ref=e398] [cursor=pointer]
+        - button [ref=e399] [cursor=pointer]
+        - button [ref=e400] [cursor=pointer]
+      - heading "Timothy's School Assignment Reports and Analytics" [level=2] [ref=e402]
+      - tablist "Report sections" [ref=e403]:
+        - button "Overview" [ref=e404] [cursor=pointer]
+        - button "Insights" [active] [ref=e405] [cursor=pointer]
+        - button "Performance" [ref=e406] [cursor=pointer]
+      - generic [ref=e492]:
+        - heading "Performance Insights" [level=2] [ref=e494]
+        - generic [ref=e496]:
+          - generic [ref=e509]:
+            - heading "Overall Performance" [level=3] [ref=e510]
+            - paragraph [ref=e511]: Average across every learning area this learner takes.
+            - generic [ref=e512]: 75%
+          - generic [ref=e517]:
+            - heading "Best Learning Area" [level=3] [ref=e518]
+            - paragraph [ref=e519]: Creative Arts and Sports is currently the strongest learning area.
+            - generic [ref=e520]: 84%
+          - generic [ref=e527]:
+            - heading "Weakest Learning Area" [level=3] [ref=e528]
+            - paragraph [ref=e529]: Kiswahili is the learning area with the most room to grow.
+            - generic [ref=e530]: 69%
+          - generic [ref=e537]:
+            - heading "Weakest Strand" [level=3] [ref=e538]
+            - paragraph [ref=e539]: Reading (English) needs the most support.
+            - generic [ref=e540]: 68%
+          - generic [ref=e546]:
+            - heading "Monthly Improvement" [level=3] [ref=e547]
+            - paragraph [ref=e548]: Average score is up 39% compared to the start of the term.
+            - generic [ref=e549]: +39%
+          - generic [ref=e598]:
+            - heading "Assignment Completion" [level=3] [ref=e599]
+            - paragraph [ref=e600]: Share of assignments completed so far.
+            - generic [ref=e601]: 42%
+          - generic [ref=e607]:
+            - heading "Retake Assignments" [level=3] [ref=e608]
+            - paragraph [ref=e609]: 6 assignments marked for retake.
+            - generic [ref=e610]: "6"
+          - generic [ref=e615]:
+            - heading "Learning Streak" [level=3] [ref=e616]
+            - paragraph [ref=e617]: Longest run of consecutive active learning days this term.
+            - generic [ref=e618]: 6d
+          - generic [ref=e625]:
+            - heading "Action Retakes" [level=3] [ref=e626]
+            - paragraph [ref=e627]: Revisit and resubmit the 6 assignments marked for retake.

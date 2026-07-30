@@ -1344,6 +1344,40 @@ export function getStudentAssignmentScore(studentId, subjectId, assignment, isPe
   return { category, attempted, score };
 }
 
+// A dated, per-assignment source for scoped analytics. Consumers can supply
+// YYYY-MM-DD bounds to calculate a month, term, or academic-year view from
+// the same assignments used by the rest of the portal.
+export function getStudentAssignmentRecords(studentId, { start, end } = {}) {
+  const student = students.find((s) => s.id === studentId);
+  if (!student || student.status === "pending") return [];
+
+  const records = [];
+  subjectIdsForClass(student.classId).forEach((subjectId) => {
+    const classData = getClassMock(subjectId, student.classId);
+    const subject = subjectNameById(subjectId);
+
+    (classData.assignments || []).forEach((assignment) => {
+      const date = String(assignment.deployed || "").slice(0, 10);
+      if (!date || (start && date < start) || (end && date > end)) return;
+
+      const { category, attempted, score } = getStudentAssignmentScore(studentId, subjectId, assignment, false);
+      records.push({
+        subjectId,
+        subject,
+        strand: (assignment.strandName || "General")
+          .toLowerCase()
+          .replace(/\b\w/g, (character) => character.toUpperCase()),
+        date,
+        category,
+        attempted,
+        score,
+      });
+    });
+  });
+
+  return records.sort((a, b) => a.date.localeCompare(b.date));
+}
+
 // per-student, per-strand averages (e.g. within Mathematics: Numbers vs
 // Measurement vs Geometry) — aggregated from real per-assignment scores
 // across every subject the student's class actually covers, not a

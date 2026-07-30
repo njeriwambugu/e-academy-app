@@ -32,6 +32,7 @@ export const insightIcons = {
   weakestStrand: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/></svg>',
   monthlyImprovement: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>',
   performanceDecline: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7l6 6 4-4 8 8"/><path d="M15 17h6v-6"/></svg>',
+  performanceStable: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16"/><circle cx="7" cy="12" r="2" fill="currentColor" stroke="none"/><circle cx="17" cy="12" r="2" fill="currentColor" stroke="none"/></svg>',
   outstandingCompletion: CHECKMARK_ICON_SVG,
   assignmentCompletion: CHECKMARK_ICON_SVG,
   pendingAssignments: CLOCK_ICON_SVG,
@@ -56,6 +57,7 @@ const ICON_ANIMATION_CLASS = {
   weakestStrand: "icon-anim-pulse",
   monthlyImprovement: "icon-anim-slide-up",
   performanceDecline: "icon-anim-slide-down",
+  performanceStable: "icon-anim-pulse",
   outstandingCompletion: "icon-anim-pop",
   assignmentCompletion: "icon-anim-pop",
   pendingAssignments: "icon-anim-spin-slow",
@@ -64,18 +66,36 @@ const ICON_ANIMATION_CLASS = {
   recommendations: "icon-anim-glow",
 };
 
+// Cards that end in an action the parent can take get a link under the body.
+// UI ONLY for now — these buttons deliberately have no click handler yet.
+//
+// retakeAssignments -> should open the learner's retake list: every assignment
+//   currently marked for retake, not a single one. The reports view has no
+//   retake-filtered route yet, so wire this to that route (e.g.
+//   goToNav("reports") + a retake filter) once it exists.
+const CARD_LINKS = {
+  retakeAssignments: "View retakes",
+};
+
 function cardHTML(item) {
   const icon = insightIcons[item.type];
   const animClass = ICON_ANIMATION_CLASS[item.type] || "";
+  const linkLabel = CARD_LINKS[item.type];
   return `
-    <div class="insight-card ${item.tone}">
+    <article class="insight-card ${item.tone}" data-insight-type="${item.type}">
+      <div class="insight-card-art" aria-hidden="true"></div>
       <div class="insight-card-anim ${icon ? "" : "is-static"} ${animClass} ${item.tone}" aria-hidden="true">${icon || ""}</div>
       <div class="insight-card-body">
         <h3 class="insight-card-title">${item.title}</h3>
         <p class="insight-card-desc">${item.description}</p>
         ${item.stat ? `<div class="insight-card-stat ${item.tone}">${item.stat}</div>` : ""}
+        ${linkLabel ? `
+        <button class="insight-card-link" type="button" data-insight-link="${item.type}">
+          <span>${linkLabel}</span>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+        </button>` : ""}
       </div>
-    </div>
+    </article>
   `;
 }
 

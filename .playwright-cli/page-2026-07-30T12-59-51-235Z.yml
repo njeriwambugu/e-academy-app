@@ -1,0 +1,35 @@
+- generic [active] [ref=f1e1]:
+  - banner [ref=f1e2]:
+    - generic "ESOMA Academy" [ref=f1e3]:
+      - img "ESOMA Academy" [ref=f1e4]
+    - generic [ref=f1e5]:
+      - button "Notifications" [ref=f1e6] [cursor=pointer]:
+        - generic [ref=f1e10]: 9+
+      - button [ref=f1e11] [cursor=pointer]:
+        - strong [ref=f1e14]: Parent
+        - img "dropdown" [ref=f1e15]
+  - generic:
+    - main "Parent portal content":
+      - region "Parent dashboard":
+        - generic:
+          - generic:
+            - paragraph: Welcome back,
+        - tablist "Dashboard sections"
+        - generic:
+          - generic:
+            - generic:
+              - generic "Search by name"
+            - generic "Kids overview":
+              - article
+              - article
+              - article
+              - article
+              - article
+              - article
+              - article
+              - article
+  - navigation "Parent bottom navigation" [ref=f1e16]:
+    - button "Kids Accounts" [ref=f1e24] [cursor=pointer]:
+      - generic [ref=f1e31]: Learners
+    - button "Dashboard" [ref=f1e32] [cursor=pointer]
+    - button "Reports" [ref=f1e34] [cursor=pointer]

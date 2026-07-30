@@ -23,6 +23,7 @@ import {
   getStudentStrandAverages,
   getAssignmentSummary,
   getStudentActivityDates,
+  getStudentAssignmentRecords,
   getStudentScoreHistory,
   hash,
 } from "./mock-data.js";
@@ -30,17 +31,64 @@ import {
 const MONTH_LABELS = ["Jan-2026", "Feb-2026", "Mar-2026", "Apr-2026", "May-2026", "Jun-2026"];
 const DAY_MS = 24 * 60 * 60 * 1000;
 
+function usesAssignmentRecords(period) {
+  return Boolean(period?.source === "assignments" || period?.start || period?.end);
+}
+
 /* ---- calculations ------------------------------------------------------ */
 
 // per-subject averages, ranked — same shape as getStudentSubjectBreakdown,
 // exposed under the spec's requested name.
-export function calculateSubjectAverages(studentId) {
-  return getStudentSubjectBreakdown(studentId);
+export function calculateSubjectAverages(studentId, period) {
+  if (!usesAssignmentRecords(period)) return getStudentSubjectBreakdown(studentId);
+
+  const totals = new Map();
+  getStudentAssignmentRecords(studentId, period).forEach((record) => {
+    if (record.score == null) return;
+    const current = totals.get(record.subject) || { name: record.subject, sum: 0, count: 0 };
+    current.sum += record.score;
+    current.count += 1;
+    totals.set(record.subject, current);
+  });
+
+  const rows = [...totals.values()]
+    .map((row) => ({ name: row.name, average: Math.round(row.sum / row.count) }))
+    .sort((a, b) => b.average - a.average);
+
+  return rows.map((row, index) => ({ ...row, rank: index + 1, outOf: rows.length }));
 }
 
 // per-strand averages + completion, across every subject the class covers.
-export function calculateStrandAverages(studentId) {
-  return getStudentStrandAverages(studentId);
+export function calculateStrandAverages(studentId, period) {
+  if (!usesAssignmentRecords(period)) return getStudentStrandAverages(studentId);
+
+  const totals = new Map();
+  getStudentAssignmentRecords(studentId, period).forEach((record) => {
+    const key = `${record.subject}::${record.strand}`;
+    const current = totals.get(key) || {
+      subject: record.subject,
+      strand: record.strand,
+      sum: 0,
+      count: 0,
+      total: 0,
+    };
+    current.total += 1;
+    if (record.score != null) {
+      current.sum += record.score;
+      current.count += 1;
+    }
+    totals.set(key, current);
+  });
+
+  return [...totals.values()]
+    .filter((row) => row.count > 0)
+    .map((row) => ({
+      subject: row.subject,
+      strand: row.strand,
+      average: Math.round(row.sum / row.count),
+      completion: Math.round((row.count / row.total) * 100),
+    }))
+    .sort((a, b) => a.average - b.average);
 }
 
 export function findBestSubject(studentId) {
@@ -68,8 +116,13 @@ export function findWeakestStrand(studentId, subjectName) {
   return strands.length ? strands[0] : null;
 }
 
-export function calculateCompletionRate(studentId) {
-  const summary = getAssignmentSummary(studentId);
+export function calculateCompletionRate(studentId, period) {
+  const summary = usesAssignmentRecords(period)
+    ? getStudentAssignmentRecords(studentId, period).reduce(
+      (totals, record) => ({ ...totals, [record.category]: (totals[record.category] || 0) + 1 }),
+      { done: 0, retake: 0, pending: 0, ongoing: 0, overdue: 0 }
+    )
+    : getAssignmentSummary(studentId);
   const total = summary.done + summary.retake + summary.pending + summary.ongoing + summary.overdue;
   const rate = total ? Math.round((summary.done / total) * 100) : 0;
   return { ...summary, total, rate };
@@ -104,8 +157,14 @@ export function calculateMonthlyImprovement(studentId) {
 
 // real active-day count + longest consecutive streak from actual assignment
 // deployment dates the student engaged with.
-export function calculateLearningConsistency(studentId) {
-  const dates = getStudentActivityDates(studentId);
+export function calculateLearningConsistency(studentId, period) {
+  const dates = usesAssignmentRecords(period)
+    ? [...new Set(
+      getStudentAssignmentRecords(studentId, period)
+        .filter((record) => record.attempted)
+        .map((record) => record.date)
+    )].sort()
+    : getStudentActivityDates(studentId);
   if (!dates.length) return { activeDays: 0, longestStreak: 0 };
 
   let longest = 1;
@@ -118,10 +177,14 @@ export function calculateLearningConsistency(studentId) {
   return { activeDays: dates.length, longestStreak: longest };
 }
 
-// real trend from the student's actual last-N scored assignments (oldest to
-// newest), comparing the mean of the first half vs the second half.
-export function calculatePerformanceTrend(studentId, sampleSize = 6) {
-  const history = getStudentScoreHistory(studentId).slice(-sampleSize);
+// real trend from the student's actual last-N scored assignments (oldest to newest), comparing the mean of the first half vs the second half.
+export function calculatePerformanceTrend(studentId, sampleSize = 6, period) {
+  const history = (usesAssignmentRecords(period)
+    ? getStudentAssignmentRecords(studentId, period)
+      .filter((record) => record.score != null)
+      .map(({ date, score }) => ({ date, score }))
+    : getStudentScoreHistory(studentId)
+  ).slice(-sampleSize);
   if (history.length < 2) return { trend: "no-data", sample: history };
 
   const mid = Math.floor(history.length / 2);
@@ -134,14 +197,12 @@ export function calculatePerformanceTrend(studentId, sampleSize = 6) {
   return { trend, delta: Math.round(delta), sample: history };
 }
 
-/* ---- insight assembly --------------------------------------------------- */
 
 function insight(type, title, message, priority) {
   return { type, title, message, priority };
 }
 
-// the narrative, severity-tagged insight list (spec sections 1-8) — every
-// message is built from a real number produced above, nothing invented.
+// the narrative, severity-tagged insight list
 export function generateInsights(studentId) {
   const items = [];
   const subjects = calculateSubjectAverages(studentId);
@@ -151,7 +212,7 @@ export function generateInsights(studentId) {
   const completion = calculateCompletionRate(studentId);
   const consistency = calculateLearningConsistency(studentId);
   const trend = calculatePerformanceTrend(studentId);
-  const weakStrands = calculateStrandAverages(studentId).filter((s) => s.average < 70).slice(0, 3);
+  const weakStrands = calculateStrandAverages(studentId).filter((s) => s.average < 70).slice(0, 3);//go with your weakest average
 
   if (best) {
     items.push(insight("success", "Strongest Learning Area", `${best.name} is currently the learner's strongest learning area, averaging ${best.average}%.`, "low"));
@@ -257,97 +318,100 @@ function card(id, type, title, description, stat, tone) {
 // Completion / Pending / Retake / Learning Streak / Recommendations.
 // Attendance is intentionally omitted — no attendance data exists in the
 // dataset, and inventing a figure would violate the "real data only" rule.
-export function calculateInsightCards(studentId) {
+export function calculateInsightCards(studentId, period) {
+  const dataPeriod = { source: "assignments", ...(period || {}) };
   const cards = [];
-  const subjects = calculateSubjectAverages(studentId);
+  const subjects = calculateSubjectAverages(studentId, dataPeriod);
   if (!subjects.length) return cards;
 
-  const best = findBestSubject(studentId);
-  const weakest = findWeakestSubject(studentId);
-  const strandsForBest = calculateStrandAverages(studentId).filter((s) => s.subject === best?.name);
-  const bestStrandInBestSubject = strandsForBest.length ? strandsForBest[strandsForBest.length - 1] : null;
-  const weakestStrandOverall = findWeakestStrand(studentId);
-  const monthly = calculateMonthlyImprovement(studentId);
-  const trend = calculatePerformanceTrend(studentId);
-  const completion = calculateCompletionRate(studentId);
-  const consistency = calculateLearningConsistency(studentId);
-  const recs = generateRecommendations(studentId);
+  const best = subjects[0];
+  const weakest = subjects[subjects.length - 1];
+  const trend = calculatePerformanceTrend(studentId, 6, dataPeriod);
+  const completion = calculateCompletionRate(studentId, dataPeriod);
+  const consistency = calculateLearningConsistency(studentId, dataPeriod);
 
   const overallAverage = Math.round(subjects.reduce((sum, r) => sum + r.average, 0) / subjects.length);
+  const overallTone = overallAverage >= 85 ? "good" : overallAverage >= 70 ? "info" : "focus";
 
-  // Overall Performance — "excellent" past 85%, per the spec's rule.
+  // The hero is the only broad summary. Supporting cards each add a distinct
+  // signal or action instead of restating the same performance data.
   cards.push(
     overallAverage > 85
       ? card("overall", "excellentPerformance", "Excellent Performance", "This learner's overall average is in the top band across all learning areas.", `${overallAverage}%`, "good")
-      : card("overall", "overallPerformance", "Overall Performance", "Average across every learning area this learner takes.", `${overallAverage}%`, overallAverage >= 60 ? "info" : "attention")
+      : card("overall", "overallPerformance", "Overall Performance", "Average across every learning area this learner takes.", `${overallAverage}%`, overallTone)
   );
 
   if (best) {
     cards.push(card(
       "best-subject", "bestSubject", "Best Learning Area",
-      bestStrandInBestSubject
-        ? `${best.name} is the strongest learning area, led by ${bestStrandInBestSubject.strand}.`
-        : `${best.name} is currently the strongest learning area.`,
-      `${best.average}%`, "good"
+      `${best.name} is currently the learner's strongest learning area.`,
+      `${best.average}%`, best.average >= 70 ? "good" : "focus"
     ));
   }
 
+  // One card covers the lowest-scoring learning area in all three bands. It
+  // always appears, because "which area needs the most practice" is useful
+  // even for a learner who is doing well everywhere — but a healthy score is
+  // never called "weakest". Below 50 it is flagged, 50-69 it is a focus area,
+  // and at 70+ the wording says outright that nothing here is a weak area.
+  // The strand carrying the area is named too, so the parent knows what to
+  // actually practise rather than just which subject to worry about.
   if (weakest && subjects.length > 1) {
+    const needsWork = weakest.average < 70;
+    const urgent = weakest.average < 50;
+    const weakestStrand = calculateStrandAverages(studentId, dataPeriod)
+      .find((row) => row.subject === weakest.name);
+    const strandNote = weakestStrand
+      ? ` Within it, ${weakestStrand.strand} is the strand with the most room at ${weakestStrand.average}%.`
+      : "";
+
     cards.push(card(
-      "weakest-subject", "weakestSubject",
-      weakest.average < 50 ? `${weakest.name} Needs Attention` : "Weakest Learning Area",
-      `${weakest.name} is the learning area with the most room to grow.`,
-      `${weakest.average}%`, weakest.average < 50 ? "attention" : "info"
+      "focus-subject", "weakestSubject",
+      urgent ? `${weakest.name} Needs Attention` : needsWork ? "Focus Learning Area" : "Most Room to Grow",
+      urgent
+        ? `${weakest.name} is well below the 70% support target for this period.${strandNote}`
+        : needsWork
+          ? `${weakest.name} is below the 70% support target for this period.${strandNote}`
+          : `Nothing is a weak area here — every learning area is above the 70% target. ${weakest.name} is simply the lowest of a strong set.${strandNote}`,
+      `${weakest.average}%`,
+      urgent ? "attention" : needsWork ? "focus" : "info"
     ));
   }
 
-  if (bestStrandInBestSubject) {
-    cards.push(card("best-strand", "bestStrand", "Best Strand", `${bestStrandInBestSubject.strand} (${bestStrandInBestSubject.subject}) is this learner's strongest strand.`, `${bestStrandInBestSubject.average}%`, "good"));
-  }
-  if (weakestStrandOverall) {
-    cards.push(card("weakest-strand", "weakestStrand", "Weakest Strand", `${weakestStrandOverall.strand} (${weakestStrandOverall.subject}) needs the most support.`, `${weakestStrandOverall.average}%`, weakestStrandOverall.average < 50 ? "attention" : "info"));
-  }
-
-  if (monthly.trend === "improving") {
-    cards.push(card("monthly", "monthlyImprovement", "Monthly Improvement", `Average score is up ${monthly.changePercent}% compared to the start of the term.`, `+${monthly.changePercent}%`, "good"));
-  } else if (monthly.trend === "declining") {
-    cards.push(card("monthly", "performanceDecline", "Performance Decline", `Average score is down ${Math.abs(monthly.changePercent)}% compared to the start of the term.`, `${monthly.changePercent}%`, "attention"));
-  } else {
-    cards.push(card("monthly", "performanceStable", "Stable Performance", "Average score has stayed steady over the term.", `${monthly.changePercent}%`, "info"));
-  }
-
-  if (trend.trend === "improving" || trend.trend === "declining") {
+  // One momentum card covers improvement, decline, and a steady result. It
+  // uses the selected period's real assignment history, not duplicate cards.
+  if (trend.trend !== "no-data") {
+    const trendIsUp = trend.trend === "improving";
+    const trendIsDown = trend.trend === "declining";
     cards.push(card(
-      "trend", trend.trend === "improving" ? "monthlyImprovement" : "performanceDecline",
-      "Performance Trend",
-      trend.trend === "improving"
-        ? `Scores have trended upward over the last ${trend.sample.length} assignments.`
-        : `Scores have trended downward over the last ${trend.sample.length} assignments.`,
-      null, trend.trend === "improving" ? "good" : "attention"
+      "momentum", trendIsUp ? "monthlyImprovement" : trendIsDown ? "performanceDecline" : "performanceStable",
+      "Performance Momentum",
+      trendIsUp
+        ? `Scores have trended upward across the last ${trend.sample.length} scored assignments.`
+        : trendIsDown
+          ? `Scores have trended downward across the last ${trend.sample.length} scored assignments.`
+          : `Scores have held steady across the last ${trend.sample.length} scored assignments.`,
+      trendIsUp ? `+${trend.delta} pts` : trendIsDown ? `${trend.delta} pts` : "Steady",
+      trendIsUp ? "good" : trendIsDown ? "attention" : "info"
     ));
   }
-
-  // Assignment Completion — "outstanding" past 90%, per the spec's rule.
-  cards.push(
-    completion.rate > 90
-      ? card("completion", "outstandingCompletion", "Outstanding Assignment Completion", "Nearly every assignment has been completed.", `${completion.rate}%`, "good")
-      : card("completion", "assignmentCompletion", "Assignment Completion", "Share of assignments completed so far.", `${completion.rate}%`, completion.rate >= 70 ? "info" : "attention")
-  );
 
   if (completion.pending > 0) {
-    cards.push(card("pending", "pendingAssignments", "Pending Assignments", `${completion.pending} assignment${completion.pending === 1 ? "" : "s"} still to be started.`, String(completion.pending), "attention"));
+    cards.push(card(
+      "pending", "pendingAssignments", "Pending Assignments",
+      `${completion.pending} assignment${completion.pending === 1 ? "" : "s"} still to be started.`,
+      String(completion.pending), completion.pending >= 3 ? "attention" : "focus"
+    ));
   }
+
+  // This is the single retake signal. It is absent when no retakes exist, so
+  // parents never see an empty action or the former duplicate action card.
   if (completion.retake > 0) {
     cards.push(card("retake", "retakeAssignments", "Retake Assignments", `${completion.retake} assignment${completion.retake === 1 ? "" : "s"} marked for retake.`, String(completion.retake), "attention"));
   }
 
   if (consistency.longestStreak > 0) {
-    cards.push(card("streak", "learningStreak", "Learning Streak", `Longest run of consecutive active learning days this term.`, `${consistency.longestStreak}d`, "info"));
-  }
-
-  const topRec = recs[0];
-  if (topRec) {
-    cards.push(card("recommendation", "recommendations", topRec.title, topRec.message, null, topRec.type === "success" ? "good" : topRec.type === "warning" ? "attention" : "info"));
+    cards.push(card("streak", "learningStreak", "Learning Consistency", "Longest run of consecutive active learning days in this period.", `${consistency.longestStreak} days`, "info"));
   }
 
   return cards;
