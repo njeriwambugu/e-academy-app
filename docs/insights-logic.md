@@ -63,7 +63,7 @@ All bands live in `shared/scripts/constants/academic.js`. Nothing else may defin
 a grading cutoff.
 
 ```js
-PERFORMANCE_THRESHOLDS = { excellent: 85, onTrack: 70, urgentSupport: 50 }
+PERFORMANCE_THRESHOLDS = { outstanding: 95, excellent: 85, onTrack: 70, urgentSupport: 50 }
 COMPLETION_THRESHOLDS  = { excellent: 90, onTrack: 70 }
 ```
 
@@ -71,6 +71,12 @@ COMPLETION_THRESHOLDS  = { excellent: 90, onTrack: 70 }
 |---|---|
 | `performanceTone(avg)` | `≥85` → `good`, `≥70` → `info`, else `focus` |
 | `needsUrgentSupport(avg)` | `< 50` |
+
+`outstanding` and `excellent` are deliberately separate. `outstanding` (95) gates
+only the "Excellent" hero card, which is meant to be rare. `excellent` (85) drives
+the green tone band on every card in all three portals, so moving one must not
+move the other — a 90% average is still presented as `good`, it just is not
+*called* excellent.
 
 Tone drives the card's colour and icon tint: `good` (green), `info` (blue),
 `focus` (amber), `attention` (red).
@@ -89,8 +95,15 @@ Always present. Two variants:
 
 | Condition | Title | Tone |
 |---|---|---|
-| average **> 85** | `Excellent This {Period}` | `good` |
+| average **≥ 95** | `Excellent This {Period}` | `good` |
 | otherwise | `Performance This {Period}` | `performanceTone(avg)` |
+
+> **Reachability.** The highest overall average anywhere in the current dataset is
+> **84**, across all learners and all three periods. The Excellent variant
+> therefore never renders with this data — and it did not render at the previous
+> `> 85` cutoff either. The branch is correct and will fire the moment a learner
+> reaches 95; it is the mock data that has no top-band learner. Raise a learner's
+> per-subject ability in `subjectStudentScores` if you need to see the card.
 
 ```
 stat = round(mean of each subject's mean mark in the window)
@@ -152,6 +165,18 @@ otherwise    → stable      stat "Steady"   info
 ```
 
 The ±3 dead band stops normal variation reading as a trend.
+
+**Icon and artwork match the message**, so the three states read as one family:
+
+| State | `type` | Icon | Artwork |
+|---|---|---|---|
+| improving | `monthlyImprovement` | trend line rising | `monthlyImprovement.webp` |
+| declining | `performanceDecline` | trend line falling | `performanceDecline.webp` |
+| steady | `performanceStable` | trend line **level** | `performanceMomentum.webp` |
+
+The steady state previously used a sparkles icon and had **no artwork rule at
+all** — so a learner holding steady got a blank card face and a symbol that said
+"something nice happened", which is not what a flat result means.
 
 ### 3.5 Pending Assignments — `pending`
 
