@@ -647,7 +647,7 @@
             </div>
           </div><!-- /#teacherAssignmentList -->
 
-          <!-- Class Assignments cards layer -->
+          <!-- class Assignments cards layer -->
           <div class="assignment-drill" id="teacherAssignmentCards" hidden>
             <button type="button" class="link-back" id="teacherAssignmentCardsBack">&#8592; Back to Strands &amp;
               Sub-Strands</button>
@@ -783,7 +783,8 @@
     </div>
   </div>
 
-  <script src="../shared/scripts/modal.js"></script>
+  <!-- the shared modal engine is an ES module imported by this dashboard's
+       entry script, so it no longer needs its own tag here. -->
   <script type="module" src="./scripts/teacher-app.js"></script>
   <script src="./scripts/ui/mobile-profile.js"></script>
 

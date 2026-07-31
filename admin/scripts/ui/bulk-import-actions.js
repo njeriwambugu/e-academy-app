@@ -1,5 +1,3 @@
-// Bulk import actions: apply parsed rows to in-memory data + refresh UI.
-//ignore as the others this was just to test the UI flow
 import { maxId } from "../../../shared/scripts/utils/id-gen.js";
 
 export function initBulkImportActions({
@@ -22,9 +20,7 @@ export function initBulkImportActions({
 
   function importStudents(parsedRows) {
     let added = 0;
-    // computed once, before any row is pushed — recomputing inside the loop
-    // after earlier same-batch rows were already pushed made the ids skip
-    // ahead (34, 36, 39, ...) instead of running consecutively.
+    
     const baseId = maxId(studentRows);
 
     parsedRows.forEach((row) => {
@@ -70,7 +66,7 @@ export function initBulkImportActions({
 
   function importTeachers(parsedRows) {
     let added = 0;
-    // computed once, before any row is pushed — see importStudents for why.
+    // computed once, before any row is pushed  see importStudents for why.
     const baseId = maxId(teachers);
 
     parsedRows.forEach((row) => {

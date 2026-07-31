@@ -1,30 +1,34 @@
-import { parent, kids, avatarThemes, notifications, reports, subjectLabels } from "../../shared/scripts/data/mock-data.js";
+import { parent, parentStudents as students, avatarThemes, notifications, reports, subjectLabels } from "../../shared/scripts/data/mock-data.js";
 import { calculateInsightCards } from "../../shared/scripts/data/insights-engine.js";
 import { createPager } from "../../shared/scripts/utils/table-utils.js";
 import { buildPerformanceChartSVG, buildSubjectKeyHTML, hasAnyScore, mountPerformancePanel } from "../../shared/scripts/ui/performance-chart.js";
 import { renderInsightCards } from "../../shared/scripts/ui/insight-cards.js";
 import { createLoginGate } from "../../shared/scripts/ui/login-gate.js";
 import { $, $$ } from "../../shared/scripts/utils/dom.js";
+import { dateOnly } from "../../shared/scripts/utils/date.js";
+import { open as openModal, close as closeModal } from "../../shared/scripts/modal.js";
+import { PORTAL_STORAGE_KEYS } from "../../shared/scripts/constants/storage.js";
+import { addNavigationRipple, syncBottomNavigation } from "../../shared/scripts/ui/bottom-navigation.js";
 
 (function () {
   "use strict";
 
   /* mock data now comes from the one shared canonical store */
 
-  const MOCK = { parent, kids, avatarThemes, notifications, reports };
+  const MOCK = { parent, students, avatarThemes, notifications, reports };
   const PARENT = MOCK.parent;
-  const KIDS = MOCK.kids;
+  const STUDENTS = MOCK.students;
   const AVATAR_THEMES = MOCK.avatarThemes;
 
   const DEFAULT_THEME = { c1: "#dbe7ff", c2: "#eef3fb", soft: "#eef3fb", ink: "#26325d", accent: "#5f7bb1" };
 
 
-  function themeOf(kid) {
-    return AVATAR_THEMES[kid.avatar] || DEFAULT_THEME;
+  function themeOf(student) {
+    return AVATAR_THEMES[student.avatar] || DEFAULT_THEME;
   }
 
-  function themeVars(kid) {
-    const t = themeOf(kid);
+  function themeVars(student) {
+    const t = themeOf(student);
     return `--kc1:${t.c1};--kc2:${t.c2};--kc-soft:${t.soft};--kc-ink:${t.ink};--kc-accent:${t.accent}`;
   }
 
@@ -34,52 +38,52 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
     return "ok";
   }
 
-  function avatarSrc(kid) {
-    return `assets/avatars/${kid.avatar || "0"}-default.png`;
+  function avatarSrc(student) {
+    return `assets/avatars/${student.avatar || "0"}-default.png`;
   }
 
-  function avatarHtml(kid) {
-    return `<span class="kid-avatar" style="${themeVars(kid)}" aria-hidden="true">
-      <img src="${avatarSrc(kid)}" alt="" loading="lazy">
+  function avatarHtml(student) {
+    return `<span class="parent-student-avatar" style="${themeVars(student)}" aria-hidden="true">
+      <img src="${avatarSrc(student)}" alt="" loading="lazy">
     </span>`;
   }
 
   function renderStats() {//stat tiles
-    const activeLicenses = KIDS.filter((k) => k.daysLeft > 0).length;
-    const pending = KIDS.reduce((sum, k) => sum + k.pending, 0);
-    const retakes = KIDS.reduce((sum, k) => sum + k.retakes, 0);
+    const activeLicenses = STUDENTS.filter((k) => k.daysLeft > 0).length;
+    const pending = STUDENTS.reduce((sum, k) => sum + k.pending, 0);
+    const retakes = STUDENTS.reduce((sum, k) => sum + k.retakes, 0);
 
     $("#parentActiveLicenses").textContent = activeLicenses;
     $("#parentPendingAssignments").textContent = pending;
     $("#parentPendingRetakes").textContent = retakes;
   }
 
-  function chipsHtml(kid) {//kids card
+  function chipsHtml(student) {//students card
     return `
-      <span class="kid-chip done" title="Assignments done"><i class="learner-dot" aria-hidden="true"></i>${kid.done}<em class="chip-word">done</em></span>
-      <span class="kid-chip ongoing" title="Assignments ongoing"><i class="learner-dot" aria-hidden="true"></i>${kid.ongoing}<em class="chip-word">ongoing</em></span>
-      <span class="kid-chip pending" title="Assignments pending"><i class="learner-dot" aria-hidden="true"></i>${kid.pending}<em class="chip-word">pending</em></span>
-      <span class="kid-chip retake" title="Retakes pending"><i class="learner-dot" aria-hidden="true"></i>${kid.retakes}<em class="chip-word">retakes</em></span>`;
+      <span class="parent-student-chip done" title="Assignments done"><i class="learner-dot" aria-hidden="true"></i>${student.done}<em class="chip-word">done</em></span>
+      <span class="parent-student-chip ongoing" title="Assignments ongoing"><i class="learner-dot" aria-hidden="true"></i>${student.ongoing}<em class="chip-word">ongoing</em></span>
+      <span class="parent-student-chip pending" title="Assignments pending"><i class="learner-dot" aria-hidden="true"></i>${student.pending}<em class="chip-word">pending</em></span>
+      <span class="parent-student-chip retake" title="Retakes pending"><i class="learner-dot" aria-hidden="true"></i>${student.retakes}<em class="chip-word">retakes</em></span>`;
   }
 
-  function kidCardHtml(kid) {
-    const tone = licenseTone(kid.daysLeft);
+  function studentCardHtml(student) {
+    const tone = licenseTone(student.daysLeft);
     // an expired plan doesn't hide the card, it locks the actions that lead into paid learning content, while Pay stays available every day.
-    const locked = kid.daysLeft <= 0;
+    const locked = student.daysLeft <= 0;
 
     return `
-      <article class="kid-card ${locked ? "is-locked" : ""}" style="${themeVars(kid)}" data-kid="${kid.id}" data-avatar="${kid.avatar}">
-        <span class="kid-class-pill">${kid.cls}</span>
-        <div class="kid-name-row">
-          <h3 class="kid-name${locked ? "" : " kid-name-clickable"}"
-            ${locked ? "" : `data-kid-learn="${kid.id}" role="link" tabindex="0"`}>${kid.name}</h3>
-          <button type="button" class="kid-name-edit" data-kid-edit="${kid.id}" aria-label="Edit ${kid.name}'s account" ${locked ? "disabled" : ""}>
+      <article class="parent-student-card ${locked ? "is-locked" : ""}" style="${themeVars(student)}" data-student="${student.id}" data-avatar="${student.avatar}">
+        <span class="parent-student-class-pill">${student.cls}</span>
+        <div class="parent-student-name-row">
+          <h3 class="parent-student-name${locked ? "" : " parent-student-name-clickable"}"
+            ${locked ? "" : `data-student-learn="${student.id}" role="link" tabindex="0"`}>${student.name}</h3>
+          <button type="button" class="parent-student-name-edit" data-student-edit="${student.id}" aria-label="Edit ${student.name}'s account" ${locked ? "disabled" : ""}>
             <img src="assets/icons/person-edit.svg" alt="" aria-hidden="true">
           </button>
         </div>
-        ${avatarHtml(kid)}
-        <div class="kid-chips" aria-label="Assignment snapshot">${chipsHtml(kid)}</div>
-        <button type="button" class="kid-learn-btn" data-kid-learn="${kid.id}" ${locked ? "disabled" : ""}>
+        ${avatarHtml(student)}
+        <div class="parent-student-chips" aria-label="Assignment snapshot">${chipsHtml(student)}</div>
+        <button type="button" class="parent-student-learn-btn" data-student-learn="${student.id}" ${locked ? "disabled" : ""}>
           <span>Learn</span>
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -89,39 +93,39 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
             <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
           </svg>
         </button>
-        <span class="kid-license ${tone}">${kid.plan.toUpperCase()}: ${kid.daysLeft} Days Left</span>
-        <button type="button" class="pay-btn kid-pay-btn" data-kid-pay="${kid.id}">
-          <img src="assets/icons/mpesa.png" alt="" class="pay-img" aria-hidden="true">
+        <span class="parent-student-license ${tone}">${student.plan.toUpperCase()}: ${student.daysLeft} Days Left</span>
+        <button type="button" class="pay-btn parent-student-pay-btn" data-student-pay="${student.id}">
+          <img src="assets/icons/mpesa.webp" alt="" class="pay-img" aria-hidden="true">
           <span>Pay</span>
         </button>
       </article>`;
   }
 
-  function kidPillHtml(kid) {
+  function studentPillHtml(student) {
     return `
-      <button type="button" class="kid-pill" style="${themeVars(kid)}" data-kid-manage="${kid.id}"
-        data-avatar="${kid.avatar}" aria-label="Manage ${kid.name}'s account">
-        ${avatarHtml(kid)}
-        <span class="kid-pill-name">${kid.name}</span>
+      <button type="button" class="parent-student-pill" style="${themeVars(student)}" data-student-manage="${student.id}"
+        data-avatar="${student.avatar}" aria-label="Manage ${student.name}'s account">
+        ${avatarHtml(student)}
+        <span class="parent-student-pill-name">${student.name}</span>
         <i class="pill-leaf pill-leaf-1" aria-hidden="true"></i>
         <i class="pill-leaf pill-leaf-2" aria-hidden="true"></i>
         <i class="pill-leaf pill-leaf-3" aria-hidden="true"></i>
       </button>`;
   }
 
-  function renderKidGrids(filterText) {
-    const dashGrid = $("#parentKidsGrid");
-    const accountsList = $("#parentKidsAccountsList");
-    const noMatch = $("#parentKidsNoMatch");
+  function renderStudentGrids(filterText) {
+    const dashGrid = $("#parentStudentsGrid");
+    const accountsList = $("#parentStudentsAccountsList");
+    const noMatch = $("#parentStudentsNoMatch");
 
     const query = (filterText || "").trim().toLowerCase();
-    const dashKids = query
-      ? KIDS.filter((k) => k.name.toLowerCase().includes(query))
-      : KIDS;
+    const dashStudents = query
+      ? STUDENTS.filter((k) => k.name.toLowerCase().includes(query))
+      : STUDENTS;
 
-    if (dashGrid) dashGrid.innerHTML = dashKids.map(kidCardHtml).join("");
-    if (noMatch) noMatch.hidden = dashKids.length > 0;
-    if (accountsList) accountsList.innerHTML = KIDS.map(kidPillHtml).join("");
+    if (dashGrid) dashGrid.innerHTML = dashStudents.map(studentCardHtml).join("");
+    if (noMatch) noMatch.hidden = dashStudents.length > 0;
+    if (accountsList) accountsList.innerHTML = STUDENTS.map(studentPillHtml).join("");
   }
 
 
@@ -137,13 +141,13 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
       </span>`;
   }
 
-  function kidCellMarkup(kid) {
-    const locked = kid.daysLeft <= 0;
+  function studentCellMarkup(student) {
+    const locked = student.daysLeft <= 0;
     return `
-      <span class="kid-cell">
-        ${avatarHtml(kid)}
-        <strong class="${locked ? "" : "kid-name-clickable"}"
-          ${locked ? "" : `data-kid-learn="${kid.id}" role="link" tabindex="0"`}>${kid.name}</strong>
+      <span class="parent-student-cell">
+        ${avatarHtml(student)}
+        <strong class="${locked ? "" : "parent-student-name-clickable"}"
+          ${locked ? "" : `data-student-learn="${student.id}" role="link" tabindex="0"`}>${student.name}</strong>
       </span>`;
   }
 
@@ -153,35 +157,34 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
     onPageChange: () => renderSummaryTable(),
   });
 
-  // one dataset, one pagination pass, renders the real desktop <table> and the mobile card list from the exact same page of kids; CSS (not JS)
-  // decides which one is actually visible at a given width.
+  
   function renderSummaryTable() {
     const body = $("#parentSummaryBody");
     const cardList = $("#parentSummaryCards");
     if (!body && !cardList) return;
 
-    const pageRows = summaryPager.paginate(KIDS);
+    const pageRows = summaryPager.paginate(STUDENTS);
 
     if (body) {
-      body.innerHTML = pageRows.map((kid) => `
+      body.innerHTML = pageRows.map((student) => `
       <tr>
-        <td>${kidCellMarkup(kid)}</td>
-        <td>${countCell(kid.done, "done", "Completed")}</td>
-        <td class="col-ongoing">${countCell(kid.ongoing, "ongoing", "Ongoing")}</td>
-        <td class="col-pending">${countCell(kid.pending, "pending", "Not Started")}</td>
-        <td>${countCell(kid.retakes, "retake", "Retakes")}</td>
+        <td>${studentCellMarkup(student)}</td>
+        <td>${countCell(student.done, "done", "Completed")}</td>
+        <td class="col-ongoing">${countCell(student.ongoing, "ongoing", "Ongoing")}</td>
+        <td class="col-pending">${countCell(student.pending, "pending", "Not Started")}</td>
+        <td>${countCell(student.retakes, "retake", "Retakes")}</td>
       </tr>`).join("");
     }
 
     if (cardList) {
-      cardList.innerHTML = pageRows.map((kid) => `
+      cardList.innerHTML = pageRows.map((student) => `
       <li class="summary-mobile-card">
-        ${kidCellMarkup(kid)}
+        ${studentCellMarkup(student)}
         <div class="summary-mobile-status">
-          ${countCell(kid.done, "done", "Completed", { visibleLabel: true })}
-          ${countCell(kid.ongoing, "ongoing", "Ongoing", { visibleLabel: true })}
-          ${countCell(kid.pending, "pending", "Not Started", { visibleLabel: true })}
-          ${countCell(kid.retakes, "retake", "Retakes", { visibleLabel: true })}
+          ${countCell(student.done, "done", "Completed", { visibleLabel: true })}
+          ${countCell(student.ongoing, "ongoing", "Ongoing", { visibleLabel: true })}
+          ${countCell(student.pending, "pending", "Not Started", { visibleLabel: true })}
+          ${countCell(student.retakes, "retake", "Retakes", { visibleLabel: true })}
         </div>
       </li>`).join("");
     }
@@ -191,7 +194,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
 
   const VIEWS = {//navigation
     dashboard: $("#parentDashboardView"),
-    kids: $("#parentKidsView"),
+    students: $("#parentStudentsView"),
     reports: $("#parentReportsView"),
     learn: $("#parentLearnView"),
     notifications: $("#parentNotificationsView"),
@@ -204,7 +207,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
 
   const CRUMBS = {
     dashboard: "Dashboard",
-    kids: "Kids Accounts",
+    students: "Students Accounts",
     reports: "Reports",
     learn: "Learning Page",
     notifications: "Notifications",
@@ -216,7 +219,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
   };
 
   const TRAIL = {
-    manage: ["kids"],
+    manage: ["students"],
     learn: ["dashboard"],
     assignment: ["reports"],
   };
@@ -260,29 +263,17 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
 
   function syncBottomNav(nav) {
     const active = $(`#parentBottomNav [data-parent-nav="${nav}"]`);
-    if (!bottomNav) return;
-
-    //if page is not in bottom nav then don't leave the raised bubble hovering//discipline yeahhhh
-    if (!active) {
-      bottomNav.classList.add("no-active");
-      return;
-    }
-
-    bottomNav.classList.remove("no-active");
-    bottomNav.style.setProperty("--active-index", active.dataset.navIndex || "0");
-    if (bottomNavFloatIcon) {
-      bottomNavFloatIcon.innerHTML = active.querySelector(".nav-icon")?.innerHTML || "";
-    }
+    // A view outside the nav must not leave the raised bubble hovering.
+    syncBottomNavigation({
+      root: bottomNav,
+      active,
+      floatIcon: bottomNavFloatIcon,
+      inactiveClass: "no-active",
+    });
   }
 
   function addNavRipple(button, event) {
-    const ripple = document.createElement("span");
-    const rect = button.getBoundingClientRect();
-    ripple.className = "nav-ripple";
-    ripple.style.left = `${event.clientX - rect.left}px`;
-    ripple.style.top = `${event.clientY - rect.top}px`;
-    button.appendChild(ripple);
-    ripple.addEventListener("animationend", () => ripple.remove(), { once: true });
+    addNavigationRipple(button, event);
   }
 
   let skeletonTimer = null;
@@ -425,13 +416,13 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
     "Pending": "pending",
   };
 
-  function kidById(id) {
-    return KIDS.find((k) => String(k.id) === String(id));
+  function studentById(id) {
+    return STUDENTS.find((k) => String(k.id) === String(id));
   }
 
   // assignment-deployed/due-soon notifications (n.title), parent-reported question-issue ones (n.question/n.status) same list two shapes, rendered differently.
   function notifItemHTML(n) {
-    const kid = kidById(n.kidId);
+    const student = studentById(n.studentId);
 
     if (n.title) {
       const tone = n.title === "Assignment Due Tomorrow" ? "due-soon" : "assignment";
@@ -446,7 +437,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
             </div>
             <p class="notif-message">${n.message}</p>
             <div class="notif-meta">
-              ${kid ? `<span>${kid.name}</span><i aria-hidden="true"></i>` : ""}
+              ${student ? `<span>${student.name}</span><i aria-hidden="true"></i>` : ""}
               <span>${n.time}</span>
             </div>
           </div>
@@ -466,7 +457,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
           </div>
           <p class="notif-message">${n.message}</p>
           <div class="notif-meta">
-            ${kid ? `<span>${kid.name}</span><i aria-hidden="true"></i>` : ""}
+            ${student ? `<span>${student.name}</span><i aria-hidden="true"></i>` : ""}
             <span>${n.time}</span>
           </div>
         </div>
@@ -500,7 +491,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
     setTimeout(() => {
       pushNotification({
         id: `n${Date.now()}`,
-        kidId: 1028,
+        studentId: 1028,
         question: "Kiswahili - Sarufi Practice 1, Q5",
         status: "Resolved",
         message: "Admin reviewed your report: the question wording was fixed and Kelvin's attempt was reset.",
@@ -517,148 +508,145 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
   // setSkeleton(true/false) wraps future data fetches
   window.parentPortal = { pushNotification, openNotifications, setSkeleton };
 
-  function bindLearn() {//childs learning page(esomakids.com/user=?)
-    const openLearn = (kidIdValue) => {
-      const kid = kidById(kidIdValue);
-      if (!kid) return;
+  function bindLearn() {//childs learning page(esomastudents.com/user=?)
+    const openLearn = (studentIdValue) => {
+      const student = studentById(studentIdValue);
+      if (!student) return;
 
-      const backTarget = ["kids", "manage"].includes(currentNav) ? currentNav : "dashboard";
+      const backTarget = ["students", "manage"].includes(currentNav) ? currentNav : "dashboard";
       const title = $("#parentLearnTitle");
-      if (title) title.textContent = `${kid.name}'s Learning Page`;
-      goToNav("learn", `${kid.name}'s Learning`);
+      if (title) title.textContent = `${student.name}'s Learning Page`;
+      goToNav("learn", `${student.name}'s Learning`);
       showFloatingBack(backTarget);
     };
 
     document.addEventListener("click", (event) => {
-      const btn = event.target.closest("[data-kid-learn]");
+      const btn = event.target.closest("[data-student-learn]");
       if (!btn) return;
-      openLearn(btn.dataset.kidLearn);
+      openLearn(btn.dataset.studentLearn);
     });
 
-    // the kid name doubles as a link to the same place (not a real <button> or <a>), so it needs its own Enter/Space activation.
+    // the student name doubles as a link to the same place (not a real <button> or <a>), so it needs its own Enter/Space activation.
     document.addEventListener("keydown", (event) => {
       if (event.key !== "Enter" && event.key !== " ") return;
-      const el = event.target.closest?.(".kid-name-clickable[data-kid-learn]");
+      const el = event.target.closest?.(".parent-student-name-clickable[data-student-learn]");
       if (!el) return;
       event.preventDefault();
-      openLearn(el.dataset.kidLearn);
+      openLearn(el.dataset.studentLearn);
     });
   }
 
   function bindDashboardPay() {
-    $("#parentKidsGrid")?.addEventListener("click", (event) => {
-      const btn = event.target.closest("[data-kid-pay]");
+    $("#parentStudentsGrid")?.addEventListener("click", (event) => {
+      const btn = event.target.closest("[data-student-pay]");
       if (!btn) return;
-      const kid = kidById(btn.dataset.kidPay);
-      if (kid) openPayModal(kid);
+      const student = studentById(btn.dataset.studentPay);
+      if (student) openPayModal(student);
     });
   }
 
-  let manageKid = null;//manage child
+  let manageStudent = null;//manage child
 
-  function fillManage(kid) {
-    $("#manageKidName").textContent = kid.name;
+  function fillManage(student) {
+    $("#manageStudentName").textContent = student.name;
 
-    // identity card carries the kid's theme so its jungle watermark tints - aesthetics bhana
-    $("#parentManageView .manage-identity")?.setAttribute("style", themeVars(kid));
+    // identity card carries the student's theme so its jungle watermark tints - aesthetics bhana
+    $("#parentManageView .manage-identity")?.setAttribute("style", themeVars(student));
 
     const avatar = $("#manageAvatar");
     if (avatar) {
-      avatar.setAttribute("style", themeVars(kid));
-      avatar.innerHTML = `<img src="${avatarSrc(kid)}" alt="">`;
+      avatar.setAttribute("style", themeVars(student));
+      avatar.innerHTML = `<img src="${avatarSrc(student)}" alt="">`;
     }
 
-    $("#manageNickname").textContent = kid.name;
-    $("#manageGender").textContent = kid.gender || "NONE";
-    $("#manageGrade").textContent = kid.grade || "-";
-    $("#manageSchool").textContent = kid.school || "-";
-    $("#manageTown").textContent = kid.town || "-";
+    $("#manageNickname").textContent = student.name;
+    $("#manageGender").textContent = student.gender || "NONE";
+    $("#manageGrade").textContent = student.grade || "-";
+    $("#manageSchool").textContent = student.school || "-";
+    $("#manageTown").textContent = student.town || "-";
 
     const license = $("#manageLicense");
     if (license) {
-      license.textContent = `${kid.plan.toUpperCase()}: ${kid.daysLeft} Days Left`;
-      license.className = `kid-license ${licenseTone(kid.daysLeft)}`;
+      license.textContent = `${student.plan.toUpperCase()}: ${student.daysLeft} Days Left`;
+      license.className = `parent-student-license ${licenseTone(student.daysLeft)}`;
     }
 
-    $("#managePayName").textContent = kid.name;
+    $("#managePayName").textContent = student.name;
     const reportsBtn = $("#manageReportsBtn");
-    if (reportsBtn) reportsBtn.textContent = `${kid.name}'s Reports`;
+    if (reportsBtn) reportsBtn.textContent = `${student.name}'s Reports`;
   }
 
-  function openManage(kid) {
-    // opened from the learner avatars on My Profile as well as the pills and
-    // pencils, so the crumb and back button follow whichever one you came from
+  function openManage(student) {
     const fromProfile = currentNav === "profile";
-    manageKid = kid;
-    fillManage(kid);
-    TRAIL.manage = [fromProfile ? "profile" : "kids"];
-    goToNav("manage", kid.name);
-    showFloatingBack(fromProfile ? "profile" : "kids", fromProfile ? "Back to My Profile" : "Change Child Account");
+    manageStudent = student;
+    fillManage(student);
+    TRAIL.manage = [fromProfile ? "profile" : "students"];
+    goToNav("manage", student.name);
+    showFloatingBack(fromProfile ? "profile" : "students", fromProfile ? "Back to My Profile" : "Change Child Account");
   }
 
   function bindManage() {
     document.addEventListener("click", (event) => {
-      // account pills AND the pencil(edit btn) on dashboard cards both land here
-      const trigger = event.target.closest("[data-kid-manage], [data-kid-edit]");
+      // account pills & the pencil(edit btn) on dashboard cards both land here
+      const trigger = event.target.closest("[data-student-manage], [data-student-edit]");
       if (!trigger) return;
-      const kid = kidById(trigger.dataset.kidManage || trigger.dataset.kidEdit);
-      if (kid) openManage(kid);
+      const student = studentById(trigger.dataset.studentManage || trigger.dataset.studentEdit);
+      if (student) openManage(student);
     });
 
     $("#manageReportsBtn")?.addEventListener("click", () => {
       // nav first: the skeleton flash masks the swap, and the reports
-      // view is already visible/laid out for the mobile carousel scroll
       goToNav("reports");
-      if (manageKid) selectReportKid(manageKid);
+      if (manageStudent) selectReportStudent(manageStudent);
     });
   }
 
   function refreshAfterEdit() {//edit profile / school modals (mock save) 
-    fillManage(manageKid);
-    renderKidGrids($("#parentKidSearch")?.value);
+    fillManage(manageStudent);
+    renderStudentGrids($("#parentStudentSearch")?.value);
     renderSummaryTable();
   }
 
   function bindEditModals() {
     $("#manageEditProfileBtn")?.addEventListener("click", () => {
-      if (!manageKid) return;
-      $("#parentProfileEditNote").textContent = `Update ${manageKid.name}'s profile.`;
-      $("#editNickname").value = manageKid.name;
-      $("#editGender").value = manageKid.gender || "NONE";
-      $("#editGrade").value = manageKid.grade || "GRADE_1";
-      window.Modals?.open("parentProfileEditModal");
+      if (!manageStudent) return;
+      $("#parentProfileEditNote").textContent = `Update ${manageStudent.name}'s profile.`;
+      $("#editNickname").value = manageStudent.name;
+      $("#editGender").value = manageStudent.gender || "NONE";
+      $("#editGrade").value = manageStudent.grade || "GRADE_1";
+      openModal("parentProfileEditModal");
     });
 
     $("#editProfileSave")?.addEventListener("click", () => {
-      if (!manageKid) return;
+      if (!manageStudent) return;
       const nickname = $("#editNickname").value.trim();
-      if (nickname) manageKid.name = nickname;
-      manageKid.gender = $("#editGender").value;
-      manageKid.grade = $("#editGrade").value;
+      if (nickname) manageStudent.name = nickname;
+      manageStudent.gender = $("#editGender").value;
+      manageStudent.grade = $("#editGrade").value;
       refreshAfterEdit();
-      window.Modals?.close("parentProfileEditModal");
+      closeModal("parentProfileEditModal");
     });
 
     $("#manageEditSchoolBtn")?.addEventListener("click", () => {
-      if (!manageKid) return;
-      $("#parentSchoolEditNote").textContent = `Update ${manageKid.name}'s school information.`;
-      $("#editSchool").value = manageKid.school || "";
-      $("#editTown").value = manageKid.town || "";
-      window.Modals?.open("parentSchoolEditModal");
+      if (!manageStudent) return;
+      $("#parentSchoolEditNote").textContent = `Update ${manageStudent.name}'s school information.`;
+      $("#editSchool").value = manageStudent.school || "";
+      $("#editTown").value = manageStudent.town || "";
+      openModal("parentSchoolEditModal");
     });
 
     $("#editSchoolSave")?.addEventListener("click", () => {
-      if (!manageKid) return;
+      if (!manageStudent) return;
       const school = $("#editSchool").value.trim();
       const town = $("#editTown").value.trim();
-      if (school) manageKid.school = school;
-      if (town) manageKid.town = town;
+      if (school) manageStudent.school = school;
+      if (town) manageStudent.town = town;
       refreshAfterEdit();
-      window.Modals?.close("parentSchoolEditModal");
+      closeModal("parentSchoolEditModal");
     });
   }
 
-  let payKid = null;//pay modal (mock STK push - UI only)
+  let payStudent = null;//pay modal (mock STK push - UI only)
 
   function resetPayModal() {
     $("#parentPayFields").hidden = false;
@@ -674,18 +662,18 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
     $("#parentPayAmount").value = btn.dataset.amount;
   }
 
-  function openPayModal(kid) {
-    if (!kid) return;
-    payKid = kid;
+  function openPayModal(student) {
+    if (!student) return;
+    payStudent = student;
     resetPayModal();
-    $("#parentPayKidName").textContent = kid.name;
+    $("#parentPayStudentName").textContent = student.name;
     applyPayPlan($("#parentPayPlanSelect .pay-plan-btn[data-plan=\"monthly\"]"));
     $("#parentPayPhone").value = PARENT.contact || "";
-    window.Modals?.open("parentPayModal");
+    openModal("parentPayModal");
   }
 
   function bindPayModal() {
-    $("#managePayBtn")?.addEventListener("click", () => openPayModal(manageKid));
+    $("#managePayBtn")?.addEventListener("click", () => openPayModal(manageStudent));
 
     $("#parentPayPlanSelect")?.addEventListener("click", (event) => {
       const btn = event.target.closest(".pay-plan-btn");
@@ -706,13 +694,13 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
       $("#parentPayFields").hidden = true;
       $("#parentPayActions").hidden = true;
       $("#parentPaySuccessNote").textContent =
-        `STK push sent to ${phone}. Enter your M-Pesa PIN on your phone to complete KES ${amount} for ${payKid?.name || "your child"}.`;
+        `STK push sent to ${phone}. Enter your M-Pesa PIN on your phone to complete KES ${amount} for ${payStudent?.name || "your child"}.`;
       $("#parentPaySuccess").hidden = false;
       $("#parentPayDoneActions").hidden = false;
     });
 
     $("#parentPayOk")?.addEventListener("click", () => {
-      window.Modals?.close("parentPayModal");
+      closeModal("parentPayModal");
     });
   }
 
@@ -739,16 +727,16 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
     });
   }
 
-  function renderProfileKids() {//learner strip at the bottom of the profile card
-    const strip = $("#parentProfileKids");
+  function renderProfileStudents() {//learner strip at the bottom of the profile card
+    const strip = $("#parentProfileStudents");
     if (!strip) return;
-    strip.innerHTML = KIDS.map((kid) => `
+    strip.innerHTML = STUDENTS.map((student) => `
       <li>
-        <button class="parent-profile-kid" type="button" data-kid-manage="${kid.id}"
-          aria-label="Manage ${kid.name}'s account">
-          ${avatarHtml(kid)}
-          <span class="parent-profile-kid-name">${kid.name}</span>
-          <span class="parent-profile-kid-meta">${kid.cls}</span>
+        <button class="parent-profile-student" type="button" data-student-manage="${student.id}"
+          aria-label="Manage ${student.name}'s account">
+          ${avatarHtml(student)}
+          <span class="parent-profile-student-name">${student.name}</span>
+          <span class="parent-profile-student-meta">${student.cls}</span>
         </button>
       </li>`).join("");
   }
@@ -758,7 +746,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
     $("#parentProfileContact").value = PARENT.contact || "";
     $("#parentProfileEmail").value = PARENT.email || "";
     $("#parentProfileSaved").hidden = true;
-    renderProfileKids();
+    renderProfileStudents();
   }
 
   function resetPasswordModal() {
@@ -784,7 +772,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
 
     $("#parentChangePasswordBtn")?.addEventListener("click", () => {
       resetPasswordModal();
-      window.Modals?.open("parentPasswordModal");
+      openModal("parentPasswordModal");
     });
 
     $("#pwSaveBtn")?.addEventListener("click", () => {
@@ -802,12 +790,16 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
       $("#pwDoneActions").hidden = false;
     });
 
-    $("#pwOkBtn")?.addEventListener("click", () => window.Modals?.close("parentPasswordModal"));
+    $("#pwOkBtn")?.addEventListener("click", () => closeModal("parentPasswordModal"));
   }
 
   const REPORTS = MOCK.reports || {};//reports & analytics
-  let reportKid = KIDS[0] || null;
-  let reportInsightPeriod = "all";
+  let reportStudent = STUDENTS[0] || null;
+  // Term, not month. A single month of this data can leave a learner with only
+  // a handful of scored assignments across two subjects, and the hero card is a
+  // headline percentage — it should not be computed from five data points.
+  let reportInsightPeriod = "term";
+  let insightRenderToken = 0;
 
   const assignmentsPager = createPager({
     container: "#reportAssignmentsPagination",
@@ -817,53 +809,49 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
 
   
   function renderReportTabs() {//another aesthetic aka  carousel or whatever
-    const tabs = $("#reportKidTabs");
+    const tabs = $("#reportStudentTabs");
     if (!tabs) return;
-    tabs.innerHTML = KIDS.map((kid) => {
-      const active = reportKid && kid.id === reportKid.id;
+    tabs.innerHTML = STUDENTS.map((student) => {
+      const active = reportStudent && student.id === reportStudent.id;
       return `
-      <button type="button" class="kid-card kid-id-card report-kid-card ${active ? "active" : ""}"
-        style="${themeVars(kid)}" data-report-kid="${kid.id}" data-avatar="${kid.avatar}"
+      <button type="button" class="parent-student-card parent-student-id-card report-student-card ${active ? "active" : ""}"
+        style="${themeVars(student)}" data-report-student="${student.id}" data-avatar="${student.avatar}"
         role="tab" aria-selected="${active}">
-        <img class="kid-id-img" src="${avatarSrc(kid)}" alt="" loading="lazy">
-        <span class="kid-id-foot">
-          <span class="kid-id-name">${kid.name}</span>
-          <span class="kid-id-class">${kid.cls}</span>
+        <img class="parent-student-id-img" src="${avatarSrc(student)}" alt="" loading="lazy">
+        <span class="parent-student-id-foot">
+          <span class="parent-student-id-name">${student.name}</span>
+          <span class="parent-student-id-class">${student.cls}</span>
         </span>
       </button>`;
     }).join("");
 
-    const dots = $("#reportKidDots");//tu-dots sliders
+    const dots = $("#reportStudentDots");//tu-dots sliders
     if (dots) {
-      dots.innerHTML = KIDS.map((kid) => `
-        <button type="button" class="report-dot ${reportKid && kid.id === reportKid.id ? "active" : ""}"
-          data-report-kid="${kid.id}" tabindex="-1"></button>`).join("");
+      dots.innerHTML = STUDENTS.map((student) => `
+        <button type="button" class="report-dot ${reportStudent && student.id === reportStudent.id ? "active" : ""}"
+          data-report-student="${student.id}" tabindex="-1"></button>`).join("");
     }
   }
 
-  function applyReportKidSelection(kid) {
-    reportKid = kid;
+  function applyReportStudentSelection(student) {
+    reportStudent = student;
     assignmentsPager.reset();
     renderReportTabs();
     renderReport();
   }
 
-  function selectReportKid(kid) {
-    applyReportKidSelection(kid);
+  function selectReportStudent(student) {
+    applyReportStudentSelection(student);
 
-    //  bring the chosen kid's card into view on phones
+    //  bring the chosen student's card into view on phones
     if (window.matchMedia("(max-width: 640px)").matches) {
-      $(`#reportKidTabs [data-report-kid="${kid.id}"]`)
+      $(`#reportStudentTabs [data-report-student="${student.id}"]`)
         ?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
     }
   }
 
   function formatReportPeriodDate(date) {
     return date.toLocaleDateString("en-US", { month: "long", year: "numeric" });
-  }
-
-  function dateOnly(date) {
-    return [date.getFullYear(), String(date.getMonth() + 1).padStart(2, "0"), String(date.getDate()).padStart(2, "0")].join("-");
   }
 
   function latestReportActivityDate(report) {
@@ -873,9 +861,12 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
     return dates.length ? new Date(Math.max(...dates.map((date) => date.getTime()))) : null;
   }
 
-  // The available period is anchored to the latest real assignment in this
-  // learner's report. This avoids a misleading "this month" choice when the
+  // available period is anchored to the latest real assignment in this learner's report. This avoids a misleading "this month" choice when the
   // data snapshot belongs to an earlier school month.
+  // `label` travels with the range so the insight cards can name the window
+  // they cover. Without it the hero card reads "Overall Performance", which is
+  // indistinguishable from the all-time "Performance Average" in the Overview
+  // tab even though the two deliberately measure different things.
   function insightPeriodRange(report, period) {
     const latest = latestReportActivityDate(report);
     if (!latest || period === "all") return null;
@@ -883,15 +874,15 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
     const year = latest.getFullYear();
     const month = latest.getMonth();
     if (period === "month") {
-      return { start: dateOnly(new Date(year, month, 1)), end: dateOnly(new Date(year, month + 1, 0)) };
+      return { label: "Month", start: dateOnly(new Date(year, month, 1)), end: dateOnly(new Date(year, month + 1, 0)) };
     }
 
     if (period === "term") {
       const termStartMonth = month <= 3 ? 0 : month <= 7 ? 4 : 8;
-      return { start: dateOnly(new Date(year, termStartMonth, 1)), end: dateOnly(new Date(year, termStartMonth + 4, 0)) };
+      return { label: "Term", start: dateOnly(new Date(year, termStartMonth, 1)), end: dateOnly(new Date(year, termStartMonth + 4, 0)) };
     }
 
-    return { start: `${year}-01-01`, end: `${year}-12-31` };
+    return { label: "Year", start: `${year}-01-01`, end: `${year}-12-31` };
   }
 
   function refreshInsightPeriodLabels(report) {
@@ -911,31 +902,48 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
     setLabel("year", `${latest.getFullYear()} academic year`);
   }
 
-  // The filter deliberately scopes the insight cards only. The legacy
-  // assignment table and comparison chart use a separate, all-time data
-  // source and therefore do not pretend to be period-filtered.
-  function renderInsights(kid, report) {
+  // this filter deliberately scopes the insight cards only, legacy assignment table and comparison chart use a separate, all-time data source
+  function renderInsightSkeleton(container) {
+    container.setAttribute("aria-busy", "true");
+    container.innerHTML = `
+      <div class="insight-card-grid insight-skeleton-grid" aria-hidden="true">
+        ${Array.from({ length: 5 }, (_, index) => `
+          <div class="insight-skeleton-card ${index === 0 ? "is-featured" : ""}">
+            <span class="insight-skeleton-icon"></span>
+            <span class="insight-skeleton-line is-title"></span>
+            <span class="insight-skeleton-line is-copy"></span>
+            <span class="insight-skeleton-pill"></span>
+          </div>`).join("")}
+      </div>`;
+  }
+
+  function renderInsights(student, report) {
     const el = $("#reportInsights");
     if (!el) return;
+    const renderToken = ++insightRenderToken;
     refreshInsightPeriodLabels(report);
-    const cards = calculateInsightCards(kid.id, insightPeriodRange(report, reportInsightPeriod));
-    renderInsightCards(el, cards);
+    renderInsightSkeleton(el);
+
+    // keep tha skeleton visible long enough to make a selection feel responsive, without delaying the underlying report calculation.
+    window.setTimeout(() => {
+      if (renderToken !== insightRenderToken) return;
+      const cards = calculateInsightCards(student.id, insightPeriodRange(report, reportInsightPeriod));
+      renderInsightCards(el, cards);
+      el.removeAttribute("aria-busy");
+    }, 160);
   }
 
   function renderReport() {
-    if (!reportKid) return;
-    const report = REPORTS[reportKid.id];
+    if (!reportStudent) return;
+    const report = REPORTS[reportStudent.id];
     if (!report) return;
 
-    $("#reportKidTitle").textContent = `${reportKid.name}'s School Assignment Reports and Analytics`;
-    // both the Overview and Insights panels show these same three stats —
-    // update every matching element (was two duplicate ids before, so only
-    // the first, Overview's, ever got populated).
+    $("#reportStudentTitle").textContent = `${reportStudent.name}'s School Assignment Reports and Analytics`;
     $$('[data-report-stat="engagement"]').forEach((el) => { el.textContent = report.engagement; });
     $$('[data-report-stat="average"]').forEach((el) => { el.textContent = report.average; });
     $$('[data-report-stat="bestSubject"]').forEach((el) => { el.textContent = report.bestSubject; });
 
-    renderInsights(reportKid, report);
+    renderInsights(reportStudent, report);
 
     const indexedAssignments = report.assignments.map((row, idx) => ({ ...row, _idx: idx }));
     const pageRows = assignmentsPager.paginate(indexedAssignments);
@@ -960,7 +968,26 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
     }).join("");
     assignmentsPager.renderControls();
 
-    $("#profileChartTitle").textContent = `${reportKid.name}'s Overall Performance`;
+    renderReportChart(report);
+  }
+
+  // The comparison chart's markup is not present in this view — #profileChart,
+  // #profileChartTitle and #subjectKey were removed from index.html while these
+  // calls stayed behind, so renderReport() threw on the first of them. That
+  // aborted the rest of renderReport AND the remainder of the boot sequence
+  // that calls it, taking renderLicenses/bindLicenses/bindStudentSearch/
+  // updateBellBadge/syncBottomNav and the skeleton clear down with it.
+  //
+  // Guarded rather than deleted: the chart is still wanted here, and this keeps
+  // the wiring ready for when the markup comes back. With no container present
+  // it does nothing, which is exactly what the current markup renders.
+  function renderReportChart(report) {
+    const chartEl = $("#profileChart");
+    const titleEl = $("#profileChartTitle");
+    const keyEl = $("#subjectKey");
+    if (!chartEl && !titleEl && !keyEl) return;
+
+    if (titleEl) titleEl.textContent = `${reportStudent.name}'s Overall Performance`;
 
     // same shared chart admin/teacher use
     const { subjects, student, classAvg } = report.chart;
@@ -971,25 +998,27 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
       classAvgByCode[code] = classAvg[i];
     });
     const labels = subjects.map(([code]) => code);//just show the subjects for empty data
-    if (!hasAnyScore(labels, scoresByCode)) {
-      $("#profileChart").innerHTML = "";
-    } else {
-      $("#profileChart").innerHTML = buildPerformanceChartSVG({
-        labels,
-        scores: scoresByCode,
-        classAverage: classAvgByCode,
-        ariaLabel: `${reportKid.name}'s scores and class average by learning area`,
-      });
+    if (chartEl) {
+      chartEl.innerHTML = hasAnyScore(labels, scoresByCode)
+        ? buildPerformanceChartSVG({
+          labels,
+          scores: scoresByCode,
+          classAverage: classAvgByCode,
+          ariaLabel: `${reportStudent.name}'s scores and class average by learning area`,
+        })
+        : "";
     }
 
-    const filteredSubjectLabels = Object.fromEntries(
-      Object.entries(subjectLabels).filter(([code]) => labels.includes(code))
-    );
-    $("#subjectKey").innerHTML = buildSubjectKeyHTML(filteredSubjectLabels);
+    if (keyEl) {
+      const filteredSubjectLabels = Object.fromEntries(
+        Object.entries(subjectLabels).filter(([code]) => labels.includes(code))
+      );
+      keyEl.innerHTML = buildSubjectKeyHTML(filteredSubjectLabels);
+    }
   }
 
   function openAssignmentDetail(row) {
-    if (!row || !reportKid) return;
+    if (!row || !reportStudent) return;
 
     const outOf = 10;
     const hasScore = row.score != null;
@@ -997,7 +1026,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
 
     $("#assignName").textContent = row.title;
     $("#assignArea").textContent = row.subject;
-    $("#assignClass").textContent = reportKid.cls;
+    $("#assignClass").textContent = reportStudent.cls;
     $("#assignTeacher").textContent = row.teacher || "Class Teacher";
     $("#assignScore").textContent = hasScore
       ? `${gotten} Out of ${outOf} (${row.score.toFixed(2)}%)`
@@ -1012,24 +1041,24 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
     $("#reportAssignmentsBody")?.addEventListener("click", (event) => {
       const link = event.target.closest("[data-assign-idx]");
       if (!link) return;
-      const report = REPORTS[reportKid?.id];
+      const report = REPORTS[reportStudent?.id];
       const row = report?.assignments[Number(link.dataset.assignIdx)];
       if (row) openAssignmentDetail(row);
     });
   }
 
   function bindReports() {
-    const pickKid = (event) => {
-      const tab = event.target.closest("[data-report-kid]");
+    const pickStudent = (event) => {
+      const tab = event.target.closest("[data-report-student]");
       if (!tab) return;
-      const kid = kidById(tab.dataset.reportKid);
-      if (kid) selectReportKid(kid);
+      const student = studentById(tab.dataset.reportStudent);
+      if (student) selectReportStudent(student);
     };
-    $("#reportKidTabs")?.addEventListener("click", pickKid);
-    $("#reportKidDots")?.addEventListener("click", pickKid);
+    $("#reportStudentTabs")?.addEventListener("click", pickStudent);
+    $("#reportStudentDots")?.addEventListener("click", pickStudent);
     $("#reportInsightsPeriod")?.addEventListener("change", (event) => {
       reportInsightPeriod = event.target.value;
-      if (reportKid) renderInsights(reportKid, REPORTS[reportKid.id]);
+      if (reportStudent) renderInsights(reportStudent, REPORTS[reportStudent.id]);
     });
 
     const segments = $$("#reportSegments .segment");
@@ -1045,18 +1074,18 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
   }
 
 
-  function licenseRowHtml(kid) {//licenses page
-    const tone = licenseTone(kid.daysLeft);
+  function licenseRowHtml(student) {//licenses page
+    const tone = licenseTone(student.daysLeft);
     return `
-      <article class="license-row" style="${themeVars(kid)}">
-        ${avatarHtml(kid)}
+      <article class="license-row" style="${themeVars(student)}">
+        ${avatarHtml(student)}
         <div class="license-row-info">
-          <strong>${kid.name}</strong>
-          <span>${kid.cls}</span>
+          <strong>${student.name}</strong>
+          <span>${student.cls}</span>
         </div>
-        <span class="kid-license ${tone}">${kid.plan.toUpperCase()}: ${kid.daysLeft} Days Left</span>
-        <button type="button" class="pay-btn license-row-pay" data-kid-pay="${kid.id}">
-          <img src="assets/icons/mpesa.png" alt="" class="pay-img">
+        <span class="parent-student-license ${tone}">${student.plan.toUpperCase()}: ${student.daysLeft} Days Left</span>
+        <button type="button" class="pay-btn license-row-pay" data-student-pay="${student.id}">
+          <img src="assets/icons/mpesa.webp" alt="" class="pay-img">
           <span>Pay</span>
         </button>
       </article>`;
@@ -1064,34 +1093,34 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
 
   function renderLicenses() {
     const list = $("#parentLicenseList");
-    if (list) list.innerHTML = KIDS.map(licenseRowHtml).join("");
+    if (list) list.innerHTML = STUDENTS.map(licenseRowHtml).join("");
 
     const schoolName = $("#licenseSchoolName");
-    if (schoolName && KIDS[0]?.school) schoolName.textContent = KIDS[0].school;
+    if (schoolName && STUDENTS[0]?.school) schoolName.textContent = STUDENTS[0].school;
   }
 
   function bindLicenses() {
     $("#parentLicensesMenuBtn")?.addEventListener("click", () => goToNav("licenses"));
 
     $("#parentLicenseList")?.addEventListener("click", (event) => {
-      const btn = event.target.closest("[data-kid-pay]");
+      const btn = event.target.closest("[data-student-pay]");
       if (!btn) return;
-      const kid = kidById(btn.dataset.kidPay);
-      if (kid) openPayModal(kid);
+      const student = studentById(btn.dataset.studentPay);
+      if (student) openPayModal(student);
     });
   }
 
 
-  function bindKidSearch() {
-    $("#parentKidSearch")?.addEventListener("input", (event) => {
-      renderKidGrids(event.target.value);
+  function bindStudentSearch() {
+    $("#parentStudentSearch")?.addEventListener("input", (event) => {
+      renderStudentGrids(event.target.value);
     });
   }
 
   /* demo login gate....shared/scripts/ui/login-gate.js; no real auth backend, any submission succeeds. thats will be on your end */
 
   const parentLoginGate = createLoginGate({
-    storageKey: "esomaParentLoggedIn",
+    storageKey: PORTAL_STORAGE_KEYS.parent,
     appShellSelector: "#parentApp",
     logoutSelectors: ["#parentLogoutBtn", "#parentMobileLogoutBtn"],
   });
@@ -1103,7 +1132,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
   $("#parentDashboardName").textContent = PARENT.name;
   $("#parentSideProfileName").textContent = PARENT.fullName || PARENT.name;
   renderStats();
-  renderKidGrids();
+  renderStudentGrids();
   renderSummaryTable();
   bindNav();
   bindFloatingBack();
@@ -1124,7 +1153,7 @@ import { $, $$ } from "../../shared/scripts/utils/dom.js";
   renderReport();
   renderLicenses();
   bindLicenses();
-  bindKidSearch();
+  bindStudentSearch();
   updateBellBadge();
   syncBottomNav("dashboard");
 

@@ -195,7 +195,7 @@
           <span>Dashboard</span>
         </button>
 
-        <button class="nav-item" type="button" data-parent-nav="kids">
+        <button class="nav-item" type="button" data-parent-nav="students">
           <span class="nav-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
@@ -314,12 +314,12 @@
 
         <div class="segmented parent-dash-segments" id="parentDashSegments" role="tablist"
           aria-label="Dashboard sections">
-          <button class="segment active" type="button" data-dash-panel="kids">Learners</button>
+          <button class="segment active" type="button" data-dash-panel="students">Learners</button>
           <button class="segment" type="button" data-dash-panel="summary">Assignments</button>
         </div>
 
-        <!-- kids segment -->
-        <div class="dash-panel active" data-dash-content="kids">
+        <!-- students segment -->
+        <div class="dash-panel active" data-dash-content="students">
 
           <div class="stats parent-stats" id="parentStats" aria-label="Family overview">
             <article class="stat">
@@ -346,14 +346,14 @@
             <div class="section-head">
               <h2>Learners</h2>
             </div>
-            <div class="toolbar kid-search-toolbar">
+            <div class="toolbar parent-student-search-toolbar">
               <label class="search" aria-label="Search by name">
                 <img src="assets/icons/student-search.svg" alt="" class="search-img" aria-hidden="true">
-                <input type="search" id="parentKidSearch" placeholder="Search by name...">
+                <input type="search" id="parentStudentSearch" placeholder="Search by name...">
               </label>
             </div>
-            <div class="kid-card-grid" id="parentKidsGrid" aria-label="Kids overview"></div>
-            <div class="mobile-placeholder-card" id="parentKidsNoMatch" hidden>
+            <div class="parent-student-card-grid" id="parentStudentsGrid" aria-label="Kids overview"></div>
+            <div class="mobile-placeholder-card" id="parentStudentsNoMatch" hidden>
               <h3 class="card-title">No learner matches that name</h3>
               <p class="card-meta muted">Try a different spelling.</p><!--not sure-->
             </div>
@@ -396,12 +396,12 @@
         </div>
       </section>
 
-      <!-- kids accounts -->
-      <section class="view" id="parentKidsView" aria-label="Kids accounts">
+      <!-- students accounts -->
+      <section class="view" id="parentStudentsView" aria-label="Kids accounts">
         <div class="section-head">
           <h2>Select Learners' Account to Manage</h2>
         </div>
-        <div class="kid-pill-list" id="parentKidsAccountsList" aria-label="Kids accounts"></div>
+        <div class="parent-student-pill-list" id="parentStudentsAccountsList" aria-label="Kids accounts"></div>
       </section>
 
       <!-- licenses -->
@@ -436,14 +436,14 @@
       <section class="view" id="parentManageView" aria-label="Manage child account">
 
         <div class="manage-title-bar">
-          <h2>Manage Learner Account: <span id="manageKidName">-</span></h2>
+          <h2>Manage Learner Account: <span id="manageStudentName">-</span></h2>
         </div>
 
         <div class="manage-layout">
           <!-- avatar + profile + school + reports, one card -->
           <section class="manage-card manage-identity">
             <div class="manage-avatar-side">
-              <span class="kid-avatar manage-avatar" id="manageAvatar" aria-hidden="true"></span>
+              <span class="parent-student-avatar manage-avatar" id="manageAvatar" aria-hidden="true"></span>
               <p class="manage-avatar-note muted">To change the avatar, go to the child's learning dashboard</p>
             </div>
 
@@ -472,7 +472,7 @@
           <!-- account status on the other side -->
           <aside class="manage-card manage-status-card">
             <h3 class="manage-heading centered">Account Status</h3>
-            <span class="kid-license ok" id="manageLicense">-</span>
+            <span class="parent-student-license ok" id="manageLicense">-</span>
             <button type="button" class="pay-btn" id="managePayBtn">
               <img src="assets/icons/mpesa.png" alt="" class="pay-img" aria-hidden="true">
               <span>Pay for <em id="managePayName">-</em></span>
@@ -554,7 +554,7 @@
         </div>
       </section>
 
-      <!-- child learning page (opened via a kid card's Learn button) -->
+      <!-- child learning page (opened via a student card's Learn button) -->
       <section class="view" id="parentLearnView" aria-label="Child learning page">
         <div class="mobile-placeholder-card learn-placeholder">
           <h3 class="card-title" id="parentLearnTitle">Learning Page</h3>
@@ -584,12 +584,12 @@
           <h2>Reports and Analytics</h2>
         </div>
         <p class="page-subtitle muted">Select a child account below:</p>
-        <div class="report-kid-tabs" id="reportKidTabs" role="tablist" aria-label="Select child"></div>
+        <div class="report-student-tabs" id="reportStudentTabs" role="tablist" aria-label="Select child"></div>
         <p class="swipe-hint muted" aria-hidden="true">Swipe to see all your kids</p>
-        <div class="report-dots" id="reportKidDots" aria-hidden="true"></div>
+        <div class="report-dots" id="reportStudentDots" aria-hidden="true"></div>
 
-        <div class="section-head report-kid-heading">
-          <h2 id="reportKidTitle">Reports</h2>
+        <div class="section-head report-student-heading">
+          <h2 id="reportStudentTitle">Reports</h2>
         </div>
 
         <div class="segmented parent-dash-segments report-segments" id="reportSegments" role="tablist"
@@ -653,10 +653,9 @@
               <h2>Performance Insights</h2>
               <label class="insight-period-field" for="reportInsightsPeriod">
                 <select id="reportInsightsPeriod" class="student-filter">
-                  <option value="all">All activity</option>
-                  <option value="month">Latest month</option>
-                  <option value="term">Latest term</option>
-                  <option value="year">Academic year</option>
+                  <option value="month">Month</option>
+                  <option value="term" selected>Term</option>
+                  <option value="year">Year</option>
                 </select>
               </label>
             </div>
@@ -726,9 +725,9 @@
             <button class="button soft" type="button" id="parentChangePasswordBtn">Change Password</button>
           </div>
 
-          <div class="parent-profile-kids">
+          <div class="parent-profile-students">
             <h4>My Learners</h4>
-            <ul class="parent-profile-kid-strip" id="parentProfileKids"></ul>
+            <ul class="parent-profile-student-strip" id="parentProfileStudents"></ul>
           </div>
         </div>
       </section>
@@ -740,7 +739,7 @@
   <nav class="teacher-bottom-nav" id="parentBottomNav" aria-label="Parent bottom navigation" style="--active-index: 1;">
     <span class="nav-notch" aria-hidden="true"></span>
     <span class="nav-float" aria-hidden="true"><span class="nav-float-icon"></span></span>
-    <button type="button" data-parent-nav="kids" data-nav-index="0" aria-label="Kids Accounts">
+    <button type="button" data-parent-nav="students" data-nav-index="0" aria-label="Kids Accounts">
       <span class="nav-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
           stroke-linecap="round" stroke-linejoin="round">
@@ -958,7 +957,7 @@
     <div class="modal-form" role="dialog" aria-modal="true" aria-labelledby="parentPayTitle">
       <div class="modal-head">
         <div>
-          <h2 id="parentPayTitle">Pay for <span id="parentPayKidName">-</span></h2>
+          <h2 id="parentPayTitle">Pay for <span id="parentPayStudentName">-</span></h2>
           <p class="modal-note">Renews the monthly learning licence via M-Pesa.</p>
         </div>
         <button class="modal-close" type="button" data-close-modal aria-label="Close modal">
@@ -1018,7 +1017,8 @@
     </div>
   </div>
 
-  <script src="../shared/scripts/modal.js"></script>
+  <!-- the shared modal engine is an ES module imported by this dashboard's
+       entry script, so it no longer needs its own tag here. -->
   <script type="module" src="./scripts/app.js"></script>
 
 </body>

@@ -1,9 +1,0 @@
-/*
- * Shared utility classes — small, single-purpose helper classes reused
- * across portals (e.g. visually-hidden, text truncation, spacing helpers).
- *
- * Currently empty: everything already provably duplicated across admin/
- * teacher/parent was captured by base.css and components.css. This file is
- * scaffolding for future utility classes so there's a designated shared home
- * for them without needing another round of HTML changes later.
- */

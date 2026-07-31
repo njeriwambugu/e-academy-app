@@ -1,0 +1,71 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e360]:
+    - generic "ESOMA Academy" [ref=e361]:
+      - img "ESOMA Academy" [ref=e362]
+    - generic [ref=e363]:
+      - button "Notifications" [ref=e364] [cursor=pointer]:
+        - generic [ref=e368]: 9+
+      - button [ref=e369] [cursor=pointer]:
+        - strong [ref=e372]: Parent
+        - img "dropdown" [ref=e373]
+  - main "Parent portal content" [ref=e84]:
+    - generic [ref=e85]: My Profile
+    - region "Parent profile" [ref=e414]:
+      - generic [ref=e415]:
+        - generic [ref=e417]:
+          - heading "Kevin Kamau" [level=3] [ref=e419]
+          - paragraph [ref=e420]: Parent account
+        - generic [ref=e421]:
+          - generic [ref=e422]:
+            - generic [ref=e423]: Phone Contact
+            - textbox "Phone Contact" [ref=e424]:
+              - /placeholder: 07XX XXX XXX
+              - text: "0721859532"
+          - generic [ref=e425]:
+            - generic [ref=e426]: Email (optional)
+            - textbox "Email (optional)" [ref=e427]:
+              - /placeholder: Add an email address
+              - text: kevin.kamau@gmail.com
+        - generic [ref=e428]:
+          - button "Save Changes" [ref=e429] [cursor=pointer]
+          - button "Change Password" [ref=e430] [cursor=pointer]
+        - generic [ref=e431]:
+          - heading "My Learners" [level=4] [ref=e432]
+          - list [ref=e433]:
+            - listitem [ref=e434]:
+              - button "Manage Timothy's account" [ref=e435] [cursor=pointer]:
+                - generic [ref=e437]: Timothy
+                - generic [ref=e438]: Grade 1 North
+            - listitem [ref=e439]:
+              - button "Manage Bethany's account" [ref=e440] [cursor=pointer]:
+                - generic [ref=e442]: Bethany
+                - generic [ref=e443]: Grade 4 North
+            - listitem [ref=e444]:
+              - button "Manage Kelvin's account" [ref=e445] [cursor=pointer]:
+                - generic [ref=e447]: Kelvin
+                - generic [ref=e448]: Grade 5 South
+            - listitem [ref=e449]:
+              - button "Manage Viola's account" [ref=e450] [cursor=pointer]:
+                - generic [ref=e452]: Viola
+                - generic [ref=e453]: Grade 7 Central
+            - listitem [ref=e454]:
+              - button "Manage Cherop's account" [ref=e455] [cursor=pointer]:
+                - generic [ref=e457]: Cherop
+                - generic [ref=e458]: Grade 8 South
+            - listitem [ref=e459]:
+              - button "Manage James's account" [ref=e460] [cursor=pointer]:
+                - generic [ref=e462]: James
+                - generic [ref=e463]: Grade 2 North East
+            - listitem [ref=e464]:
+              - button "Manage Brian's account" [ref=e465] [cursor=pointer]:
+                - generic [ref=e467]: Brian
+                - generic [ref=e468]: PP2 North East
+            - listitem [ref=e469]:
+              - button "Manage Purity's account" [ref=e470] [cursor=pointer]:
+                - generic [ref=e472]: Purity
+                - generic [ref=e473]: Grade 9 North
+  - navigation "Parent bottom navigation" [ref=e374]:
+    - button "Kids Accounts" [ref=e382] [cursor=pointer]:
+      - generic [ref=e389]: Learners
+    - button "Dashboard" [ref=e390] [cursor=pointer]
+    - button "Reports" [ref=e392] [cursor=pointer]

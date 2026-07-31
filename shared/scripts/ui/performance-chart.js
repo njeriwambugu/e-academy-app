@@ -1,30 +1,7 @@
-/*
- * One shared "student scores vs class average by subject" chart — the exact
- * SVG design originally built for admin's student-profile page. Admin,
- * teacher, and parent all render this same chart (same structure, same
- * colors, same layout) for the same student instead of three different
- * chart implementations (admin: this SVG; parent: CSS div bars; teacher:
- * no chart at all).
- *
- * labels/scores/classAverage all key off the same 8 subject codes
- * shared/scripts/data/mock-data.js's getStudentPerformanceProfile() already
- * returns, so the numbers plotted are guaranteed to match what admin/parent/
- * teacher show elsewhere for this student.
- */
-
 export function hasAnyScore(labels, scores) {
   return labels.some((label) => Number(scores[label]) > 0);
 }
 
-/*
- * The "performance panel" wrapper (heading + badge + chart + legend) was
- * hand-duplicated as static HTML in admin/teacher/parent's index.html (and
- * parent's used a different, unstyled wrapper). This builds that markup
- * once and injects it into whatever empty container each portal points at
- * it — same ids as before (profileChartTitle/profileChart/subjectKey by
- * default) so existing getElementById/$ lookups in each portal's render
- * code keep working unchanged.
- */
 export function mountPerformancePanel(container, {
   title = "",
   badge = "Student vs class average",

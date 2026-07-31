@@ -1,7 +1,4 @@
-/* shared DOM-select helpers — was retyped identically in teacher-app.js and
- * parent/app.js (admin's legacy.js uses document.getElementById throughout
- * instead, so it isn't a consumer of this one). */
-
+/* shared DOM-select helpers, i was lost in the first round*/
 export function $(sel, root) {
   return (root || document).querySelector(sel);
 }

@@ -4,10 +4,13 @@ import { createSelectClassModal } from "./ui/modals.js";
 import { createAssignmentsFeature } from "./ui/assignments.js";
 import { clearButtonLoading, runButtonAction } from "../../shared/scripts/utils/ui-state.js";
 import { createPager } from "../../shared/scripts/utils/table-utils.js";
-import { escapeHTML } from "../../shared/scripts/utils/string-utils.js";
+import { escapeHTML, initials } from "../../shared/scripts/utils/string-utils.js";
+import { formatDate } from "../../shared/scripts/utils/date.js";
 import { buildPerformanceChartSVG, buildSubjectKeyHTML, hasAnyScore, mountPerformancePanel } from "../../shared/scripts/ui/performance-chart.js";
 import { createLoginGate } from "../../shared/scripts/ui/login-gate.js";
 import { $, $$ } from "../../shared/scripts/utils/dom.js";
+import { PORTAL_STORAGE_KEYS } from "../../shared/scripts/constants/storage.js";
+import { addNavigationRipple, syncBottomNavigation } from "../../shared/scripts/ui/bottom-navigation.js";
 
 let activeClassData = classMock;
 
@@ -88,28 +91,8 @@ function getSubjectName(subjectId) {
   return getSubjectById(subjectId)?.name || "Subject";
 }
 
-const MONTHS = [
-  "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
-];
-
-function formatDate(value) {
-  if (!value) return "\u2014";
-  // accepts "2026-06-09 09:30:00" or ISO strings.
-  const datePart = String(value).slice(0, 10);
-  const [y, m, d] = datePart.split("-").map(Number);
-  if (!y || !m || !d) return String(value);
-  return `${String(d).padStart(2, "0")} ${MONTHS[m - 1]} ${y}`;
-}
-
-function initials(name = "") {
-  return String(name)
-    .trim()
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase() || "")
-    .join("");
-}
+// MONTHS, formatDate and initials moved to shared/scripts/utils \u2014 parent
+// formats the same mock-data date strings and needs the same helpers.
  
 const subjectsGrid = $("#teacherSubjectsGrid");
 const emptyEl = $("#teacherNoSubjects");
@@ -1261,19 +1244,15 @@ function restoreScrollPosition(name) {
 
 function syncBottomNav(nav) {
   const active = $(`#teacherBottomNav [data-teacher-nav="${nav}"]`);
-  if (!bottomNav || !active) return;
-  bottomNav.style.setProperty("--active-index", active.dataset.navIndex || "0");
-  if (bottomNavFloatIcon) bottomNavFloatIcon.innerHTML = active.querySelector(".nav-icon")?.innerHTML || "";
+  syncBottomNavigation({
+    root: bottomNav,
+    active,
+    floatIcon: bottomNavFloatIcon,
+  });
 }
 
 function addNavRipple(button, event) {
-  const ripple = document.createElement("span");
-  const rect = button.getBoundingClientRect();
-  ripple.className = "nav-ripple";
-  ripple.style.left = `${event.clientX - rect.left}px`;
-  ripple.style.top = `${event.clientY - rect.top}px`;
-  button.appendChild(ripple);
-  ripple.addEventListener("animationend", () => ripple.remove(), { once: true });
+  addNavigationRipple(button, event);
 }
 
 function showView(name) {
@@ -1597,7 +1576,7 @@ function bindSubjectCards() {
    any submission succeeds. */
 
 const teacherLoginGate = createLoginGate({
-  storageKey: "esomaTeacherLoggedIn",
+  storageKey: PORTAL_STORAGE_KEYS.teacher,
   appShellSelector: "#teacherApp",
   onEnter: handleRoute,
   logoutSelectors: ["#teacherLogoutBtn", "#teacherMobileLogoutBtn"],

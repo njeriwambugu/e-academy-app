@@ -989,7 +989,8 @@
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  <script src="../shared/scripts/modal.js"></script>
+  <!-- the shared modal engine is an ES module imported by this dashboard's
+       entry script, so it no longer needs its own tag here. -->
   <script type="module" src="scripts/app.js"></script>
 </body>
 

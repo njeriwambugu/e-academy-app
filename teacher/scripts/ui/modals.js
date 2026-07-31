@@ -1,22 +1,6 @@
 import { runButtonAction } from "../../../shared/scripts/utils/ui-state.js";
-
-function openModal(modalEl) {
-  if (!modalEl) return;
-  if (window.Modals?.open) return window.Modals.open(modalEl);
-
-  modalEl.classList.add("open");// fallback if the shared engine hasn't loaded.
-  modalEl.setAttribute("aria-hidden", "false");
-  document.body.classList.add("modal-open");
-}
-
-function closeModal(modalEl) {
-  if (!modalEl) return;
-  if (window.Modals?.close) return window.Modals.close(modalEl);
-
-  modalEl.classList.remove("open");
-  modalEl.setAttribute("aria-hidden", "true");
-  document.body.classList.remove("modal-open");
-}
+// shared engine is imported rather than read off window, so it is guaranteed to have evaluated before this module's body runs
+import { open as openModal, close as closeModal } from "../../../shared/scripts/modal.js";
 
 function getGradeNumber(className = "") {
   const match = String(className).match(/grade\s*(\d+)/i);
@@ -103,7 +87,8 @@ export function createSelectClassModal(options) {
     });
   }
 
-  // backdrop,close-button,escape handling is provided by the shared window.Modals engine, so we don't re-add those listeners here.
+  // backdrop, close-button and escape handling come from the shared modal
+  // engine imported at the top, so we do not re-add those listeners here.
 
   return {
     openSelectClass,

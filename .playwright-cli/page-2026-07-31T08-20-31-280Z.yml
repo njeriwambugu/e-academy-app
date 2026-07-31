@@ -1,0 +1,222 @@
+- generic [ref=e36]:
+  - complementary "Teacher navigation" [ref=e37]:
+    - generic "ESOMA Academy" [ref=e38]:
+      - img "ESOMA Academy" [ref=e39]
+    - button "Collapse sidebar" [expanded] [ref=e40] [cursor=pointer]
+    - navigation "Teacher sections" [ref=e43]:
+      - button "Dashboard" [ref=e44] [cursor=pointer]
+      - button "Students" [ref=e52] [cursor=pointer]
+      - button "Assignments" [ref=e60] [cursor=pointer]
+    - generic [ref=e66]:
+      - button "Switch to Admin" [ref=e67] [cursor=pointer]
+      - button "Log Out" [ref=e73] [cursor=pointer]
+  - main "Teacher portal content" [ref=e79]:
+    - button "Back" [ref=e158] [cursor=pointer]
+    - generic [ref=e82]:
+      - button "Dashboard" [ref=e344] [cursor=pointer]
+      - generic [ref=e345]: /
+      - button "PP2 North East" [ref=e346] [cursor=pointer]
+      - generic [ref=e347]: /
+      - generic [ref=e348]: Baraka Otieno
+    - region "Student profile" [ref=e349]:
+      - generic [ref=e350]:
+        - generic [ref=e351]:
+          - generic [ref=e352]:
+            - generic [ref=e353]:
+              - heading "Baraka Otieno" [level=1] [ref=e354]
+              - paragraph [ref=e355]: PP2 North East learner in Sci-T, Eng, Art.
+            - generic [ref=e356]:
+              - generic [ref=e357]: PP2 North East
+              - generic [ref=e358]: Invite Accepted
+              - generic [ref=e359]: Active
+          - article [ref=e360]:
+            - img "student-avatar" [ref=e362]
+            - generic [ref=e363]:
+              - generic [ref=e364]:
+                - generic [ref=e365]: Student Name / Nickname
+                - strong [ref=e366]: Baraka Otieno (Baraka)
+              - generic [ref=e367]:
+                - generic [ref=e368]: Parent/Guardian Name
+                - strong [ref=e369]: Joseph Otieno
+              - generic [ref=e370]:
+                - generic [ref=e371]: Parent/Guardian Contact
+                - strong [ref=e372]: 0722 145 880
+              - generic [ref=e373]:
+                - generic [ref=e374]: Class
+                - strong [ref=e375]: PP2 North East
+        - generic [ref=e376]:
+          - article [ref=e377]:
+            - generic [ref=e379]:
+              - strong [ref=e380]: 84%
+              - generic [ref=e381]: Engagement
+          - article [ref=e382]:
+            - generic [ref=e384]:
+              - strong [ref=e385]: 65%
+              - generic [ref=e386]: Performance Average
+              - generic [ref=e387]: All subjects avg 63%
+          - article [ref=e388]:
+            - generic [ref=e390]:
+              - strong [ref=e391]: Creative Arts and Sports
+              - generic [ref=e392]: Strongest Subject
+        - generic [ref=e394]:
+          - generic [ref=e395]:
+            - heading "Baraka's Overall Performance" [level=2] [ref=e396]
+            - generic [ref=e397]: Student vs class average
+          - img "Baraka Otieno's scores and class average by subject" [ref=e399]:
+            - generic [ref=e400]: "0"
+            - generic [ref=e401]: "20"
+            - generic [ref=e402]: "40"
+            - generic [ref=e403]: "60"
+            - generic [ref=e404]: "80"
+            - generic [ref=e405]: "100"
+            - generic [ref=e406]: Scores (%)
+            - generic [ref=e408]: MAT
+            - generic [ref=e410]: ENG
+            - generic [ref=e412]: KIS
+            - generic [ref=e414]: CAS
+            - generic [ref=e416]: CRE
+            - generic [ref=e423]:
+              - generic [ref=e425]: Individual Student Scores
+              - generic [ref=e427]: Class Average
+          - generic [ref=e428]:
+            - generic [ref=e429]:
+              - generic [ref=e430]: "MAT:"
+              - generic [ref=e431]: MATHEMATICS
+            - generic [ref=e432]:
+              - generic [ref=e433]: "ENG:"
+              - generic [ref=e434]: ENGLISH
+            - generic [ref=e435]:
+              - generic [ref=e436]: "KIS:"
+              - generic [ref=e437]: KISWAHILI
+            - generic [ref=e438]:
+              - generic [ref=e439]: "CRE:"
+              - generic [ref=e440]: CRE
+            - generic [ref=e441]:
+              - generic [ref=e442]: "CAS:"
+              - generic [ref=e443]: CREATIVE ARTS AND SPORTS
+        - generic [ref=e444]:
+          - generic [ref=e445]:
+            - heading "Assignments Performance" [level=2] [ref=e446]
+            - generic [ref=e447]: Across deployed assignments
+          - table [ref=e449]:
+            - rowgroup [ref=e450]:
+              - row [ref=e451]:
+                - columnheader "Name" [ref=e452]
+                - columnheader "Subject" [ref=e453]
+                - columnheader "Attempts" [ref=e454]
+                - columnheader "Time Taken (Avg)" [ref=e455]
+                - columnheader "Score (Avg)" [ref=e456]
+            - rowgroup [ref=e457]:
+              - row [ref=e458]:
+                - cell [ref=e459]:
+                  - button "Plants Practice 1" [ref=e460] [cursor=pointer]
+                - cell "Science and Technology" [ref=e461]
+                - cell "0" [ref=e462]
+                - cell "—" [ref=e463]
+                - cell "—" [ref=e464]
+              - row [ref=e465]:
+                - cell [ref=e466]:
+                  - button "Animals Practice 2" [ref=e467] [cursor=pointer]
+                - cell "Science and Technology" [ref=e468]
+                - cell "0" [ref=e469]
+                - cell "—" [ref=e470]
+                - cell "—" [ref=e471]
+              - row [ref=e472]:
+                - cell [ref=e473]:
+                  - button "Human Body Practice 3" [ref=e474] [cursor=pointer]
+                - cell "Science and Technology" [ref=e475]
+                - cell "1" [ref=e476]
+                - cell "6m 00s" [ref=e477]
+                - cell "—" [ref=e478]
+              - row [ref=e479]:
+                - cell [ref=e480]:
+                  - button "States of Matter Practice 1" [ref=e481] [cursor=pointer]
+                - cell "Science and Technology" [ref=e482]
+                - cell "0" [ref=e483]
+                - cell "—" [ref=e484]
+                - cell "—" [ref=e485]
+              - row [ref=e486]:
+                - cell [ref=e487]:
+                  - button "Mixtures Practice 2" [ref=e488] [cursor=pointer]
+                - cell "Science and Technology" [ref=e489]
+                - cell "2" [ref=e490]
+                - cell "6m 00s" [ref=e491]
+                - cell "65%" [ref=e492]
+              - row [ref=e493]:
+                - cell [ref=e494]:
+                  - button "Light Practice 1" [ref=e495] [cursor=pointer]
+                - cell "Science and Technology" [ref=e496]
+                - cell "2" [ref=e497]
+                - cell "6m 00s" [ref=e498]
+                - cell "63%" [ref=e499]
+              - row [ref=e500]:
+                - cell [ref=e501]:
+                  - button "Heat Practice 2" [ref=e502] [cursor=pointer]
+                - cell "Science and Technology" [ref=e503]
+                - cell "2" [ref=e504]
+                - cell "6m 45s" [ref=e505]
+                - cell "64%" [ref=e506]
+              - row [ref=e507]:
+                - cell [ref=e508]:
+                  - button "Sound Practice 3" [ref=e509] [cursor=pointer]
+                - cell "Science and Technology" [ref=e510]
+                - cell "2" [ref=e511]
+                - cell "7m 30s" [ref=e512]
+                - cell "65%" [ref=e513]
+              - row [ref=e514]:
+                - cell [ref=e515]:
+                  - button "Listening Games Practice 1" [ref=e516] [cursor=pointer]
+                - cell "English" [ref=e517]
+                - cell "1" [ref=e518]
+                - cell "8m 15s" [ref=e519]
+                - cell "64%" [ref=e520]
+              - row [ref=e521]:
+                - cell [ref=e522]:
+                  - button "Rhymes and Songs Practice 2" [ref=e523] [cursor=pointer]
+                - cell "English" [ref=e524]
+                - cell "1" [ref=e525]
+                - cell "9m 00s" [ref=e526]
+                - cell "65%" [ref=e527]
+              - row [ref=e528]:
+                - cell [ref=e529]:
+                  - button "Vocabulary Building Practice 3" [ref=e530] [cursor=pointer]
+                - cell "English" [ref=e531]
+                - cell "1" [ref=e532]
+                - cell "9m 45s" [ref=e533]
+                - cell "66%" [ref=e534]
+              - row [ref=e535]:
+                - cell [ref=e536]:
+                  - button "Letter Recognition Practice 1" [ref=e537] [cursor=pointer]
+                - cell "English" [ref=e538]
+                - cell "2" [ref=e539]
+                - cell "9m 00s" [ref=e540]
+                - cell "63%" [ref=e541]
+              - row [ref=e542]:
+                - cell [ref=e543]:
+                  - button "Picture Reading Practice 2" [ref=e544] [cursor=pointer]
+                - cell "English" [ref=e545]
+                - cell "1" [ref=e546]
+                - cell "9m 45s" [ref=e547]
+                - cell "64%" [ref=e548]
+              - row [ref=e549]:
+                - cell [ref=e550]:
+                  - button "Drawing and Painting Practice 1" [ref=e551] [cursor=pointer]
+                - cell "Creative Arts and Sports" [ref=e552]
+                - cell "1" [ref=e553]
+                - cell "3m 00s" [ref=e554]
+                - cell "68%" [ref=e555]
+              - row [ref=e556]:
+                - cell [ref=e557]:
+                  - button "Music and Movement Practice 2" [ref=e558] [cursor=pointer]
+                - cell "Creative Arts and Sports" [ref=e559]
+                - cell "1" [ref=e560]
+                - cell "3m 45s" [ref=e561]
+                - cell "69%" [ref=e562]
+              - row [ref=e563]:
+                - cell [ref=e564]:
+                  - button "Drama Practice 3" [ref=e565] [cursor=pointer]
+                - cell "Creative Arts and Sports" [ref=e566]
+                - cell "1" [ref=e567]
+                - cell "4m 30s" [ref=e568]
+                - cell "70%" [ref=e569]
+    - text: ⇅ ⇅ ⇅

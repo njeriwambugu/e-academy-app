@@ -1,0 +1,202 @@
+- generic [ref=e1]:
+  - banner [ref=e360]:
+    - generic "ESOMA Academy" [ref=e361]:
+      - img "ESOMA Academy" [ref=e362]
+    - generic [ref=e363]:
+      - button "Notifications" [ref=e364] [cursor=pointer]:
+        - generic [ref=e368]: 9+
+      - button [expanded] [active] [ref=e369] [cursor=pointer]:
+        - strong [ref=e372]: Parent
+        - img "dropdown" [ref=e373]
+      - menu "Profile menu" [ref=e396]:
+        - menuitem "Profile" [ref=e397] [cursor=pointer]
+        - menuitem "Help Desk" [ref=e400] [cursor=pointer]
+        - menuitem "Licenses" [ref=e403] [cursor=pointer]
+        - menuitem "Log Out" [ref=e408] [cursor=pointer]
+  - main "Parent portal content" [ref=e84]:
+    - generic [ref=e85]: Dashboard
+    - region "Parent dashboard" [ref=e95]:
+      - paragraph [ref=e98]:
+        - text: Welcome back,
+        - generic [ref=e99]: Kevin
+      - tablist "Dashboard sections" [ref=e100]:
+        - button "Learners" [ref=e101] [cursor=pointer]
+        - button "Assignments" [ref=e102] [cursor=pointer]
+      - generic [ref=e104]:
+        - heading "Learners" [level=2] [ref=e106]
+        - generic "Search by name" [ref=e108]:
+          - searchbox "Search by name" [ref=e110]
+        - generic "Kids overview" [ref=e111]:
+          - article [ref=e112]:
+            - generic [ref=e113]: Grade 1 North
+            - generic [ref=e114]:
+              - link "Timothy" [ref=e115] [cursor=pointer]
+              - button "Edit Timothy's account" [ref=e116] [cursor=pointer]
+            - generic "Assignment snapshot" [ref=e119]:
+              - generic "Assignments done" [ref=e120]:
+                - text: "5"
+                - emphasis [ref=e122]: done
+              - generic "Assignments ongoing" [ref=e123]:
+                - text: "1"
+                - emphasis [ref=e125]: ongoing
+              - generic "Assignments pending" [ref=e126]:
+                - text: "0"
+                - emphasis [ref=e128]: pending
+              - generic "Retakes pending" [ref=e129]:
+                - text: "6"
+                - emphasis [ref=e131]: retakes
+            - button "Learn" [ref=e132] [cursor=pointer]
+            - generic [ref=e139]: "MONTHLY: 158 Days Left"
+            - button "Pay" [ref=e140] [cursor=pointer]
+          - article [ref=e143]:
+            - generic [ref=e144]: Grade 4 North
+            - generic [ref=e145]:
+              - link "Bethany" [ref=e146] [cursor=pointer]
+              - button "Edit Bethany's account" [ref=e147] [cursor=pointer]
+            - generic "Assignment snapshot" [ref=e150]:
+              - generic "Assignments done" [ref=e151]:
+                - text: "8"
+                - emphasis [ref=e153]: done
+              - generic "Assignments ongoing" [ref=e154]:
+                - text: "2"
+                - emphasis [ref=e156]: ongoing
+              - generic "Assignments pending" [ref=e157]:
+                - text: "3"
+                - emphasis [ref=e159]: pending
+              - generic "Retakes pending" [ref=e160]:
+                - text: "5"
+                - emphasis [ref=e162]: retakes
+            - button "Learn" [ref=e163] [cursor=pointer]
+            - generic [ref=e170]: "MONTHLY: 158 Days Left"
+            - button "Pay" [ref=e171] [cursor=pointer]
+          - article [ref=e174]:
+            - generic [ref=e175]: Grade 5 South
+            - generic [ref=e176]:
+              - link "Kelvin" [ref=e177] [cursor=pointer]
+              - button "Edit Kelvin's account" [ref=e178] [cursor=pointer]
+            - generic "Assignment snapshot" [ref=e181]:
+              - generic "Assignments done" [ref=e182]:
+                - text: "7"
+                - emphasis [ref=e184]: done
+              - generic "Assignments ongoing" [ref=e185]:
+                - text: "0"
+                - emphasis [ref=e187]: ongoing
+              - generic "Assignments pending" [ref=e188]:
+                - text: "1"
+                - emphasis [ref=e190]: pending
+              - generic "Retakes pending" [ref=e191]:
+                - text: "7"
+                - emphasis [ref=e193]: retakes
+            - button "Learn" [ref=e194] [cursor=pointer]
+            - generic [ref=e201]: "MONTHLY: 158 Days Left"
+            - button "Pay" [ref=e202] [cursor=pointer]
+          - article [ref=e205]:
+            - generic [ref=e206]: Grade 7 Central
+            - generic [ref=e207]:
+              - link "Viola" [ref=e208] [cursor=pointer]
+              - button "Edit Viola's account" [ref=e209] [cursor=pointer]
+            - generic "Assignment snapshot" [ref=e212]:
+              - generic "Assignments done" [ref=e213]:
+                - text: "7"
+                - emphasis [ref=e215]: done
+              - generic "Assignments ongoing" [ref=e216]:
+                - text: "0"
+                - emphasis [ref=e218]: ongoing
+              - generic "Assignments pending" [ref=e219]:
+                - text: "3"
+                - emphasis [ref=e221]: pending
+              - generic "Retakes pending" [ref=e222]:
+                - text: "8"
+                - emphasis [ref=e224]: retakes
+            - button "Learn" [ref=e225] [cursor=pointer]
+            - generic [ref=e232]: "MONTHLY: 19 Days Left"
+            - button "Pay" [ref=e233] [cursor=pointer]
+          - article [ref=e236]:
+            - generic [ref=e237]: Grade 8 South
+            - generic [ref=e238]:
+              - link "Cherop" [ref=e239] [cursor=pointer]
+              - button "Edit Cherop's account" [ref=e240] [cursor=pointer]
+            - generic "Assignment snapshot" [ref=e243]:
+              - generic "Assignments done" [ref=e244]:
+                - text: "14"
+                - emphasis [ref=e246]: done
+              - generic "Assignments ongoing" [ref=e247]:
+                - text: "2"
+                - emphasis [ref=e249]: ongoing
+              - generic "Assignments pending" [ref=e250]:
+                - text: "3"
+                - emphasis [ref=e252]: pending
+              - generic "Retakes pending" [ref=e253]:
+                - text: "12"
+                - emphasis [ref=e255]: retakes
+            - button "Learn" [ref=e256] [cursor=pointer]
+            - generic [ref=e263]: "MONTHLY: 158 Days Left"
+            - button "Pay" [ref=e264] [cursor=pointer]
+          - article [ref=e267]:
+            - generic [ref=e268]: Grade 2 North East
+            - generic [ref=e269]:
+              - link "James" [ref=e270] [cursor=pointer]
+              - button "Edit James's account" [ref=e271] [cursor=pointer]
+            - generic "Assignment snapshot" [ref=e274]:
+              - generic "Assignments done" [ref=e275]:
+                - text: "10"
+                - emphasis [ref=e277]: done
+              - generic "Assignments ongoing" [ref=e278]:
+                - text: "0"
+                - emphasis [ref=e280]: ongoing
+              - generic "Assignments pending" [ref=e281]:
+                - text: "1"
+                - emphasis [ref=e283]: pending
+              - generic "Retakes pending" [ref=e284]:
+                - text: "7"
+                - emphasis [ref=e286]: retakes
+            - button "Learn" [ref=e287] [cursor=pointer]
+            - generic [ref=e294]: "MONTHLY: 5 Days Left"
+            - button "Pay" [ref=e295] [cursor=pointer]
+          - article [ref=e298]:
+            - generic [ref=e299]: PP2 North East
+            - generic [ref=e300]:
+              - link "Brian" [ref=e301] [cursor=pointer]
+              - button "Edit Brian's account" [ref=e302] [cursor=pointer]
+            - generic "Assignment snapshot" [ref=e305]:
+              - generic "Assignments done" [ref=e306]:
+                - text: "13"
+                - emphasis [ref=e308]: done
+              - generic "Assignments ongoing" [ref=e309]:
+                - text: "1"
+                - emphasis [ref=e311]: ongoing
+              - generic "Assignments pending" [ref=e312]:
+                - text: "4"
+                - emphasis [ref=e314]: pending
+              - generic "Retakes pending" [ref=e315]:
+                - text: "10"
+                - emphasis [ref=e317]: retakes
+            - button "Learn" [ref=e318] [cursor=pointer]
+            - generic [ref=e325]: "MONTHLY: 158 Days Left"
+            - button "Pay" [ref=e326] [cursor=pointer]
+          - article [ref=e329]:
+            - generic [ref=e330]: Grade 9 North
+            - generic [ref=e331]:
+              - heading "Purity" [level=3] [ref=e332]
+              - button "Edit Purity's account" [disabled] [ref=e333]
+            - generic "Assignment snapshot" [ref=e336]:
+              - generic "Assignments done" [ref=e337]:
+                - text: "11"
+                - emphasis [ref=e339]: done
+              - generic "Assignments ongoing" [ref=e340]:
+                - text: "2"
+                - emphasis [ref=e342]: ongoing
+              - generic "Assignments pending" [ref=e343]:
+                - text: "3"
+                - emphasis [ref=e345]: pending
+              - generic "Retakes pending" [ref=e346]:
+                - text: "16"
+                - emphasis [ref=e348]: retakes
+            - button "Learn" [disabled] [ref=e349]
+            - generic [ref=e356]: "MONTHLY: -3 Days Left"
+            - button "Pay" [ref=e357] [cursor=pointer]
+  - navigation "Parent bottom navigation" [ref=e374]:
+    - button "Kids Accounts" [ref=e382] [cursor=pointer]:
+      - generic [ref=e389]: Learners
+    - button "Dashboard" [ref=e390] [cursor=pointer]
+    - button "Reports" [ref=e392] [cursor=pointer]

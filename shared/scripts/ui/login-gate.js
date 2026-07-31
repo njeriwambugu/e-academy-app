@@ -1,19 +1,4 @@
-/*
- * Shared demo login gate — no real auth backend, any submission succeeds.
- * Was three independent copies (admin/scripts/legacy.js,
- * teacher/scripts/teacher-app.js, parent/scripts/app.js) of the same
- * enter/show/bind trio: toggle the `login-active` body class, persist a
- * localStorage flag, show a transient success modal, wire the
- * show/hide-password toggle and the forgot-password modal.
- *
- * All three portals already share the exact same login markup ids
- * (loginForm, loginIdentity, loginPassword, togglePassword,
- * forgotPasswordBtn, forgotPasswordModal, forgotPasswordForm,
- * forgotFeedback, loginSuccessModal), so this module reads those directly —
- * only what genuinely differs per portal (the localStorage key, what to do
- * right after logging in, which app-shell element to un-hide, which logout
- * buttons trigger it) is passed in.
- */
+import { open as openModal, close as closeModal, showTransient as showTransientModal } from "../modal.js";
 
 export function createLoginGate({ storageKey, onEnter, appShellSelector, logoutSelectors = [] } = {}) {
   const loginPage = document.getElementById("loginPage");
@@ -60,7 +45,7 @@ export function createLoginGate({ storageKey, onEnter, appShellSelector, logoutS
         return;
       }
       try {
-        window.Modals?.showTransient(loginSuccessModal, { onAfterHide: enterDashboard });
+        showTransientModal(loginSuccessModal, { onAfterHide: enterDashboard });
       } catch (err) {
         enterDashboard();
       }
@@ -78,13 +63,13 @@ export function createLoginGate({ storageKey, onEnter, appShellSelector, logoutS
       if (forgotFeedback) {
         forgotFeedback.textContent = "Enter the phone number you used to create an account. A recovery code will be sent to this number.";
       }
-      window.Modals?.open(forgotModal);
+      openModal(forgotModal);
     });
 
     forgotForm?.addEventListener("submit", (event) => {
       event.preventDefault();
       if (forgotFeedback) forgotFeedback.textContent = "Reset instructions are ready for the registered contact.";
-      window.setTimeout(() => window.Modals?.close(forgotModal), 650);
+      window.setTimeout(() => closeModal(forgotModal), 650);
     });
 
     logoutSelectors.forEach((sel) => {

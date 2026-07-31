@@ -1,0 +1,137 @@
+- generic [ref=e36]:
+  - complementary "Teacher navigation" [ref=e37]:
+    - generic "ESOMA Academy" [ref=e38]:
+      - img "ESOMA Academy" [ref=e39]
+    - button "Collapse sidebar" [expanded] [ref=e40] [cursor=pointer]
+    - navigation "Teacher sections" [ref=e43]:
+      - button "Dashboard" [ref=e44] [cursor=pointer]
+      - button "Students" [active] [ref=e52] [cursor=pointer]
+      - button "Assignments" [ref=e60] [cursor=pointer]
+    - generic [ref=e66]:
+      - button "Switch to Admin" [ref=e67] [cursor=pointer]
+      - button "Log Out" [ref=e73] [cursor=pointer]
+  - main "Teacher portal content" [ref=e79]:
+    - button "Back" [ref=e158] [cursor=pointer]
+    - generic [ref=e82]:
+      - button "Dashboard" [ref=e162] [cursor=pointer]
+      - generic [ref=e163]: /
+      - generic [ref=e164]: Students
+    - region "Teacher students" [ref=e165]:
+      - generic "Student overview" [ref=e166]:
+        - article [ref=e167]:
+          - generic [ref=e168]: Total Students
+          - strong [ref=e169]: "33"
+          - emphasis [ref=e170]: current view
+        - article [ref=e171]:
+          - generic [ref=e172]: Active
+          - strong [ref=e173]: "26"
+          - emphasis [ref=e174]: active students
+        - article [ref=e175]:
+          - generic [ref=e176]: Pending
+          - strong [ref=e177]: "7"
+          - emphasis [ref=e178]: invite not accepted
+      - generic "Class filters" [ref=e180]:
+        - button "All Classes" [ref=e181] [cursor=pointer]
+        - button "PP1" [ref=e183] [cursor=pointer]
+        - button "PP2" [ref=e186] [cursor=pointer]
+        - button "Grade 1" [ref=e189] [cursor=pointer]
+        - button "Grade 2" [ref=e192] [cursor=pointer]
+        - button "Grade 3" [ref=e195] [cursor=pointer]
+        - button "Grade 4" [ref=e198] [cursor=pointer]
+        - button "Grade 5" [ref=e201] [cursor=pointer]
+        - button "Grade 6" [ref=e204] [cursor=pointer]
+        - button "Grade 7" [ref=e207] [cursor=pointer]
+        - button "Grade 8" [ref=e210] [cursor=pointer]
+        - button "Grade 9" [ref=e213] [cursor=pointer]
+      - searchbox [ref=e220]
+      - table [ref=e222]:
+        - rowgroup [ref=e223]:
+          - row [ref=e224]:
+            - columnheader "Name" [ref=e225]
+            - columnheader "Status" [ref=e226]
+            - columnheader "Class" [ref=e227]
+            - columnheader "Invite" [ref=e228]
+            - columnheader "Actions" [ref=e229]
+        - rowgroup [ref=e230]:
+          - row [ref=e231]:
+            - cell [ref=e232]:
+              - button [ref=e233] [cursor=pointer]:
+                - strong [ref=e235]: Baraka Otieno
+            - cell "Active" [ref=e236]
+            - cell "PP2 North East" [ref=e238]
+            - cell "Accepted" [ref=e239]
+            - cell [ref=e241]:
+              - button "View Baraka Otieno's profile" [ref=e242] [cursor=pointer]
+          - row [ref=e244]:
+            - cell [ref=e245]:
+              - button [ref=e246] [cursor=pointer]:
+                - strong [ref=e248]: Zawadi Achieng
+            - cell "Active" [ref=e249]
+            - cell "PP2 North East" [ref=e251]
+            - cell "Accepted" [ref=e252]
+            - cell [ref=e254]:
+              - button "View Zawadi Achieng's profile" [ref=e255] [cursor=pointer]
+          - row [ref=e257]:
+            - cell [ref=e258]:
+              - button [ref=e259] [cursor=pointer]:
+                - strong [ref=e261]: Imani Wanjiru
+            - cell "Pending" [ref=e262]
+            - cell "PP2 North East" [ref=e264]
+            - cell "Pending" [ref=e265]
+            - cell [ref=e267]:
+              - button "View Imani Wanjiru's profile" [ref=e268] [cursor=pointer]
+          - row [ref=e270]:
+            - cell [ref=e271]:
+              - button [ref=e272] [cursor=pointer]:
+                - strong [ref=e274]: Jayden Kiprono
+            - cell "Active" [ref=e275]
+            - cell "PP2 North East" [ref=e277]
+            - cell "Accepted" [ref=e278]
+            - cell [ref=e280]:
+              - button "View Jayden Kiprono's profile" [ref=e281] [cursor=pointer]
+          - row [ref=e283]:
+            - cell [ref=e284]:
+              - button [ref=e285] [cursor=pointer]:
+                - strong [ref=e287]: Neema Mwikali
+            - cell "Active" [ref=e288]
+            - cell "PP2 North East" [ref=e290]
+            - cell "Accepted" [ref=e291]
+            - cell [ref=e293]:
+              - button "View Neema Mwikali's profile" [ref=e294] [cursor=pointer]
+          - row [ref=e296]:
+            - cell [ref=e297]:
+              - button [ref=e298] [cursor=pointer]:
+                - strong [ref=e300]: Tevin Omondi
+            - cell "Pending" [ref=e301]
+            - cell "PP2 North East" [ref=e303]
+            - cell "Pending" [ref=e304]
+            - cell [ref=e306]:
+              - button "View Tevin Omondi's profile" [ref=e307] [cursor=pointer]
+          - row [ref=e309]:
+            - cell [ref=e310]:
+              - button [ref=e311] [cursor=pointer]:
+                - strong [ref=e313]: Brian Kiptoo
+            - cell "Active" [ref=e314]
+            - cell "Grade 8 South" [ref=e316]
+            - cell "Accepted" [ref=e317]
+            - cell [ref=e319]:
+              - button "View Brian Kiptoo's profile" [ref=e320] [cursor=pointer]
+          - row [ref=e322]:
+            - cell [ref=e323]:
+              - button [ref=e324] [cursor=pointer]:
+                - strong [ref=e326]: Faith Atieno
+            - cell "Active" [ref=e327]
+            - cell "Grade 8 South" [ref=e329]
+            - cell "Accepted" [ref=e330]
+            - cell [ref=e332]:
+              - button "View Faith Atieno's profile" [ref=e333] [cursor=pointer]
+      - generic [ref=e335]:
+        - generic [ref=e336]: 1- 8 of 33
+        - generic [ref=e337]:
+          - button "Previous page" [disabled] [ref=e338]: ‹
+          - button "1" [ref=e339]
+          - button "2" [ref=e340] [cursor=pointer]
+          - generic [ref=e341]: …
+          - button "5" [ref=e342] [cursor=pointer]
+          - button "Next page" [ref=e343] [cursor=pointer]: ›
+    - text: ⇅ ⇅ ⇅

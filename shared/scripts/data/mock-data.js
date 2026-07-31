@@ -1,3 +1,5 @@
+import { firstName } from "../utils/string-utils.js";
+
 const icon = (fileName) =>
   new URL(`../assets/images/${fileName}`, import.meta.url).href;
 
@@ -14,7 +16,6 @@ export const teachers = [
       { id: 5103, subjectId: "MAT", classId: 10, role: "Co-Teacher" },
       { id: 5104, subjectId: "MAT", classId: 9, role: "Assistant" },
       { id: 5105, subjectId: "SCI", classId: 11, role: "Main" },
-      { id: 5106, subjectId: "SCI", classId: 3, role: "Main" },
       { id: 5107, subjectId: "SCI", classId: 8, role: "Assistant" },
       { id: 5108, subjectId: "ENG", classId: 3, role: "Assistant" },
       { id: 5109, subjectId: "ENG", classId: 4, role: "Main" },
@@ -25,17 +26,14 @@ export const teachers = [
       { id: 5114, subjectId: "CRE", classId: 6, role: "Main" },
       { id: 5115, subjectId: "ART", classId: 3, role: "Assistant" },
       { id: 5116, subjectId: "ART", classId: 7, role: "Main" },
-      { id: 5117, subjectId: "ENV", classId: 12, role: "Main" },
       { id: 5118, subjectId: "ENV", classId: 13, role: "Co-Teacher" },
       { id: 5119, subjectId: "COMP", classId: 12, role: "Main" },
       { id: 5120, subjectId: "COMP", classId: 11, role: "Co-Teacher" },
       { id: 5121, subjectId: "SS", classId: 11, role: "Main" },
       { id: 5122, subjectId: "SS", classId: 12, role: "Assistant" },
-      { id: 5123, subjectId: "INT", classId: 3, role: "Main" },
       { id: 5124, subjectId: "AGRI", classId: 12, role: "Main" },
-      { id: 5125, subjectId: "AGRI", classId: 3, role: "Co-Teacher" },
-      { id: 5126, subjectId: "PTECH", classId: 11, role: "Main" },
-      { id: 5127, subjectId: "IRE", classId: 3, role: "Assistant" }
+      { id: 5126, subjectId: "PTECH", classId: 11, role: "Main" }
+      
     ]
 
   },
@@ -47,18 +45,13 @@ export const teachers = [
     email: "jane@esoma.com",
 
     assignments: [
-      {
-        id: 5008,
-        subjectId: "ENG",
-        classId: 10,
-        role: "Main"
-      },
-      {
-        id: 5009,
-        subjectId: "LIT",
-        classId: 9,
-        role: "Co-Teacher"
-      }
+      { id: 5008, subjectId: "ENG", classId: 10, role: "Main"},
+      { id: 5009, subjectId: "ENG", classId: 9, role: "Co-Teacher"},
+      { id: 5201, subjectId: "ENG", classId: 1, role: "Main" },    // PP1 North
+      { id: 5223, subjectId: "ENG", classId: 8, role: "Main" },    // Grade 5 South
+      { id: 5237, subjectId: "AGRI", classId: 11, role: "Main" },  // Grade 8 South
+      { id: 5239, subjectId: "ENG", classId: 11, role: "Main" },   // Grade 8 South
+      { id: 5246, subjectId: "ENG", classId: 13, role: "Main" }    // Grade 1 East
     ]
 
   },
@@ -70,18 +63,13 @@ export const teachers = [
     email: "david@esoma.com",
 
     assignments: [
-      {
-        id: 5010,
-        subjectId: "SCI",
-        classId: 8,
-        role: "Main"
-      },
-      {
-        id: 5011,
-        subjectId: "BIO",
-        classId: 7,
-        role: "Assistant"
-      }
+      { id: 5010, subjectId: "SCI", classId: 8, role: "Main"},
+      { id: 5011, subjectId: "BIO", classId: 12, role: "Assistant"},
+      { id: 5215, subjectId: "AGRI", classId: 7, role: "Main" },   // Grade 4 North
+      { id: 5226, subjectId: "AGRI", classId: 9, role: "Main" },   // Grade 6 West
+      { id: 5235, subjectId: "SCI", classId: 10, role: "Main" },   // Grade 7 Central
+      { id: 5244, subjectId: "SCI", classId: 12, role: "Main" },   // Grade 9 North
+      { id: 5254, subjectId: "SCI", classId: 14, role: "Main" }    // Grade 5 West
     ]
   },
 
@@ -91,18 +79,14 @@ export const teachers = [
     contact: "0733456789",
     email: "sarah@esoma.com",
     assignments: [
-      {
-        id: 5012,
-        subjectId: "SS",
-        classId: 6,
-        role: "Main"
-      },
-      {
-        id: 5013,
-        subjectId: "GEO",
-        classId: 5,
-        role: "Temporary"
-      }
+      { id: 5012, subjectId: "SS", classId: 6, role: "Main"},
+      { id: 5013, subjectId: "MAT", classId: 5, role: "Temporary"},
+      { id: 5202, subjectId: "MAT", classId: 1, role: "Main" },    // PP1 North
+      { id: 5209, subjectId: "MAT", classId: 4, role: "Main" },    // Grade 1 North
+      { id: 5219, subjectId: "MAT", classId: 7, role: "Main" },    // Grade 4 North
+      { id: 5236, subjectId: "SS", classId: 10, role: "Main" },    // Grade 7 Central
+      { id: 5253, subjectId: "MAT", classId: 14, role: "Main" },   // Grade 5 West
+      { id: 5255, subjectId: "SS", classId: 14, role: "Main" }     // Grade 5 West
     ]
 
   },
@@ -113,18 +97,12 @@ export const teachers = [
     contact: "0744567890",
     email: "peter@esoma.com",
     assignments: [
-      {
-        id: 5014,
-        subjectId: "COMP",
-        classId: 12,
-        role: "Main"
-      },
-      {
-        id: 5015,
-        subjectId: "COMP",
-        classId: 11,
-        role: "Co-Teacher"
-      }
+      { id: 5014, subjectId: "COMP", classId: 12, role: "Main"},
+      { id: 5015, subjectId: "COMP", classId: 11, role: "Co-Teacher"},
+      { id: 5220, subjectId: "AGRI", classId: 8, role: "Main" },   // Grade 5 South
+      { id: 5231, subjectId: "AGRI", classId: 10, role: "Main" },  // Grade 7 Central
+      { id: 5240, subjectId: "KIS", classId: 11, role: "Main" },   // Grade 8 South
+      { id: 5249, subjectId: "AGRI", classId: 14, role: "Main" }   // Grade 5 West
     ]
 
   },
@@ -136,18 +114,12 @@ export const teachers = [
     email: "emily@esoma.com",
 
     assignments: [
-      {
-        id: 5016,
-        subjectId: "MAT",
-        classId: 10,
-        role: "Main"
-      },
-      {
-        id: 5017,
-        subjectId: "PHY",
-        classId: 9,
-        role: "Assistant"
-      }
+      { id: 5016, subjectId: "MAT", classId: 10, role: "Main"},
+      { id: 5017, subjectId: "SCI", classId: 9, role: "Assistant"},
+      { id: 5205, subjectId: "MAT", classId: 3, role: "Main" },    // PP2 North East
+      { id: 5214, subjectId: "MAT", classId: 6, role: "Main" },    // Grade 3 East
+      { id: 5224, subjectId: "MAT", classId: 8, role: "Main" },    // Grade 5 South
+      { id: 5248, subjectId: "MAT", classId: 13, role: "Main" }    // Grade 1 East
     ]
 
   },
@@ -159,18 +131,13 @@ export const teachers = [
     email: "joseph@esoma.com",
 
     assignments: [
-      {
-        id: 5018,
-        subjectId: "BIO",
-        classId: 12,
-        role: "Main"
-      },
-      {
-        id: 5019,
-        subjectId: "CHEM",
-        classId: 1,
-        role: "Temporary"
-      }
+      { id: 5018, subjectId: "BIO", classId: 12, role: "Main"},
+      { id: 5019, subjectId: "CRE", classId: 1, role: "Temporary"},
+      { id: 5203, subjectId: "CRE", classId: 3, role: "Main" },    // PP2 North East
+      { id: 5211, subjectId: "CRE", classId: 5, role: "Main" },    // Grade 2 North East
+      { id: 5222, subjectId: "CRE", classId: 8, role: "Main" },    // Grade 5 South
+      { id: 5233, subjectId: "CRE", classId: 10, role: "Main" },   // Grade 7 Central
+      { id: 5250, subjectId: "CRE", classId: 14, role: "Main" }    // Grade 5 West
     ]
 
   },
@@ -183,7 +150,12 @@ export const teachers = [
 
     assignments: [
       { id: 5020, subjectId: "SS", classId: 7, role: "Main" },
-      { id: 5021, subjectId: "GEO", classId: 6, role: "Co-Teacher" }
+      { id: 5021, subjectId: "ENG", classId: 6, role: "Co-Teacher" },
+      { id: 5217, subjectId: "ENG", classId: 7, role: "Main" },    // Grade 4 North
+      { id: 5225, subjectId: "SS", classId: 8, role: "Main" },     // Grade 5 South
+      { id: 5230, subjectId: "SS", classId: 9, role: "Main" },     // Grade 6 West
+      { id: 5243, subjectId: "ENG", classId: 12, role: "Main" },   // Grade 9 North
+      { id: 5251, subjectId: "ENG", classId: 14, role: "Main" }    // Grade 5 West
     ]
 
   },
@@ -196,7 +168,14 @@ export const teachers = [
 
     assignments: [
       { id: 5022, subjectId: "KIS", classId: 8, role: "Main" },
-      { id: 5023, subjectId: "LIT", classId: 5, role: "Assistant" }
+      { id: 5023, subjectId: "KIS", classId: 5, role: "Assistant" },
+      { id: 5204, subjectId: "KIS", classId: 3, role: "Main" },    // PP2 North East
+      { id: 5208, subjectId: "KIS", classId: 4, role: "Main" },    // Grade 1 North
+      { id: 5213, subjectId: "KIS", classId: 6, role: "Main" },    // Grade 3 East
+      { id: 5218, subjectId: "KIS", classId: 7, role: "Main" },    // Grade 4 North
+      { id: 5229, subjectId: "KIS", classId: 9, role: "Main" },    // Grade 6 West
+      { id: 5234, subjectId: "KIS", classId: 10, role: "Main" },   // Grade 7 Central
+      { id: 5247, subjectId: "KIS", classId: 13, role: "Main" }    // Grade 1 East
     ]
 
   },
@@ -209,7 +188,11 @@ export const teachers = [
 
     assignments: [
       { id: 5024, subjectId: "CRE", classId: 13, role: "Main" },
-      { id: 5025, subjectId: "ENV", classId: 1, role: "Temporary" }
+      { id: 5025, subjectId: "ENV", classId: 1, role: "Temporary" },
+      { id: 5207, subjectId: "CRE", classId: 4, role: "Main" },    // Grade 1 North
+      { id: 5216, subjectId: "CRE", classId: 7, role: "Main" },    // Grade 4 North
+      { id: 5228, subjectId: "CRE", classId: 9, role: "Main" },    // Grade 6 West
+      { id: 5242, subjectId: "CRE", classId: 12, role: "Main" }    // Grade 9 North
     ]
 
   },
@@ -222,7 +205,14 @@ export const teachers = [
 
     assignments: [
       { id: 5026, subjectId: "ART", classId: 3, role: "Main" },
-      { id: 5027, subjectId: "PE", classId: 14, role: "Assistant" }
+      { id: 5027, subjectId: "ART", classId: 14, role: "Assistant" },
+      { id: 5200, subjectId: "ART", classId: 1, role: "Main" },    // PP1 North
+      { id: 5206, subjectId: "ART", classId: 4, role: "Main" },    // Grade 1 North
+      { id: 5210, subjectId: "ART", classId: 5, role: "Main" },    // Grade 2 North East
+      { id: 5212, subjectId: "ART", classId: 6, role: "Main" },    // Grade 3 East
+      { id: 5227, subjectId: "ART", classId: 9, role: "Main" },    // Grade 6 West
+      { id: 5238, subjectId: "ART", classId: 11, role: "Main" },   // Grade 8 South
+      { id: 5245, subjectId: "ART", classId: 13, role: "Main" }    // Grade 1 East
     ]
 
   },
@@ -235,7 +225,11 @@ export const teachers = [
 
     assignments: [
       { id: 5028, subjectId: "SCI", classId: 7, role: "Co-Teacher" },
-      { id: 5029, subjectId: "COMP", classId: 11, role: "Main" }
+      { id: 5029, subjectId: "COMP", classId: 11, role: "Main" },
+      { id: 5221, subjectId: "ART", classId: 8, role: "Main" },    // Grade 5 South
+      { id: 5232, subjectId: "ART", classId: 10, role: "Main" },   // Grade 7 Central
+      { id: 5241, subjectId: "ART", classId: 12, role: "Main" },   // Grade 9 North
+      { id: 5252, subjectId: "KIS", classId: 14, role: "Main" }    // Grade 5 West
     ]
 
   }
@@ -285,9 +279,7 @@ const students = [
   { id: 1019, name: "Abel Musyoka",     classId: 12, admissionNo: "EA-2026-G9-006", status: "active",  invite: "Accepted" },
   { id: 1020, name: "Christine Atieno", classId: 12, admissionNo: "EA-2026-G9-007", status: "active",  invite: "Accepted" },
   { id: 1021, name: "John Mwenda",      classId: 12, admissionNo: "EA-2026-G9-008", status: "pending", invite: "Pending"  },
-
   { id: 1022, name: "Sarah Chepkemoi",  classId: 10, admissionNo: "EA-2026-G7-001", status: "active",  invite: "Accepted" },
-
   { id: 1023, name: "Timothy Kamau",    classId: 4,  admissionNo: "EA-2026-G1-001", status: "active",  invite: "Accepted" },
   { id: 1024, name: "Amani Yusuf",      classId: 12, admissionNo: "EA-2026-G9-009", status: "active",  invite: "Accepted" },
   { id: 1025, name: "Nia Joy",          classId: 11, admissionNo: "EA-2026-G8-008", status: "active",  invite: "Accepted" },
@@ -397,7 +389,7 @@ const subjects = [
   },
   {
     id: "ENV",
-    name: "Enviromental Activities",
+    name: "Environmental Activities",
     icon: icon("enviromental_activities.webp"),
     
   },
@@ -421,14 +413,13 @@ const subjects = [
 
   {
     id: "AGRI",
-    name: "Agriculure and Nutrition",
+    name: "Agriculture and Nutrition",
     icon: icon("agriculture.webp"),
 
   },
 
-  // secondary-school-only subjects — not part of the CBC subject set above,
-  // but referenced by some teachers' assignments, so given display names too
-  { id: "BIO", name: "Biology", icon: icon("science_tech.webp") },
+  
+  { id: "BIO", name: "Biology", icon: icon("science_tech.webp") },//junior high or som'
   { id: "CHEM", name: "Chemistry", icon: icon("science_tech.webp") },
   { id: "PHY", name: "Physics", icon: icon("science_tech.webp") },
   { id: "GEO", name: "Geography", icon: icon("social_studies.webp") },
@@ -436,13 +427,23 @@ const subjects = [
   { id: "PE", name: "Physical Education", icon: icon("creative_arts.webp") },
 ];
 
+// Per-subject base (the class-level tendency for that subject) plus a spread
+// that is seeded per subject AND per student. The offset used to key off the
+// student's array index alone, which was the same number in every subject —
+// so every learner's subject ranking came out identical and Creative Arts read
+// as the "strongest learning area" for all 33 of them. Seeding per pair gives
+// each learner a real strength profile while keeping the subject bases intact.
 function makeScores(subjectId, base = 68) {
-  return students.map((student, index) => ({
-    studentId: student.id,
-    subjectId,
-    latestScore: Math.min(98, Math.max(35, base + ((index % 5) - 2) * 6)),
-    trend: index % 3 === 0 ? "Improving" : index % 3 === 1 ? "Steady" : "Needs support",
-  }));
+  return students.map((student) => {
+    const spread = (hash(`score:${subjectId}:${student.id}`) % 5) - 2;
+    const trendSeed = hash(`trend:${subjectId}:${student.id}`) % 3;
+    return {
+      studentId: student.id,
+      subjectId,
+      latestScore: Math.min(98, Math.max(35, base + spread * 6)),
+      trend: trendSeed === 0 ? "Improving" : trendSeed === 1 ? "Steady" : "Needs support",
+    };
+  });
 }
 
 const subjectStudentScores = {
@@ -464,8 +465,7 @@ const subjectStudentScores = {
 
 const strandPerformance = {
   MAT: {
-    // CBC math strand names/complexity genuinely change by grade band — a
-    // PP1 learner and a Grade 9 learner should never see the same
+    // CBC math strand names/complexity genuinely change by grade band — PP1 learner and a Grade 9 learner should never see the same
     // "Mathematics" assignment list.
     "pre-primary": [
       {
@@ -1038,9 +1038,7 @@ const strandPerformance = {
       ],
     },
   ],
-  // Integrated Science (junior secondary, Grade 7-9) — the JSS-level science
-  // subject; had no dedicated strand data before (silently fell back to the
-  // generic FOUNDATION placeholder for every JSS science class).
+  
   INT: [
     {
       name: "LIVING THINGS AND THEIR ENVIRONMENT",
@@ -1125,6 +1123,50 @@ function defaultStrands(subjectId, classId) {
   return entry[band] || entry["upper-primary"] || fallback;
 }
 
+/* ---- assignment dates -------------------------------------------------
+ * Shared by the assignment generator below, the done/pending/overdue
+ * categorization, and the due-soon notifications at the bottom of this
+ * file, so all three read one set of dates instead of each re-deriving
+ * its own. */
+
+function addDays(date, days) {
+  const d = date instanceof Date
+    ? new Date(date.getTime())
+    : new Date(String(date).replace(" ", "T"));
+  d.setDate(d.getDate() + days);
+  return d;
+}
+
+function toDateOnly(d) {
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+}
+
+function toDateStamp(d) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+
+const ASSIGNMENT_DUE_DAYS = 7;//only for testing you should change it for the intergration
+
+const DEPLOY_ANCHOR = "2026-06-09 09:30:00";
+const DEPLOY_SPREAD_WEEKS = 8;
+
+function deployedAt(assignmentId, strandIndex, subIndex) {
+  const dayInWeek = (strandIndex + subIndex) % 7;
+  const weeksBack = hash(`week:${assignmentId}`) % DEPLOY_SPREAD_WEEKS;
+  return `${toDateStamp(addDays(DEPLOY_ANCHOR, -(dayInWeek + 7 * weeksBack)))} 09:30:00`;
+}
+
+function dueDaysFor(assignmentId) {
+  return ASSIGNMENT_DUE_DAYS - 5 + (hash(`due:${assignmentId}`) % 11); // 2..12 days
+}
+
+export const MOCK_TODAY = toDateOnly(new Date(DEPLOY_ANCHOR.replace(" ", "T")));
+
+export function isPastDue(assignment) {
+  if (!assignment?.due) return false;
+  return toDateOnly(new Date(String(assignment.due).replace(" ", "T"))).getTime() < MOCK_TODAY.getTime();
+}
+
 function buildAssignments(subjectId, classId) {
   const strands = defaultStrands(subjectId, classId);
   const rows = [];
@@ -1132,12 +1174,18 @@ function buildAssignments(subjectId, classId) {
   strands.forEach((strand, strandIndex) => {
     strand.subStrands.forEach((sub, subIndex) => {
       if (!sub.count) return;
+      const id = `${subjectId}-${classId}-${strandIndex}-${subIndex}`;
+      const deployed = deployedAt(id, strandIndex, subIndex);
       rows.push({
-        id: `${subjectId}-${classId}-${strandIndex}-${subIndex}`,
+        id,
         name: `${sub.name} Practice ${subIndex + 1}`,
         strand: `${strand.name} - ${sub.name}`,
         strandName: strand.name,
-        deployed: `2026-06-${String(9 - ((strandIndex + subIndex) % 7)).padStart(2, "0")} 09:30:00`,
+        deployed,
+        // this is what decides whether unsubmitted work is pending or overdue.
+        due: `${toDateStamp(addDays(deployed, dueDaysFor(id)))} 23:59:00`,
+        // the actual teacher who set it, from the same subject+class 
+        setBy: teacherForClassSubject(subjectId, classId),
         status: sub.completion >= 70 ? "Active" : "Needs Review",
         completed: Math.round((sub.completion / 100) * 28),
         total: 28,
@@ -1149,16 +1197,58 @@ function buildAssignments(subjectId, classId) {
   return rows;
 }
 
+const assignmentsBySubjectClass = new Map();
+function assignmentsFor(subjectId, classId) {
+  const key = `${subjectId}::${classId}`;
+  if (!assignmentsBySubjectClass.has(key)) {
+    assignmentsBySubjectClass.set(key, buildAssignments(subjectId, classId));
+  }
+  return assignmentsBySubjectClass.get(key);
+}
+
+// generator input only
+function subjectAbility(sharedSubjectId, studentId) {
+  const entry = (subjectStudentScores[sharedSubjectId] || []).find((s) => s.studentId === studentId);
+  return entry ? entry.latestScore : 0;
+}
+
+const subjectAverageCache = new Map();
+export function getStudentSubjectAverage(studentId, sharedSubjectId) {
+  const key = `${sharedSubjectId}::${studentId}`;
+  if (subjectAverageCache.has(key)) return subjectAverageCache.get(key);
+
+  const student = students.find((s) => s.id === studentId);
+  let total = 0;
+  let count = 0;
+  if (student && student.status !== "pending") {
+    assignmentsFor(sharedSubjectId, student.classId).forEach((assignment) => {
+      const { score } = getStudentAssignmentScore(studentId, sharedSubjectId, assignment, false);
+      if (score == null) return;
+      total += score;
+      count += 1;
+    });
+  }
+
+  const average = count ? Math.round(total / count) : null;
+  subjectAverageCache.set(key, average);
+  return average;
+}
+
 function buildClassData(subjectId, classId) {
   const classStudents = students.filter((s) => Number(s.classId) === Number(classId));
   const selectedStudents = classStudents.length ? classStudents : students.slice(0, 6);
-  const scores = (subjectStudentScores[subjectId] || makeScores(subjectId, 70)).filter((score) =>
+  const abilities = (subjectStudentScores[subjectId] || makeScores(subjectId, 70)).filter((score) =>
     selectedStudents.some((student) => student.id === score.studentId)
   );
   const strands = defaultStrands(subjectId, classId);
-  const assignments = buildAssignments(subjectId, classId);
-  const average = scores.length
-    ? Math.round(scores.reduce((sum, score) => sum + score.latestScore, 0) / scores.length)
+  const assignments = assignmentsFor(subjectId, classId);
+
+  // real marked results, not the generator's ability figure as before, yeah the one in admin and teacher 
+  const marks = selectedStudents
+    .map((student) => getStudentSubjectAverage(student.id, subjectId))
+    .filter((value) => value != null);
+  const average = marks.length
+    ? Math.round(marks.reduce((sum, value) => sum + value, 0) / marks.length)
     : 0;
   const completion = assignments.length
     ? Math.round(assignments.reduce((sum, assignment) => sum + (assignment.completed / assignment.total) * 100, 0) / assignments.length)
@@ -1174,8 +1264,8 @@ function buildClassData(subjectId, classId) {
     },
     students: selectedStudents.map((student) => ({
       ...student,
-      score: scores.find((score) => score.studentId === student.id)?.latestScore ?? null,
-      trend: scores.find((score) => score.studentId === student.id)?.trend ?? "No data",
+      score: getStudentSubjectAverage(student.id, subjectId),
+      trend: abilities.find((entry) => entry.studentId === student.id)?.trend ?? "No data",
     })),
     performance: {
       title: "Performance Overview for the Last 6 Months",
@@ -1217,18 +1307,6 @@ export function getClassMock(subjectId, classId) {
 
 export const classMock = getClassMock("MAT", 12);
 
-/* =========================================================================
- * Everything below derives admin- and parent-facing views from the exact
- * same teachers/classes/students/subjectStudentScores records above. This
- * is the one mock-data file for all three portals — admin, teacher, and
- * parent all import directly from here, so the same student always shows
- * the same name/class/scores everywhere.
- * ========================================================================= */
-
-/* ---- shared helpers for the admin & parent views below ---- */
-
-// admin/parent chart codes → canonical subject ids (CAS is "Creative Arts
-// and Sports" = ART in the subject list above)
 const SUBJECT_CODE_TO_SHARED = {
   MAT: "MAT",
   ENG: "ENG",
@@ -1240,11 +1318,6 @@ const SUBJECT_CODE_TO_SHARED = {
   AGRI: "AGRI"
 };
 
-// real CBC subject offering per grade band — pre-primary/lower-primary
-// don't split Science/Social Studies/Agriculture out as separate subjects
-// yet (that happens from upper primary onward), so a PP1/PP2/Grade1-3
-// learner genuinely has fewer subjects than a Grade4+ learner, not the
-// same fixed 8 for everyone regardless of grade.
 const SUBJECT_OFFERING_BY_BAND = {
   "pre-primary": ["MAT", "ENG", "KIS", "CAS", "CRE"],
   "lower-primary": ["MAT", "ENG", "KIS", "CAS", "CRE"],
@@ -1252,9 +1325,7 @@ const SUBJECT_OFFERING_BY_BAND = {
   "junior-secondary": ["MAT", "ENG", "KIS", "CAS", "CRE", "SS", "SCI", "AGRI"],
 };
 
-// the 8-code subject list a given class's grade band actually offers — used
-// by admin/teacher/parent alike so a student's chart/legend never shows a
-// subject their grade doesn't take.
+// a student's chart/legend never shows a subject their grade doesn't take.
 export function getOfferedSubjectCodesForClass(classId) {
   return SUBJECT_OFFERING_BY_BAND[gradeBandForClass(classId)] || Object.keys(SUBJECT_CODE_TO_SHARED);
 }
@@ -1267,26 +1338,9 @@ function subjectNameById(subjectId) {
   return subjects.find((s) => s.id === subjectId)?.name || subjectId;
 }
 
-function scoreFor(sharedSubjectId, studentId) {
-  const entry = (subjectStudentScores[sharedSubjectId] || []).find((s) => s.studentId === studentId);
-  return entry ? entry.latestScore : 0;
-}
-
 export function hash(value) {
   return String(value).split("").reduce((sum, ch) => (sum * 31 + ch.charCodeAt(0)) >>> 0, 7);
 }
-
-function firstName(name) {
-  return String(name || "").trim().split(/\s+/)[0] || name;
-}
-
-/* ---- one shared assignment-status computation for all three portals ----
- * admin's student rows, parent's kid cards, and teacher's student profile
- * all need a "done/retake/pending/ongoing/overdue" breakdown for the same
- * student. Previously each portal invented its own numbers (admin: a fake
- * hash-based generator, parent: hand-typed constants, teacher: a real
- * per-assignment tally) — for the same student these could never agree.
- * This is the one real computation; every portal reads it. */
 
 export function subjectIdsForClass(classId) {
   const ids = new Set();
@@ -1296,12 +1350,13 @@ export function subjectIdsForClass(classId) {
   return [...ids];
 }
 
+
 export function categorizeAssignment(seed, assignment, isPending) {
-  if (isPending) return seed % 3 === 0 ? "overdue" : "pending";
+  const notSubmitted = isPastDue(assignment) ? "overdue" : "pending";
+  if (isPending) return notSubmitted;
   if (assignment.status === "Needs Review" && seed % 2 === 0) return "retake";
   const m = seed % 10;
-  if (m === 0) return "overdue";
-  if (m === 1) return "pending";
+  if (m === 0 || m === 1) return notSubmitted;
   if (m === 2) return "ongoing";
   if (m === 3) return "retake";
   return "done";
@@ -1329,24 +1384,19 @@ function clampAssignmentScore(n) {
   return Math.max(35, Math.min(99, Math.round(n)));
 }
 
-// this student's real result on one real assignment — same hash-seeded
-// category/variance approach teacher's student-profile page already used
-// (now the one shared version of it, so anything aggregating per-assignment
-// scores agrees with the assignment table teacher/parent already show).
+
 export function getStudentAssignmentScore(studentId, subjectId, assignment, isPending) {
   const seed = hash(`${studentId}:${assignment.id}`);
   const category = categorizeAssignment(seed, assignment, isPending);
   const attempted = category === "done" || category === "retake" || category === "ongoing";
   const isScored = category === "done" || category === "retake";
-  const base = scoreFor(subjectId, studentId);
+  const base = subjectAbility(subjectId, studentId);
   const variance = (seed % 13) - 6;
   const score = isScored && base != null ? clampAssignmentScore(base + variance) : null;
   return { category, attempted, score };
 }
 
-// A dated, per-assignment source for scoped analytics. Consumers can supply
-// YYYY-MM-DD bounds to calculate a month, term, or academic-year view from
-// the same assignments used by the rest of the portal.
+// users can supply YYYY-MM-DD bounds to calculate a month, term, or academic-year 
 export function getStudentAssignmentRecords(studentId, { start, end } = {}) {
   const student = students.find((s) => s.id === studentId);
   if (!student || student.status === "pending") return [];
@@ -1368,6 +1418,9 @@ export function getStudentAssignmentRecords(studentId, { start, end } = {}) {
           .toLowerCase()
           .replace(/\b\w/g, (character) => character.toUpperCase()),
         date,
+        due: String(assignment.due || "").slice(0, 10),
+        setBy: assignment.setBy,
+        pastDue: isPastDue(assignment),
         category,
         attempted,
         score,
@@ -1378,22 +1431,11 @@ export function getStudentAssignmentRecords(studentId, { start, end } = {}) {
   return records.sort((a, b) => a.date.localeCompare(b.date));
 }
 
-// per-student, per-strand averages (e.g. within Mathematics: Numbers vs
-// Measurement vs Geometry) — aggregated from real per-assignment scores
-// across every subject the student's class actually covers, not a
-// subject-level approximation. Sorted ascending by average (weakest first).
-// Also carries a real completion rate per strand (scored assignments over
-// total assignments seen in that strand).
 export function getStudentStrandAverages(studentId) {
   const student = students.find((s) => s.id === studentId);
   if (!student || student.status === "pending") return [];
 
-  // keyed by subject+strand so an entry can report both, not just a bare
-  // strand name — the same strand name can exist under different subjects.
-  // Also tallies each assignment's own baked-in class average as a fallback
-  // so a subject the student hasn't personally attempted yet (all seeded
-  // categories landed on pending/ongoing/overdue) still gets a real strand
-  // entry instead of silently vanishing from the breakdown.
+ 
   const totals = {};
   subjectIdsForClass(student.classId).forEach((subjectId) => {
     const classData = getClassMock(subjectId, student.classId);
@@ -1435,17 +1477,10 @@ export function getStudentStrandBreakdown(studentId) {
   const entries = getStudentStrandAverages(studentId);
   if (!entries.length) return { weakAreas: [] };
 
-  // every strand+subject combo under 70% is a real weak area — list all of
-  // them (capped so the card doesn't run away), or fall back to the single
-  // lowest one so there's always something to show.
   const weakAreas = entries.filter((e) => e.average < 70).slice(0, 3);
   return { weakAreas: weakAreas.length ? weakAreas : [entries[0]] };
 }
 
-// real calendar dates the student was actually engaged on — every
-// assignment whose category is done/retake/ongoing (i.e. attempted) using
-// its own real `deployed` date. Used to compute genuine active-day counts
-// and streaks instead of an invented number.
 export function getStudentActivityDates(studentId) {
   const student = students.find((s) => s.id === studentId);
   if (!student || student.status === "pending") return [];
@@ -1464,10 +1499,6 @@ export function getStudentActivityDates(studentId) {
   return [...dates].sort();
 }
 
-// real scored-assignment history (date + score) across every subject the
-// student's class covers, sorted oldest-first — used to detect a genuine
-// improving/declining/stable trend from actual recent scores rather than
-// an invented "last 6 assessments" figure.
 export function getStudentScoreHistory(studentId) {
   const student = students.find((s) => s.id === studentId);
   if (!student || student.status === "pending") return [];
@@ -1486,11 +1517,7 @@ export function getStudentScoreHistory(studentId) {
   return history;
 }
 
-/* =========================================================================
- * Admin-facing views — row/object shapes legacy.js and admin's ui/ modules
- * consume. Presentation-only constants (filters, themes, hero images,
- * subject labels) have no canonical equivalent and live only here.
- * ========================================================================= */
+/* admin facing views row/object shapes legacy.js and admin's ui/ modules presentation-only constants (filters, themes, hero images, subject labels)*/
 
 export const filters = [
   "All Classes",
@@ -1547,18 +1574,8 @@ export const subjectLabels = {
   AGRI: "AGRICULTURE AND NUTRITION"
 };
 
-// derived from the canonical subject list above (was hand-typed and had
-// drifted: wrong spellings vs. the real records, a "History" subject that
-// doesn't exist anywhere, and two missing real subjects).
 export const subjectOptions = subjects.map((s) => s.name);
 
-// one shared performance computation for a student — scores/classAverage
-// (per the 8 core subject codes admin/parent both chart), the overall
-// average, "engagement" (share of real assignments actively worked vs
-// sitting untouched, from the same getAssignmentSummary() everything else
-// uses), and the strongest-subject code. Admin, parent, and teacher's
-// "overall" (non teacher-scoped) metrics all read this same computation so
-// the same student shows the same numbers everywhere.
 export function getStudentPerformanceProfile(studentId) {
   const student = students.find((s) => s.id === studentId);
   const scores = {};
@@ -1572,15 +1589,15 @@ export function getStudentPerformanceProfile(studentId) {
     (s) => Number(s.classId) === Number(student.classId) && s.status !== "pending"
   );
 
-  // only the subjects this student's grade band actually offers — a PP1
-  // learner and a Grade 9 learner don't take the same subjects.
   const offeredCodes = SUBJECT_OFFERING_BY_BAND[gradeBandForClass(student.classId)]
     || Object.keys(SUBJECT_CODE_TO_SHARED);
 
   offeredCodes.forEach((code) => {
     const sharedId = SUBJECT_CODE_TO_SHARED[code];
-    scores[code] = isPending ? 0 : scoreFor(sharedId, studentId);
-    const values = classmates.map((mate) => scoreFor(sharedId, mate.id)).filter((v) => v > 0);
+    scores[code] = isPending ? 0 : (getStudentSubjectAverage(studentId, sharedId) ?? 0);
+    const values = classmates
+      .map((mate) => getStudentSubjectAverage(mate.id, sharedId))
+      .filter((v) => v != null && v > 0);
     classAverage[code] = values.length
       ? Math.round(values.reduce((sum, v) => sum + v, 0) / values.length)
       : 0;
@@ -1604,9 +1621,6 @@ export function getStudentPerformanceProfile(studentId) {
   const totalAssignments = summary.done + summary.retake + summary.pending + summary.ongoing + summary.overdue;
   const activeAssignments = summary.done + summary.retake + summary.ongoing;
   const engagement = totalAssignments ? `${Math.round((activeAssignments / totalAssignments) * 100)}%` : "-";
-
-  // full canonical subject name for consumers that don't use the 8-code
-  // admin/parent convention directly (e.g. teacher's own subject list)
   const bestSubjectName = bestSubjectCode
     ? subjectNameById(SUBJECT_CODE_TO_SHARED[bestSubjectCode])
     : null;
@@ -1614,10 +1628,6 @@ export function getStudentPerformanceProfile(studentId) {
   return { scores, classAverage, average, engagement, bestSubjectCode, bestSubjectName };
 }
 
-// per-subject breakdown (name, average, class average, rank) for the same 8
-// codes getStudentPerformanceProfile already scores — no separate scoring
-// logic, just decorated + ranked for consumers that need a subject list
-// rather than a code-keyed map (e.g. the insights engine).
 export function getStudentSubjectBreakdown(studentId) {
   const profile = getStudentPerformanceProfile(studentId);
   const rows = Object.entries(profile.scores)
@@ -1664,8 +1674,6 @@ function buildStudentRow(student) {
 
 export const studentRows = students.map(buildStudentRow);
 
-// Every row is derived live from the canonical teacher records above, so it
-// can never drift out of sync with what the teacher app itself shows.
 export const teacherRows = teachers.flatMap((teacher) =>
   (teacher.assignments || []).map((a) => [
     teacher.name,
@@ -1690,12 +1698,7 @@ export const teacherDirectory = teachers.map((teacher) => ({
   }))
 }));
 
-/* =========================================================================
- * Parent-facing views — Kevin Kamau's seven children (ids 1023, 1027-1033)
- * are canonical students above. Presentation-only bits with no canonical
- * equivalent (avatar art, plan/license countdown, per-kid assignment-status
- * counters, notification copy) live only here.
- * ========================================================================= */
+/* parents facing views :::mole-Kevin Kamau's seven children (ids 1023, 1027-1033)*/
 
 const parentSchool = { name: "Esoma School", town: "Thika" };
 
@@ -1713,11 +1716,8 @@ export const avatarThemes = {
   elephant:{ c1: "#ccd8e6", c2: "#e9eef5", soft: "#e9eef5", ink: "#33455c", accent: "#6b7a8d" },
 };
 
-// presentation-only decoration with no canonical equivalent, keyed by the
-// canonical student id — identity (name/class/grade) and assignment counts
-// (done/ongoing/pending/retakes) are derived live below instead, from the
-// same getAssignmentSummary() admin and teacher use for the same student.
-const KID_DECORATION = {
+// presentation only decoration
+const PARENT_STUDENT_DECORATION = {
   1023: { gender: "NONE",    avatar: "buffalo",  plan: "Monthly", daysLeft: 158 },
   1027: { gender: "FEMALE",  avatar: "0",        plan: "Monthly", daysLeft: 158 },
   1028: { gender: "MALE",    avatar: "0",        plan: "Monthly", daysLeft: 158 },
@@ -1728,9 +1728,8 @@ const KID_DECORATION = {
   1033: { gender: "FEMALE",  avatar: "lion",     plan: "Monthly", daysLeft: -3 },
 };
 
-// stream words in use today are compass directions, but the code is written
-// generically enough to also cover color-named streams if any class is ever
-// named that way (Blue/Yellow reserved below even though unused right now).
+// stream words in use for now are compass directions, but the code is written generically enough to also cover color named streams if any class is ever
+// named that way (Blue/Yellow reserved below even though unused right now) ama any other stream name eg continents,shapes....
 const STREAM_LETTERS = {
   North: "North",
   South: "South",
@@ -1754,7 +1753,7 @@ function gradeCodeById(classId) {
   return classItem ? streamCode(classItem) : "";
 }
 
-export const kids = Object.keys(KID_DECORATION).map((idKey) => {
+export const parentStudents = Object.keys(PARENT_STUDENT_DECORATION).map((idKey) => {
   const id = Number(idKey);
   const student = students.find((item) => item.id === id);
   const summary = getAssignmentSummary(id);
@@ -1769,17 +1768,16 @@ export const kids = Object.keys(KID_DECORATION).map((idKey) => {
     ongoing: summary.ongoing,
     pending: summary.pending,
     retakes: summary.retake,
-    ...KID_DECORATION[id],
+    ...PARENT_STUDENT_DECORATION[id],
   };
 });
 
-// parent-reported question-issue notifications (admin review flow) — a
-// separate concern from the assignment-deployed/due-soon ones built after
+// parent reported question issue notifications (admin review flow) , a separate concern from the assignment-deployed/due-soon ones built after
 // reports below, merged together into the one exported `notifications`.
 const reportIssueNotifications = [
   {
     id: "n1",
-    kidId: 1023,
+    studentId: 1023,
     question: "Mathematics - Fractions Practice 2, Q3",
     status: "Resolved",
     message: "Admin reviewed your report: the question had a wrong answer key. It has been corrected and Timothy's score updated.",
@@ -1788,7 +1786,7 @@ const reportIssueNotifications = [
   },
   {
     id: "n2",
-    kidId: 1029,
+    studentId: 1029,
     question: "English - Comprehension Set 1, Q7",
     status: "Under Review",
     message: "Your report was received and the admin is reviewing the question.",
@@ -1797,7 +1795,7 @@ const reportIssueNotifications = [
   },
   {
     id: "n3",
-    kidId: 1031,
+    studentId: 1031,
     question: "Environmental Activities - Weather Quiz, Q1",
     status: "Pending",
     message: "Your report has been received and is waiting for an admin to pick it up.",
@@ -1817,8 +1815,7 @@ export const subjectKey = [
   ["SS", "Social Studies"],
 ];
 
-// the real teacher for this subject+class, same lookup admin/teacher already
-// do — a subject can be taught by different teachers in different classes,
+// the real teacher for this subject+class, same lookup admin/teacher already do a subject can be taught by different teachers in different classes,
 // so this must match on classId too, not just subjectId.
 function teacherForClassSubject(sharedSubjectId, classId) {
   for (const teacher of teachers) {
@@ -1831,121 +1828,78 @@ function teacherForClassSubject(sharedSubjectId, classId) {
 }
 
 export const reports = {};
-kids.forEach((kid) => {
-  const studentRecord = students.find((item) => item.id === kid.id);
+parentStudents.forEach((parentStudent) => {
+  const studentRecord = students.find((item) => item.id === parentStudent.id);
   const classId = studentRecord?.classId;
 
-  // this kid's real grade-band subject list — a PP1/lower-primary learner
-  // has fewer subjects than an upper-primary/JSS one, not the same fixed 8
-  // for every kid. subjectKey stays the filter source so display order/
-  // labels stay consistent everywhere else that reads subjectKey.
   const offeredCodes = SUBJECT_OFFERING_BY_BAND[gradeBandForClass(classId)]
     || subjectKey.map(([code]) => code);
-  const kidSubjectKey = subjectKey.filter(([code]) => offeredCodes.includes(code));
-  const subjectCodes = kidSubjectKey.map(([code]) => code);
+  const studentSubjectKey = subjectKey.filter(([code]) => offeredCodes.includes(code));
+  const subjectCodes = studentSubjectKey.map(([code]) => code);
 
-  // same shared computation admin/teacher use for this exact student, so the
-  // chart, average, engagement, and strongest subject all agree everywhere.
-  const profile = getStudentPerformanceProfile(kid.id);
+  // same shared computation admin/teacher use for this exact student, so the chart, average, engagement, and strongest subject 
+  const profile = getStudentPerformanceProfile(parentStudent.id);
   const studentScores = subjectCodes.map((code) => profile.scores[code] || 0);
   const classAvgScores = subjectCodes.map((code) => profile.classAverage[code] || 0);
   const bestIndex = subjectCodes.indexOf(profile.bestSubjectCode);
 
-  // real, class-appropriate assignments — one per subject this kid's class
-  // actually covers, pulled from the same per-class data admin/teacher
-  // already render (real strand-based names, real deploy dates), with a
-  // per-student score variation seeded the same way student-profile.js
-  // does it (no separate/invented randomization scheme). A pending student
-  // hasn't actually attempted anything — score stays null (not a fabricated
-  // percentage) so this can't disagree with their 0% engagement/average.
   const isPendingForAssignments = studentRecord?.status === "pending";
   const assignments = subjectCodes.flatMap((code) => {
     const sharedSubjectId = SUBJECT_CODE_TO_SHARED[code];
     const classData = getClassMock(sharedSubjectId, classId);
     const subjectName = subjectNameById(sharedSubjectId);
     const teacherName = teacherForClassSubject(sharedSubjectId, classId);
-    const base = scoreFor(sharedSubjectId, kid.id) || 60;
 
-    return (classData.assignments || []).slice(0, 1).map((assignment) => {
-      const seed = hash(`${kid.id}:${assignment.id}`);
-      const variance = (seed % 13) - 6;
-      return {
-        title: assignment.name,
-        subject: subjectName,
-        teacher: teacherName,
-        last: assignment.deployed,
-        score: isPendingForAssignments ? null : Math.max(0, Math.min(100, base + variance)),
-      };
-    });
+    
+    return (classData.assignments || []).slice(0, 1).map((assignment) => ({
+      title: assignment.name,
+      subject: subjectName,
+      teacher: teacherName,
+      last: assignment.deployed,
+      due: assignment.due,
+      setBy: assignment.setBy,
+      score: isPendingForAssignments
+        ? null
+        : getStudentAssignmentScore(parentStudent.id, sharedSubjectId, assignment, false).score,
+    }));
   });
 
-  reports[kid.id] = {
+  reports[parentStudent.id] = {
     engagement: profile.engagement,
     average: `${profile.average.toFixed(2)}%`,
-    bestSubject: bestIndex >= 0 ? kidSubjectKey[bestIndex][1] : "-",
+    bestSubject: bestIndex >= 0 ? studentSubjectKey[bestIndex][1] : "-",
     assignments,
     chart: {
-      subjects: kidSubjectKey,
+      subjects: studentSubjectKey,
       student: studentScores,
       classAvg: classAvgScores,
     },
   };
 });
 
-/* =========================================================================
- * Assignment-deployed / due-soon notifications — real data only: which
- * teacher deployed which real assignment for which real kid, and when it's
- * really due. No invented names or dates; everything here traces back to
- * the same teachers/getClassMock data every portal already renders from.
- * ========================================================================= */
-
-function addDays(dateStr, days) {
-  const d = new Date(dateStr.replace(" ", "T"));
-  d.setDate(d.getDate() + days);
-  return d;
-}
-
-function toDateOnly(d) {
-  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
-}
+/* assignment deployed / due soon(expired) notifications ???which teacher deployed which real assignment for which real parentStudent, and when it's
+ * really due. everything here traces back to the same teachers/getClassMock data every portal already renders from */
 
 function formatNotifDate(d) {
   return d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
 }
 
-// how many days a learner gets to complete an assignment after it's posted.
-const ASSIGNMENT_DUE_DAYS = 7;
-
-// "today" in this mock world = the latest real deploy date already present
-// in the data, not a hardcoded guess — stays correct if the underlying
-// dates ever shift.
-let latestDeployMs = -Infinity;
-Object.values(reports).forEach((r) => {
-  r.assignments.forEach((a) => {
-    const t = new Date(a.last.replace(" ", "T")).getTime();
-    if (t > latestDeployMs) latestDeployMs = t;
-  });
-});
-const MOCK_TODAY = toDateOnly(new Date(latestDeployMs));
-const MOCK_TOMORROW = toDateOnly(addDays(`${MOCK_TODAY.getFullYear()}-${String(MOCK_TODAY.getMonth() + 1).padStart(2, "0")}-${String(MOCK_TODAY.getDate()).padStart(2, "0")}`, 1));
+const MOCK_TOMORROW = toDateOnly(addDays(MOCK_TODAY, 1));
 
 const assignmentNotifications = [];
 
-kids.forEach((kid) => {
-  const reportRows = reports[kid.id]?.assignments || [];
+parentStudents.forEach((parentStudent) => {
+  const reportRows = reports[parentStudent.id]?.assignments || [];
   if (!reportRows.length) return;
 
-  const classId = students.find((s) => s.id === kid.id)?.classId;
+  const classId = students.find((s) => s.id === parentStudent.id)?.classId;
   const classTeacherName = classes.find((c) => Number(c.id) === Number(classId))?.classTeacher;
   const offeredCodes = SUBJECT_OFFERING_BY_BAND[gradeBandForClass(classId)] || subjectKey.map(([code]) => code);
-  const kidSubjectKeyForNotifs = subjectKey.filter(([code]) => offeredCodes.includes(code));
+  const studentSubjectKeyForNotifs = subjectKey.filter(([code]) => offeredCodes.includes(code));
 
-  // the single most-recently-deployed real assignment for this kid, across
-  // their real offered subjects — prefer one taught by an actual subject
-  // specialist over the class-teacher fallback when several tie on the same
-  // date, since that's the more meaningful "who deployed this" to name.
   let newest = null;
   reportRows.forEach((row) => {
+    if (!row.due || isPastDue(row)) return;
     const t = new Date(row.last.replace(" ", "T")).getTime();
     const isFallbackTeacher = row.teacher === classTeacherName;
     if (!newest || t > newest._t || (t === newest._t && newest._fallback && !isFallbackTeacher)) {
@@ -1954,34 +1908,34 @@ kids.forEach((kid) => {
   });
 
   if (newest) {
-    const due = addDays(newest.last, ASSIGNMENT_DUE_DAYS);
+    const due = toDateOnly(new Date(String(newest.due).replace(" ", "T")));
     assignmentNotifications.push({
-      id: `assign-new-${kid.id}`,
-      kidId: kid.id,
+      id: `assign-new-${parentStudent.id}`,
+      studentId: parentStudent.id,
       title: "New Assignment",
-      message: `${newest.teacher} added "${newest.title}" (${newest.subject}) for ${kid.name} — due ${formatNotifDate(due)}.`,
+      message: `${newest.teacher} added "${newest.title}" (${newest.subject}) for ${parentStudent.name} — due ${formatNotifDate(due)}.`,
       time: "Today, 09:30",
       read: false,
     });
   }
 
-  // scan every real assignment across this kid's offered subjects (not just
-  // the single most-recent one per subject) for anything due tomorrow.
-  kidSubjectKeyForNotifs.forEach(([code]) => {
+  // scan every real assignment across this parentStudent's offered subjects (not just the single most-recent one per subject) for anything due tomorrow.
+  studentSubjectKeyForNotifs.forEach(([code]) => {
     const sharedSubjectId = SUBJECT_CODE_TO_SHARED[code];
     const classData = getClassMock(sharedSubjectId, classId);
     const subjectName = subjectNameById(sharedSubjectId);
     const teacherName = teacherForClassSubject(sharedSubjectId, classId);
 
     (classData.assignments || []).forEach((assignment) => {
-      const due = toDateOnly(addDays(assignment.deployed, ASSIGNMENT_DUE_DAYS));
+      if (!assignment.due) return;
+      const due = toDateOnly(new Date(String(assignment.due).replace(" ", "T")));
       if (due.getTime() !== MOCK_TOMORROW.getTime()) return;
 
       assignmentNotifications.push({
-        id: `assign-due-${kid.id}-${assignment.id}`,
-        kidId: kid.id,
+        id: `assign-due-${parentStudent.id}-${assignment.id}`,
+        studentId: parentStudent.id,
         title: "Assignment Due Tomorrow",
-        message: `${teacherName}'s "${assignment.name}" (${subjectName}) for ${kid.name} is due tomorrow, ${formatNotifDate(due)}.`,
+        message: `${teacherName}'s "${assignment.name}" (${subjectName}) for ${parentStudent.name} is due tomorrow, ${formatNotifDate(due)}.`,
         time: "Today, 09:30",
         read: false,
       });
@@ -1989,6 +1943,5 @@ kids.forEach((kid) => {
   });
 });
 
-// assignment notifications first (most actionable/time-sensitive), then the
-// parent-reported question-issue ones.
+// assignment notifications first (most actionable/time-sensitive), then the parent-reported question-issue ones
 export const notifications = [...assignmentNotifications, ...reportIssueNotifications];

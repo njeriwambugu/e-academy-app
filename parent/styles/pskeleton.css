@@ -4,13 +4,12 @@
     user-select: none;
 }
 
-/*  what becomes a skeleton block */
 .sk-loading .welcome-pill,
 .sk-loading .stat,
 .sk-loading .segmented,
 .sk-loading .toolbar .search,
-.sk-loading .kid-card,
-.sk-loading .kid-pill,
+.sk-loading .parent-student-card,
+.sk-loading .parent-student-pill,
 .sk-loading .status-key,
 .sk-loading .info-note,
 .sk-loading .table,
@@ -19,9 +18,9 @@
 .sk-loading .notif-item,
 .sk-loading .manage-title-bar,
 .sk-loading .manage-card,
-.sk-loading .kid-detail-hero,
-.sk-loading .kid-detail-actions > *,
-.sk-loading .report-kid-card,
+.sk-loading .student-detail-hero,
+.sk-loading .student-detail-actions > *,
+.sk-loading .report-student-card,
 .sk-loading .report-dots,
 .sk-loading .swipe-hint,
 .sk-loading .chart-card,
@@ -44,8 +43,8 @@
 .sk-loading .stat > *,
 .sk-loading .segmented > *,
 .sk-loading .toolbar .search > *,
-.sk-loading .kid-card > *,
-.sk-loading .kid-pill > *,
+.sk-loading .parent-student-card > *,
+.sk-loading .parent-student-pill > *,
 .sk-loading .status-key > *,
 .sk-loading .info-note > *,
 .sk-loading .table > *,
@@ -54,9 +53,9 @@
 .sk-loading .notif-item > *,
 .sk-loading .manage-title-bar > *,
 .sk-loading .manage-card > *,
-.sk-loading .kid-detail-hero > *,
-.sk-loading .kid-detail-actions > * > *,
-.sk-loading .report-kid-card > *,
+.sk-loading .student-detail-hero > *,
+.sk-loading .student-detail-actions > * > *,
+.sk-loading .report-student-card > *,
 .sk-loading .report-dots > *,
 .sk-loading .chart-card > *,
 .sk-loading .help-card > *,
@@ -67,15 +66,15 @@
 }
 
 
-.sk-loading .kid-card::before,
-.sk-loading .kid-card::after,
-.sk-loading .kid-detail-hero::before,
-.sk-loading .kid-detail-hero::after {
+.sk-loading .parent-student-card::before,
+.sk-loading .parent-student-card::after,
+.sk-loading .student-detail-hero::before,
+.sk-loading .student-detail-hero::after {
     content: none !important;
 }
 
 
-.sk-loading .report-kid-card.active {
+.sk-loading .report-student-card.active {
     outline-color: #d3d9e3 !important;
 }
 
@@ -84,8 +83,8 @@
 .sk-loading .stat::after,
 .sk-loading .segmented::after,
 .sk-loading .toolbar .search::after,
-.sk-loading .kid-card::after,
-.sk-loading .kid-pill::after,
+.sk-loading .parent-student-card::after,
+.sk-loading .parent-student-pill::after,
 .sk-loading .status-key::after,
 .sk-loading .info-note::after,
 .sk-loading .table::after,
@@ -93,9 +92,9 @@
 .sk-loading .notif-item::after,
 .sk-loading .manage-title-bar::after,
 .sk-loading .manage-card::after,
-.sk-loading .kid-detail-hero::after,
-.sk-loading .kid-detail-actions > *::after,
-.sk-loading .report-kid-card::after,
+.sk-loading .student-detail-hero::after,
+.sk-loading .student-detail-actions > *::after,
+.sk-loading .report-student-card::after,
 .sk-loading .chart-card::after,
 .sk-loading .help-card::after,
 .sk-loading .mobile-placeholder-card::after,
@@ -125,35 +124,34 @@
     }
 }
 
-.sk-loading .kid-card:nth-child(2)::after,
-.sk-loading .kid-pill:nth-child(2)::after,
+.sk-loading .parent-student-card:nth-child(2)::after,
+.sk-loading .parent-student-pill:nth-child(2)::after,
 .sk-loading .notif-item:nth-child(2)::after,
-.sk-loading .report-kid-card:nth-child(2)::after,
+.sk-loading .report-student-card:nth-child(2)::after,
 .sk-loading .stat:nth-child(2)::after,
 .sk-loading .help-card:nth-child(2)::after {
     animation-delay: 120ms !important;
 }
 
-.sk-loading .kid-card:nth-child(3)::after,
-.sk-loading .kid-pill:nth-child(3)::after,
+.sk-loading .parent-student-card:nth-child(3)::after,
+.sk-loading .parent-student-pill:nth-child(3)::after,
 .sk-loading .notif-item:nth-child(3)::after,
-.sk-loading .report-kid-card:nth-child(3)::after,
+.sk-loading .report-student-card:nth-child(3)::after,
 .sk-loading .stat:nth-child(3)::after,
 .sk-loading .help-card:nth-child(3)::after {
     animation-delay: 240ms !important;
 }
 
-.sk-loading .kid-card:nth-child(n+4)::after,
-.sk-loading .kid-pill:nth-child(n+4)::after,
+.sk-loading .parent-student-card:nth-child(n+4)::after,
+.sk-loading .parent-student-pill:nth-child(n+4)::after,
 .sk-loading .notif-item:nth-child(n+4)::after,
-.sk-loading .report-kid-card:nth-child(n+4)::after,
+.sk-loading .report-student-card:nth-child(n+4)::after,
 .sk-loading .help-card:nth-child(n+4)::after {
     animation-delay: 360ms !important;
 }
 
-/* shape fidelity tweaks*/
 .sk-loading .welcome-pill,
-.sk-loading .kid-pill,
+.sk-loading .parent-student-pill,
 .sk-loading .breadcrumb-back {
     border-radius: 999px;
 }
@@ -163,7 +161,7 @@
     border-radius: 18px;
 }
 
-.sk-loading .kid-detail-hero {
+.sk-loading .student-detail-hero {
     min-height: 200px;
 }
 

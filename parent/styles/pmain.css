@@ -255,8 +255,7 @@ body {
     letter-spacing: .03em;
 }
 
-/* password fields: reveal/hide eye button sitting inside the input */
-.pw-field {
+.pw-field {/*login form*/
     position: relative;
     display: block;
 }
@@ -402,7 +401,6 @@ body {
     opacity: .55;
 }
 
-/* collapsed rail: keep the photo, drop the text and chevron */
 .parent-app.sidebar-collapsed .sidebar-footer .side-profile>.side-profile-avatar {
     display: grid;
 }
@@ -491,7 +489,7 @@ body {
 }
 
 
-.kid-card-grid {
+.parent-student-card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
     gap: 18px;
@@ -499,14 +497,14 @@ body {
 }
 
 @media (max-width: 640px) {
-    .kid-card-grid {
+    .parent-student-card-grid {
         gap: 14px;
         padding-top: 20px;
     }
 }
 
 
-.kid-card {
+.parent-student-card {
     position: relative;
     isolation: isolate;
     display: flex;
@@ -527,7 +525,7 @@ body {
     transition: transform 200ms cubic-bezier(.2, .9, .3, 1.2), box-shadow 200ms ease, border-color 200ms ease;
 }
 
-.kid-card:hover {
+.parent-student-card:hover {
     transform: translateY(-5px);
     border-color: color-mix(in srgb, var(--kc-accent, #5f7bb1) 45%, #e6eaf2);
     box-shadow:
@@ -538,8 +536,8 @@ body {
         0 38px 70px -20px rgba(31, 39, 72, .28);
 }
 
-/* soft per-kid tint pooling behind the avatar */
-.kid-card::before {
+/* soft per-student tint pooling behind the avatar */
+.parent-student-card::before {
     content: "";
     position: absolute;
     inset: 0 0 auto 0;
@@ -550,7 +548,7 @@ body {
     z-index: -1;
 }
 
-.kid-card::after {
+.parent-student-card::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -568,11 +566,11 @@ body {
     transition: opacity 200ms ease;
 }
 
-.kid-card:hover::after {
+.parent-student-card:hover::after {
     opacity: .2;
 }
 
-.kid-class-pill {
+.parent-student-class-pill {
     align-self: flex-start;
     display: inline-flex;
     align-items: center;
@@ -588,7 +586,7 @@ body {
     letter-spacing: .01em;
 }
 
-.kid-name-row {
+.parent-student-name-row {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -597,7 +595,7 @@ body {
 }
 
 /* long names wrap to a second line instead of chopping off */
-.kid-name {
+.parent-student-name {
     margin: 0;
     min-width: 0;
     color: #1b2440;
@@ -615,27 +613,27 @@ body {
 }
 
 /* the name doubles as a link to the same place the Learn button goes */
-.kid-name-clickable {
+.parent-student-name-clickable {
     cursor: pointer;
     transition: color 160ms ease;
 }
 
-.kid-name-clickable:hover,
-.kid-name-clickable:focus-visible {
+.parent-student-name-clickable:hover,
+.parent-student-name-clickable:focus-visible {
     color: var(--kc-accent, #5f7bb1);
     text-decoration: underline;
     text-underline-offset: 3px;
     outline: 0;
 }
 
-.kid-name-edit img {
+.parent-student-name-edit img {
     width: 16px;
     height: 16px;
     object-fit: contain;
     display: block;
 }
 
-.kid-name-edit {
+.parent-student-name-edit {
     flex: 0 0 auto;
     width: 30px;
     height: 30px;
@@ -648,8 +646,8 @@ body {
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .8), 0 3px 0 rgba(169, 139, 230, .35), 0 8px 16px -6px rgba(96, 66, 143, .3);
 }
 
-.kid-name-edit:hover,
-.kid-name-edit:focus-visible {
+.parent-student-name-edit:hover,
+.parent-student-name-edit:focus-visible {
     background: var(--theme-soft, #efe6ff);
     border-color: 1px solid rgba(169, 139, 230, .5);
     color: #3f2d63;
@@ -659,7 +657,7 @@ body {
 }
 
 
-.kid-avatar {
+.parent-student-avatar {
     position: relative;
     width: 92px;
     height: 92px;
@@ -680,7 +678,7 @@ body {
 }
 
 /* ground shadow under the animal's feet */
-.kid-avatar::after {
+.parent-student-avatar::after {
     content: "";
     position: absolute;
     bottom: 7px;
@@ -693,7 +691,7 @@ body {
     transition: width 220ms ease, opacity 220ms ease;
 }
 
-.kid-avatar img {
+.parent-student-avatar img {
     position: relative;
     z-index: 1;
     width: 86%;
@@ -705,17 +703,17 @@ body {
     transition: transform 220ms cubic-bezier(.2, 1.3, .32, 1);
 }
 
-.kid-card:hover .kid-avatar img {
+.parent-student-card:hover .parent-student-avatar img {
     transform: translateY(-4px) scale(1.06);
 }
 
-.kid-card:hover .kid-avatar::after {
+.parent-student-card:hover .parent-student-avatar::after {
     width: 44%;
     opacity: .7;
 }
 
 
-.kid-chips {
+.parent-student-chips {
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
@@ -723,7 +721,7 @@ body {
     max-width: 100%;
 }
 
-.kid-chip {
+.parent-student-chip {
     display: inline-flex;
     align-items: center;
     gap: 4px;
@@ -738,69 +736,69 @@ body {
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .7), inset 0 -1px 0 rgba(0, 0, 0, .05);
 }
 
-.kid-chip .chip-word {
+.parent-student-chip .chip-word {
     display: none;
     font-style: normal;
     font-weight: 900;
 }
 
-.kid-chip .learner-dot {
+.parent-student-chip .learner-dot {
     width: 7px;
     height: 7px;
     border-radius: 50%;
     display: inline-block;
 }
 
-.kid-chip.done {
+.parent-student-chip.done {
     background: #e9f9ef;
     color: #1d7c3f;
 }
 
-.kid-chip.done .learner-dot {
+.parent-student-chip.done .learner-dot {
     background: #22b85d;
 }
 
-.kid-chip.ongoing {
+.parent-student-chip.ongoing {
     background: #e8f1fb;
     color: #23538a;
 }
 
-.kid-chip.ongoing .learner-dot {
+.parent-student-chip.ongoing .learner-dot {
     background: #2b6fb3;
 }
 
-.kid-chip.pending {
+.parent-student-chip.pending {
     background: #f1f3f7;
     color: #5b6474;
 }
 
-.kid-chip.pending .learner-dot {
+.parent-student-chip.pending .learner-dot {
     background: #9aa3b2;
 }
 
-.kid-chip.retake {
+.parent-student-chip.retake {
     background: #fdeaea;
     color: #b93232;
 }
 
-.kid-chip.retake .learner-dot {
+.parent-student-chip.retake .learner-dot {
     background: #ef4444;
 }
 
 /* dashboard card only: two rows of two, with the status word always shown */
-#parentKidsGrid .kid-chips {
+#parentStudentsGrid .parent-student-chips {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 6px;
     width: 100%;
 }
 
-#parentKidsGrid .kid-chip {
+#parentStudentsGrid .parent-student-chip {
     justify-content: center;
     padding: 3px 8px;
 }
 
-#parentKidsGrid .kid-chip .chip-word {
+#parentStudentsGrid .parent-student-chip .chip-word {
     display: inline;
     position: static;
     width: auto;
@@ -810,7 +808,7 @@ body {
     margin-left: 2px;
 }
 
-.kid-learn-btn {
+.parent-student-learn-btn {
     position: relative;
     overflow: hidden;
     align-self: stretch;
@@ -833,7 +831,7 @@ body {
     transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
 }
 
-.kid-learn-btn:hover {
+.parent-student-learn-btn:hover {
     transform: translateY(-1px);
     filter: brightness(1.06);
     box-shadow:
@@ -842,7 +840,7 @@ body {
         0 18px 30px -6px rgba(43, 93, 146, 0.5);
 }
 
-.kid-learn-btn:active {
+.parent-student-learn-btn:active {
     transform: translateY(3px);
     box-shadow:
         inset 0 1.5px 0 rgba(255, 255, 255, .28),
@@ -851,7 +849,7 @@ body {
 }
 
 /*jet*/
-.kid-learn-btn svg {
+.parent-student-learn-btn svg {
     flex: 0 0 auto;
     animation: jet-bob 2.4s ease-in-out infinite;
 }
@@ -868,9 +866,9 @@ body {
     }
 }
 
-.kid-learn-btn:hover svg,
-.kid-learn-btn:focus-visible svg,
-.kid-learn-btn:active svg {
+.parent-student-learn-btn:hover svg,
+.parent-student-learn-btn:focus-visible svg,
+.parent-student-learn-btn:active svg {
     animation: jet-fly 950ms cubic-bezier(.45, .02, .35, 1) infinite;
 }
 
@@ -907,7 +905,7 @@ body {
 }
 
 /* exhaust speed lines behind the jet */
-.kid-learn-btn::after {
+.parent-student-learn-btn::after {
     content: "";
     position: absolute;
     top: 50%;
@@ -924,9 +922,9 @@ body {
     pointer-events: none;
 }
 
-.kid-learn-btn:hover::after,
-.kid-learn-btn:focus-visible::after,
-.kid-learn-btn:active::after {
+.parent-student-learn-btn:hover::after,
+.parent-student-learn-btn:focus-visible::after,
+.parent-student-learn-btn:active::after {
     animation: jet-trail 950ms linear infinite;
 }
 
@@ -953,23 +951,23 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
 
-    .kid-learn-btn svg,
-    .kid-learn-btn:hover svg,
-    .kid-learn-btn::after,
+    .parent-student-learn-btn svg,
+    .parent-student-learn-btn:hover svg,
+    .parent-student-learn-btn::after,
     .notify-bell.has-new svg,
     .notify-bell.has-new .notify-count,
-    .kid-card:hover .kid-avatar img {
+    .parent-student-card:hover .parent-student-avatar img {
         animation: none;
         transition: none;
         transform: none;
     }
 }
 
-.kid-search-toolbar {
+.parent-student-search-toolbar {
     margin: 4px 0 16px;
 }
 
-.kid-search-toolbar .search {
+.parent-student-search-toolbar .search {
     max-width: 420px;
 }
 
@@ -1104,7 +1102,7 @@ body {
     background: currentColor;
 }
 
-.kid-id-card {
+.parent-student-id-card {
     overflow: visible;
     display: block;
     min-height: 216px;
@@ -1115,20 +1113,20 @@ body {
 }
 
 
-.kid-id-card::before {
+.parent-student-id-card::before {
     display: none;
 }
 
-.kid-id-card::after {
+.parent-student-id-card::after {
     background: #fff;
     opacity: .18;
 }
 
-.kid-id-card:hover::after {
+.parent-student-id-card:hover::after {
     opacity: .26;
 }
 
-.kid-id-img {
+.parent-student-id-img {
     position: absolute;
     left: 50%;
     bottom: 62px;
@@ -1142,18 +1140,18 @@ body {
     z-index: 1;
 }
 
-.kid-id-card:hover .kid-id-img {
+.parent-student-id-card:hover .parent-student-id-img {
     transform: translateX(-50%) translateY(-6px) scale(1.04);
 }
 
-.kid-id-card .kid-name-edit {
+.parent-student-id-card .parent-student-name-edit {
     position: absolute;
     top: 10px;
     right: 10px;
     z-index: 2;
 }
 
-.kid-id-foot {
+.parent-student-id-foot {
     position: absolute;
     inset: auto 0 0 0;
     display: grid;
@@ -1164,7 +1162,7 @@ body {
     text-align: left;
 }
 
-.kid-id-name {
+.parent-student-id-name {
     margin: 0;
     color: #fffdf7;
     font-family: "Baloo 2", "Segoe UI", Arial, sans-serif;
@@ -1177,7 +1175,7 @@ body {
     white-space: nowrap;
 }
 
-.kid-id-class {
+.parent-student-id-class {
     color: #ffe8b0;
     font-family: "Baloo 2", "Segoe UI", Arial, sans-serif;
     font-size: 12px;
@@ -1187,24 +1185,24 @@ body {
 }
 
 @media (max-width: 640px) {
-    .kid-card-grid {
+    .parent-student-card-grid {
         padding-top: 20px;
     }
 
-    .kid-id-card {
+    .parent-student-id-card {
         min-height: 176px;
     }
 
-    .kid-id-img {
+    .parent-student-id-img {
         bottom: 54px;
         height: calc(100% - 34px);
     }
 
-    .kid-id-name {
+    .parent-student-id-name {
         font-size: 15px;
     }
 
-    .kid-id-class {
+    .parent-student-id-class {
         font-size: 10.5px;
     }
 }
@@ -1315,10 +1313,7 @@ body {
     }
 }
 
-/* one slider on every screen size, not a desktop grid that turns into a
-   slider only on phones — same horizontal-scroll/snap card strip, just a
-   wider viewport shows more cards before it needs to scroll. */
-.report-kid-tabs {
+.report-student-tabs {
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -1329,11 +1324,11 @@ body {
     scrollbar-width: none;
 }
 
-.report-kid-tabs::-webkit-scrollbar {
+.report-student-tabs::-webkit-scrollbar {
     display: none;
 }
 
-.report-kid-card {
+.report-student-card {
     flex: 0 0 170px;
     min-height: 148px;
     border: 0;
@@ -1341,32 +1336,32 @@ body {
     scroll-snap-align: center;
 }
 
-.report-kid-card .kid-id-img {
+.report-student-card .parent-student-id-img {
     bottom: 46px;
     height: calc(100% - 24px);
 }
 
-.report-kid-card .kid-id-foot {
+.report-student-card .parent-student-id-foot {
     padding: 20px 12px 10px;
 }
 
-.report-kid-card .kid-id-name {
+.report-student-card .parent-student-id-name {
     display: block;
     font-size: 14.5px;
 }
 
-.report-kid-card .kid-id-class {
+.report-student-card .parent-student-id-class {
     display: block;
     font-size: 10.5px;
 }
 
-.report-kid-card.active {
+.report-student-card.active {
     outline: 3px solid #c25102;
     outline-offset: 3px;
     transform: translateY(-3px);
 }
 
-.report-kid-card.active .kid-id-img {
+.report-student-card.active .parent-student-id-img {
     transform: translateX(-50%) translateY(-6px) scale(1.16);
 }
 
@@ -1402,7 +1397,7 @@ body {
     box-shadow: 0 2px 6px rgba(244, 196, 0, .5);
 }
 
-.report-kid-heading h2 {
+.report-student-heading h2 {
     font-size: 18px;
 }
 
@@ -1457,7 +1452,7 @@ body {
     height: 24px;
 }
 
-/* last-attempt cell: date on top, 24h time below */
+/* last attempt cell: date on top, 24h time below */
 .report-when {
     display: inline-grid;
     gap: 2px;
@@ -1483,7 +1478,7 @@ body {
     }
 }
 
-/* remove  the graph*/
+/* remove  the graph on depl*/
 .p-chart-legend {
     display: flex;
     justify-content: center;
@@ -1611,7 +1606,7 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .report-kid-tab {
+    .report-student-tab {
         min-height: 36px;
         padding: 0 16px;
         font-size: 12.5px;
@@ -1684,65 +1679,96 @@ body {
     }
 }
 
-.manage-card.parent-profile-card {
+.manage-card.parent-profile-card {/*p Profile*/
+    position: relative;
     display: grid;
-    gap: 18px;
-    padding: 0 22px 22px;
+    gap: 16px;
+    width: min(100%, 940px);
+    margin-inline: auto;
+    padding: 0 22px 24px;
     overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--r-xl);
+    background: var(--surface);
+    box-shadow: var(--shadow-md);
 }
 
 
 .parent-profile-banner {
     position: relative;
-    height: 118px;
+    height: 164px;
     margin: 0 -22px;
+    overflow: hidden;
+    background: var(--bc);
+}
+
+.parent-profile-banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
     background:
-        linear-gradient(180deg, rgba(255, 255, 255, .62), rgba(255, 255, 255, .48)),
-        var(--bc);
+        radial-gradient(72% 128% at 5% -30%, color-mix(in srgb, var(--surface) 32%, transparent) 0 57%, transparent 58%),
+        linear-gradient(120deg, color-mix(in srgb, var(--surface) 18%, transparent), transparent 58%);
+}
+
+
+.parent-profile-banner::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    left: -16%;
+    bottom: -90px;
+    width: 122%;
+    height: 154px;
+    border-radius: 50% 54% 0 0;
+    background: var(--surface);
+    box-shadow: 22px -10px 36px -35px color-mix(in srgb, var(--ink) 18%, transparent);
+    transform: rotate(-4deg);
 }
 
 .parent-profile-head {
+    position: relative;
+    z-index: 2;
     display: grid;
     justify-items: center;
     text-align: center;
-    margin-top: -66px;
+    margin-top: -78px;
 }
 
 .parent-profile-head h3 {
-    margin: 10px 0 0;
-    color: #1b2440;
-    font-size: 19px;
+    margin: 12px 0 0;
+    color: var(--ink);
+    font-size: clamp(19px, 2.3vw, 23px);
     font-weight: 900;
+    letter-spacing: -.025em;
 }
 
 .parent-profile-head p {
-    margin: 2px 0 0;
-    font-size: 12.5px;
+    margin: 3px 0 0;
+    color: var(--theme-deep);
+    font-size: 12px;
     font-weight: 700;
 }
 
-/* rainbow ring around the photo, same idea as the kid avatars */
 .parent-profile-avatar {
     display: grid;
     place-items: center;
-    width: 104px;
-    height: 104px;
-    padding: 4px;
+    width: 108px;
+    height: 108px;
+    padding: 5px;
     border-radius: 50%;
-    background: conic-gradient(from 210deg,
-            #e3c7ae 0deg,
-            #8a5a3b 90deg,
-            #f6ebdd 180deg,
-            #5d3a1e 270deg,
-            #ffcf5c 360deg);
-    box-shadow: 0 12px 26px -12px rgba(169, 139, 230, .16);
+    background: linear-gradient(145deg, var(--surface) 10%, color-mix(in srgb, var(--theme) 54%, var(--surface)) 58%, var(--surface) 100%);
+    box-shadow:
+        0 0 0 5px color-mix(in srgb, var(--surface) 84%, transparent),
+        0 17px 30px -16px color-mix(in srgb, var(--theme) 70%, transparent);
 }
 
 .parent-profile-avatar .avatar-img {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    border: 4px solid #fff;
+    border: 4px solid var(--surface);
     object-fit: cover;
     background: var(--theme-soft, #efe6ff);
     display: block;
@@ -1752,15 +1778,17 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
+    padding-top: 2px;
 }
 
-/* learner avatars parked at the bottom of the profile card */
-.parent-profile-kids {
-    padding-top: 16px;
-    border-top: 1px dashed var(--line, #e4e8f1);
+.parent-profile-students {
+    padding: 16px;
+    border: 1px solid color-mix(in srgb, var(--theme) 17%, var(--line));
+    border-radius: 20px;
+    background: color-mix(in srgb, var(--theme) 7%, var(--surface));
 }
 
-.parent-profile-kids h4 {
+.parent-profile-students h4 {
     margin: 0 0 12px;
     color: var(--muted, #6e7593);
     font-size: 11px;
@@ -1769,7 +1797,7 @@ body {
     text-transform: uppercase;
 }
 
-.parent-profile-kid-strip {
+.parent-profile-student-strip {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
@@ -1778,7 +1806,7 @@ body {
     list-style: none;
 }
 
-.parent-profile-kid {
+.parent-profile-student {
     display: grid;
     justify-items: center;
     gap: 6px;
@@ -1790,24 +1818,25 @@ body {
     font: inherit;
 }
 
-.parent-profile-kid .kid-avatar {
+.parent-profile-student .parent-student-avatar {
     width: 62px;
     height: 62px;
     font-size: 22px;
+    box-shadow: 0 10px 20px -15px color-mix(in srgb, var(--theme) 90%, transparent);
     transition: transform 200ms cubic-bezier(.2, 1.3, .32, 1);
 }
 
-.parent-profile-kid:hover .kid-avatar,
-.parent-profile-kid:focus-visible .kid-avatar {
+.parent-profile-student:hover .parent-student-avatar,
+.parent-profile-student:focus-visible .parent-student-avatar {
     transform: translateY(-3px);
 }
 
-.parent-profile-kid:focus-visible {
+.parent-profile-student:focus-visible {
     outline: 0;
 }
 
-.parent-profile-kid-name {
-    color: #1b2440;
+.parent-profile-student-name {
+    color: var(--ink);
     font-size: 12px;
     font-weight: 800;
     line-height: 1.2;
@@ -1817,14 +1846,12 @@ body {
     max-width: 100%;
 }
 
-.parent-profile-kid-meta {
+.parent-profile-student-meta {
     color: var(--muted, #6e7593);
     font-size: 10.5px;
     font-weight: 700;
 }
 
-/* .form-grid is modal-shaped by default (capped height + scroll) - the card
-   version is just a plain two-up grid */
 .parent-profile-form {
     max-height: none;
     overflow: visible;
@@ -1833,10 +1860,10 @@ body {
 .parent-profile-form .deploy-field input {
     width: 100%;
     padding: 12px 14px;
-    border: 1px solid var(--line, #e4e8f1);
+    border: 1px solid color-mix(in srgb, var(--theme) 20%, var(--line));
     border-radius: 12px;
-    background: #fff;
-    color: var(--ink, #121936);
+    background: var(--surface);
+    color: var(--ink);
     font: inherit;
     font-weight: 700;
     transition: border-color .2s ease, box-shadow .2s ease;
@@ -1848,22 +1875,55 @@ body {
     box-shadow: 0 0 0 3px rgba(169, 139, 230, .18);
 }
 
+@media (min-width: 760px) {
+    .manage-card.parent-profile-card {
+        grid-template-columns: minmax(220px, .76fr) minmax(0, 1.24fr);
+        column-gap: 32px;
+        row-gap: 16px;
+        padding-inline: 30px;
+    }
+
+    .parent-profile-banner {
+        grid-column: 1 / -1;
+        margin-inline: -30px;
+        height: 184px;
+    }
+
+    .parent-profile-head {
+        grid-column: 1;
+        grid-row: 2 / span 3;
+        align-self: start;
+        margin-top: -92px;
+    }
+
+    .parent-profile-form,
+    .profile-saved-note,
+    .parent-profile-actions {
+        grid-column: 2;
+    }
+
+    .parent-profile-students {
+        grid-column: 1 / -1;
+        margin-top: 4px;
+    }
+}
+
 @media (max-width: 640px) {
     .parent-profile-form {
         grid-template-columns: minmax(0, 1fr);
     }
 
     .parent-profile-banner {
-        height: 104px;
+        height: 146px;
     }
 
     .parent-profile-head {
-        margin-top: -58px;
+        margin-top: -68px;
     }
 
     .parent-profile-avatar {
-        width: 92px;
-        height: 92px;
+        width: 96px;
+        height: 96px;
     }
 
     .parent-profile-actions .button {
@@ -1871,8 +1931,12 @@ body {
         justify-content: center;
     }
 
-    .parent-profile-kid-strip {
+    .parent-profile-student-strip {
         gap: 12px;
+    }
+
+    .parent-profile-students {
+        padding: 14px;
     }
 }
 
@@ -1883,35 +1947,35 @@ body {
     font-weight: 800;
 }
 
-.kid-pill-list {
+.parent-student-pill-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 12px 14px;
 }
 
 @media (max-width: 640px) {
-    .kid-pill-list {
+    .parent-student-pill-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 10px;
     }
 
-    .kid-pill {
+    .parent-student-pill {
         min-height: 52px;
         padding: 5px 12px 5px 5px;
         gap: 8px;
     }
 
-    .kid-pill .kid-avatar {
+    .parent-student-pill .parent-student-avatar {
         width: 40px;
         height: 40px;
     }
 
-    .kid-pill-name {
+    .parent-student-pill-name {
         font-size: 13px;
     }
 }
 
-.kid-pill {
+.parent-student-pill {
     position: relative;
     overflow: hidden;
     display: flex;
@@ -1932,8 +1996,8 @@ body {
     transition: transform 180ms cubic-bezier(.2, .9, .3, 1.2), box-shadow 180ms ease, border-color 180ms ease;
 }
 
-.kid-pill:hover,
-.kid-pill:focus-visible {
+.parent-student-pill:hover,
+.parent-student-pill:focus-visible {
     transform: translateY(-2px);
     border-color: color-mix(in srgb, var(--kc-accent, #5f7bb1) 50%, #e6eaf2);
     box-shadow:
@@ -1943,22 +2007,22 @@ body {
     outline: 0;
 }
 
-.kid-pill:active {
+.parent-student-pill:active {
     transform: translateY(0) scale(.99);
 }
 
-.kid-pill .kid-avatar {
+.parent-student-pill .parent-student-avatar {
     width: 52px;
     height: 52px;
     flex: 0 0 auto;
 }
 
-.kid-pill .kid-avatar::after {
+.parent-student-pill .parent-student-avatar::after {
     display: none;
     /* ground shadow too heavy at this size */
 }
 
-.kid-pill-name {
+.parent-student-pill-name {
     position: relative;
     z-index: 1;
     color: #1b2440;
@@ -1971,7 +2035,7 @@ body {
     white-space: nowrap;
 }
 
-.kid-pill::after {
+.parent-student-pill::after {
     content: "";
     position: absolute;
     top: 50%;
@@ -1989,11 +2053,11 @@ body {
     animation: jungle-pill-sway 5.2s ease-in-out infinite;
 }
 
-.kid-pill:nth-child(2n)::after {
+.parent-student-pill:nth-child(2n)::after {
     animation-delay: 1.1s;
 }
 
-.kid-pill:nth-child(3n)::after {
+.parent-student-pill:nth-child(3n)::after {
     animation-delay: 2.3s;
     animation-duration: 6s;
 }
@@ -2011,7 +2075,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .kid-pill::after {
+    .parent-student-pill::after {
         animation: none;
     }
 }
@@ -2059,8 +2123,6 @@ body {
     animation-duration: 4.7s;
 }
 
-/* drifts left across the pill while spinning and bobbing, like it just
-   got picked up by a gust fades(new word i learned) in as it detaches, fades out as it exits */
 @keyframes pill-leaf-blow {
     0% {
         transform: translate(26px, 0) rotate(0deg) scale(.7);
@@ -2296,7 +2358,7 @@ body {
     gap: 14px;
 }
 
-.manage-status-card .kid-license {
+.manage-status-card .parent-student-license {
     min-height: 40px;
     font-size: 13.5px;
 }
@@ -2338,13 +2400,7 @@ body {
         0 6px 12px -4px rgba(30, 122, 63, .4);
 }
 
-/* ==========================================================================
-   Pay modal — plan picker (Monthly/Termly/Yearly), stacked one thing per
-   row (plan cards, then amount, then phone) at every screen width, not
-   just on phones. Scoped to this one modal only — .form-grid is shared by
-   every other modal in the app (admin/teacher forms keep their 2-column
-   desktop layout untouched).
-   ========================================================================== */
+/*pay modal */
 #parentPayModal .form-grid {
     grid-template-columns: 1fr;
 }
@@ -2396,8 +2452,7 @@ body {
     text-align: center;
 }
 
-/* Monthly — blue (the everyday, frequent choice) */
-.pay-plan-btn.active[data-plan="monthly"] {
+.pay-plan-btn.active[data-plan="monthly"] {/* monthly/blue*/
     border-color: #2b6fb3;
     background: #e8f1fb;
     box-shadow: inset 0 3px 0 #2b6fb3;
@@ -2407,8 +2462,7 @@ body {
     color: #1c4b78;
 }
 
-/* Termly — purple (matches the class-badge purple already used elsewhere) */
-.pay-plan-btn.active[data-plan="termly"] {
+.pay-plan-btn.active[data-plan="termly"] {/* termly/purple */
     border-color: #6c5896;
     background: #efe6ff;
     box-shadow: inset 0 3px 0 #6c5896;
@@ -2418,8 +2472,7 @@ body {
     color: #4a3968;
 }
 
-/* Yearly — gold (the premium, best-value pick) */
-.pay-plan-btn.active[data-plan="yearly"] {
+.pay-plan-btn.active[data-plan="yearly"] {/* yearly/gold */
     border-color: #a76627;
     background: #ffe7ca;
     box-shadow: inset 0 3px 0 #a76627;
@@ -2511,12 +2564,12 @@ body {
         min-height: 38px;
     }
 
-    .kid-pill-list {
+    .parent-student-pill-list {
         max-width: none;
     }
 }
 
-.kid-license {
+.parent-student-license {
     align-self: stretch;
     display: flex;
     align-items: center;
@@ -2534,17 +2587,17 @@ body {
         0 2px 5px rgba(31, 39, 72, .1);
 }
 
-.kid-license.ok {
+.parent-student-license.ok {
     background: #8ce99a;
     color: #0b3d1c;
 }
 
-.kid-license.warn {
+.parent-student-license.warn {
     background: #ffe08a;
     color: #6b4b04;
 }
 
-.kid-license.danger {
+.parent-student-license.danger {
     background: #ffb3b3;
     color: #7a1414;
     animation: licenseDangerGlow 1.4s ease-in-out infinite;
@@ -2570,7 +2623,7 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .kid-license.danger {
+    .parent-student-license.danger {
         animation: none;
         box-shadow:
             inset 0 1px 0 rgba(255, 255, 255, .55),
@@ -2581,27 +2634,27 @@ body {
 }
 
 @media (max-width: 640px) {
-    .kid-avatar {
+    .parent-student-avatar {
         width: 74px;
         height: 74px;
         font-size: 28px;
     }
 
-    .kid-name {
+    .parent-student-name {
         font-size: 16px;
     }
 
-    .kid-name-edit {
+    .parent-student-name-edit {
         width: 26px;
         height: 26px;
     }
 
-    .kid-learn-btn {
+    .parent-student-learn-btn {
         min-height: 40px;
         font-size: 14px;
     }
 
-    .kid-chip .chip-word {
+    .parent-student-chip .chip-word {
         position: absolute;
         width: 1px;
         height: 1px;
@@ -2610,7 +2663,7 @@ body {
         white-space: nowrap;
     }
 
-    .kid-chip {
+    .parent-student-chip {
         position: relative;
         gap: 4px;
         padding: 2px 8px;
@@ -2618,11 +2671,11 @@ body {
         min-height: 22px;
     }
 
-    .kid-chips {
+    .parent-student-chips {
         gap: 4px;
     }
 
-    .kid-license {
+    .parent-student-license {
         font-size: 10.5px;
         letter-spacing: 0;
         min-height: 24px;
@@ -2701,7 +2754,7 @@ body {
     box-shadow: 0 10px 22px -12px color-mix(in srgb, var(--kc-accent, #5f7bb1) 35%, transparent);
 }
 
-.license-row .kid-avatar {
+.license-row .parent-student-avatar {
     width: 48px;
     height: 48px;
     flex: 0 0 auto;
@@ -2729,7 +2782,7 @@ body {
     font-weight: 700;
 }
 
-.license-row .kid-license {
+.license-row .parent-student-license {
     flex: 0 0 auto;
 }
 
@@ -2754,19 +2807,19 @@ body {
         min-width: 120px;
     }
 
-    .license-row .kid-license,
+    .license-row .parent-student-license,
     .license-row-pay {
         flex: 1 1 auto;
     }
 }
 
-.parent-summary-table .kid-cell {
+.parent-summary-table .parent-student-cell {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-.parent-summary-table .kid-cell .kid-avatar {
+.parent-summary-table .parent-student-cell .parent-student-avatar {
     width: 40px;
     height: 40px;
     font-size: 16px;
@@ -2817,7 +2870,7 @@ body {
     display: none;
 }
 
-/* the shared .status-key styles expect buttons, ours are static spans */
+/* the shared .status key styles expect buttons, ours are static spans */
 .parent-app .status-key,
 #parentDashboardView .status-key {
     margin-bottom: 12px;
@@ -2833,17 +2886,10 @@ body.login-active #parentApp {
     cursor: default;
 }
 
-/* Performance Insights card (reports > insight panel) — real per-kid
-   findings, one row per insight, icon + statement + supporting number.
-   Each row is its own elevated card (box-shadow only, no side border) and
-   the icon itself has a gentle idle float to feel alive — no hover motion. */
-.insights-card {
-    display: grid;
-    gap: 14px;
-}
+/* performance insights card one row per insight, icon + statement + supporting number*/
 
-/* insights period picker, sits inline opposite the section title */
-.insight-period-field {
+
+.insight-period-field {/* insights period picker or drop down */
     display: flex;
     align-items: center;
     gap: 10px;
@@ -3057,52 +3103,78 @@ body.login-active #parentApp {
     }
 }
 
-/* ==========================================================================
-   Performance Insights — animated card dashboard (Lottie-driven). Additive
-   only: reuses the same tokens/tones as the rest of the app (var(--line),
-   var(--theme-soft)/--theme-deep, var(--ink), the existing good/attention/
-   info tone colors) — no new palette, no new fonts, nothing outside this
-   section touched.
-   ========================================================================== */
 .insight-card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 14px;
 }
 
-.insight-card {
+/* insight refreshes render this lightweight placeholder firstit mirrors the real card rhythm without inventing a second visual system. */
+.insight-skeleton-card {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 10px;
+    align-items: flex-start;
+    gap: 12px;
+    min-height: 202px;
     padding: 18px 16px;
+    overflow: hidden;
     border: 1px solid var(--line);
-    border-radius: 16px;
-    background: #fff;
-    box-shadow: 0 1px 2px rgba(20, 30, 60, .04), 0 10px 24px rgba(20, 30, 60, .06);
-    opacity: 0;
-    animation: insightRise 480ms cubic-bezier(.22, .8, .3, 1) forwards;
-    transition: transform 200ms ease, box-shadow 200ms ease;
+    border-radius: var(--r-lg);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
 }
 
-.insight-card-grid .insight-card:nth-child(1) { animation-delay: 0ms; }
-.insight-card-grid .insight-card:nth-child(2) { animation-delay: 60ms; }
-.insight-card-grid .insight-card:nth-child(3) { animation-delay: 120ms; }
-.insight-card-grid .insight-card:nth-child(4) { animation-delay: 180ms; }
-.insight-card-grid .insight-card:nth-child(5) { animation-delay: 240ms; }
-.insight-card-grid .insight-card:nth-child(6) { animation-delay: 300ms; }
-.insight-card-grid .insight-card:nth-child(7) { animation-delay: 360ms; }
-.insight-card-grid .insight-card:nth-child(8) { animation-delay: 420ms; }
-
-.insight-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 14px rgba(20, 30, 60, .08), 0 20px 36px rgba(20, 30, 60, .12);
+.insight-skeleton-card.is-featured {
+    background: color-mix(in srgb, var(--theme-soft) 60%, var(--surface));
 }
 
-/* plain inline SVG icon in a colored circle badge — the badge pops in once
-   on mount, then the icon itself keeps a small continuous motion fitted to
-   what it represents (spin for retake/refresh, glow for a bulb, etc). */
+.insight-skeleton-icon,
+.insight-skeleton-line,
+.insight-skeleton-pill {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background: var(--line);
+}
+
+.insight-skeleton-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 18px;
+}
+
+.insight-skeleton-line {
+    height: 12px;
+    border-radius: 999px;
+}
+
+.insight-skeleton-line.is-title { width: 68%; margin-top: 3px; }
+.insight-skeleton-line.is-copy { width: 92%; opacity: .72; }
+
+.insight-skeleton-pill {
+    width: 78px;
+    height: 24px;
+    margin-top: auto;
+    border-radius: 999px;
+}
+
+.insight-skeleton-icon::after,
+.insight-skeleton-line::after,
+.insight-skeleton-pill::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 12%, color-mix(in srgb, var(--surface) 72%, transparent) 48%, transparent 84%);
+    transform: translateX(-120%);
+    animation: insightSkeletonShimmer 1.25s ease-in-out infinite;
+}
+
+@keyframes insightSkeletonShimmer {
+    to { transform: translateX(120%); }
+}
+
+
+
 .insight-card-anim {
     width: 56px;
     height: 56px;
@@ -3121,27 +3193,23 @@ body.login-active #parentApp {
     height: 26px;
 }
 
-.insight-card-anim.good { background: #e9f9ef; color: #1d7c3f; }
-.insight-card-anim.attention { background: #fdeaea; color: #b93232; }
-.insight-card-anim.info { background: #e8f1fb; color: #2b6fb3; }
+.insight-card-anim.good { background: color-mix(in srgb, var(--success) 14%, var(--surface)); color: var(--success); }
+.insight-card-anim.attention { background: color-mix(in srgb, var(--danger) 12%, var(--surface)); color: var(--danger); }
+.insight-card-anim.info { background: color-mix(in srgb, var(--info) 12%, var(--surface)); color: var(--info); }
 
 @keyframes insightIconPop {
     from { opacity: 0; transform: scale(.4); }
     to { opacity: 1; transform: scale(1); }
 }
 
-/* one small continuous motion per icon concept — celebratory bounce for a
-   trophy, twinkle for a star, a slow pulsing ring for a target, arrows
-   nudging the direction they point, a checkmark popping, a clock/refresh
-   actually spinning, a flame flickering, a bulb glowing. */
 .insight-card-anim.icon-anim-bounce svg { animation: iconBounce 1.8s ease-in-out 500ms infinite; }
 .insight-card-anim.icon-anim-twinkle svg { animation: iconTwinkle 2.2s ease-in-out 500ms infinite; transform-origin: 50% 50%; }
 .insight-card-anim.icon-anim-pulse svg { animation: iconPulse 2.4s ease-in-out 500ms infinite; transform-origin: 50% 50%; }
 .insight-card-anim.icon-anim-slide-up svg { animation: iconSlideUp 2s ease-in-out 500ms infinite; }
 .insight-card-anim.icon-anim-slide-down svg { animation: iconSlideDown 2s ease-in-out 500ms infinite; }
 .insight-card-anim.icon-anim-pop svg { animation: iconPop 2s ease-in-out 500ms infinite; }
-.insight-card-anim.icon-anim-spin-slow svg { animation: iconSpin 6s linear infinite; transform-origin: 50% 50%; }
-.insight-card-anim.icon-anim-spin svg { animation: iconSpin 2.6s linear infinite; transform-origin: 50% 50%; }
+.insight-card-anim.icon-anim-spin-slow svg { animation: iconPop 3s ease-in-out 500ms infinite;}
+.insight-card-anim.icon-anim-spin svg { animation: iconPop 3s ease-in-out 500ms infinite;}
 .insight-card-anim.icon-anim-flicker svg { animation: iconFlicker 1.4s ease-in-out 500ms infinite; transform-origin: 50% 90%; }
 .insight-card-anim.icon-anim-glow svg { animation: iconGlow 2.2s ease-in-out 500ms infinite; }
 
@@ -3232,76 +3300,61 @@ body.login-active #parentApp {
     color: var(--theme-deep);
 }
 
-.insight-card-stat.good { background: #e9f9ef; color: #1d7c3f; }
-.insight-card-stat.attention { background: #fdeaea; color: #b93232; }
-.insight-card-stat.info { background: #e8f1fb; color: #2b6fb3; }
+.insight-card-stat.good { background: color-mix(in srgb, var(--success) 14%, var(--surface)); color: var(--success); }
+.insight-card-stat.attention { background: color-mix(in srgb, var(--danger) 12%, var(--surface)); color: var(--danger); }
+.insight-card-stat.info { background: color-mix(in srgb, var(--info) 12%, var(--surface)); color: var(--info); }
 
 
-/* =========================================================================
-   Performance Insights — visual refresh
-   Hero-first responsive grid, glass gradients + depth, SVG trend marks, 3D
-   icon tiles, a reserved faint 3D art layer per insight type, hover motion
-   and reduced-motion support. Presentation only — no IDs, data, filters or
-   rendering logic depend on anything below.
-   ========================================================================= */
-
-/* ---- tone tokens --------------------------------------------------------
-   insights-engine.js tags every card with one of four tones (good / info /
-   focus / attention). Each tone sets the card's whole palette once, so the
-   surface, tile, trend mark and stat pill stay in step instead of being
-   re-declared per element. `focus` is the amber "below the 70% support
-   target" tone — warm and constructive rather than alarming, because it is
-   guidance, not a failure. */
 .insight-card {
-    --tone-ink: #4c53bb;
-    --tone-tint: #e3e7fc;
-    --tone-tint-2: #d3daf9;
-    --tone-deep-1: #6366d8;
-    --tone-deep-2: #4338a8;
-    --tone-glow: rgba(76, 83, 187, .26);
+    --tone-ink: var(--theme-deep);
+    --tone-tint: var(--theme-soft);
+    --tone-tint-2: color-mix(in srgb, var(--theme-soft) 74%, var(--surface));
+    --tone-deep-1: var(--theme);
+    --tone-deep-2: var(--theme-deep);
+    --tone-glow: color-mix(in srgb, var(--theme) 26%, transparent);
 }
 
 .insight-card.good {
-    --tone-ink: #147a44;
-    --tone-tint: #d6f3e2;
-    --tone-tint-2: #c2ecd4;
-    --tone-deep-1: #34b56f;
-    --tone-deep-2: #10794a;
-    --tone-glow: rgba(20, 122, 68, .24);
+    --tone-ink: var(--success);
+    --tone-tint: color-mix(in srgb, var(--success) 12%, var(--surface));
+    --tone-tint-2: color-mix(in srgb, var(--success) 20%, var(--surface));
+    --tone-deep-1: var(--success);
+    --tone-deep-2: var(--success);
+    --tone-glow: color-mix(in srgb, var(--success) 26%, transparent);
 }
 
 .insight-card.info {
-    --tone-ink: #4c53bb;
-    --tone-tint: #e3e7fc;
-    --tone-tint-2: #d3daf9;
-    --tone-deep-1: #6366d8;
-    --tone-deep-2: #4338a8;
-    --tone-glow: rgba(76, 83, 187, .26);
+    --tone-ink: var(--info);
+    --tone-tint: color-mix(in srgb, var(--info) 10%, var(--surface));
+    --tone-tint-2: color-mix(in srgb, var(--info) 18%, var(--surface));
+    --tone-deep-1: var(--info);
+    --tone-deep-2: var(--info);
+    --tone-glow: color-mix(in srgb, var(--info) 26%, transparent);
 }
 
 .insight-card.focus {
-    --tone-ink: #a5620a;
-    --tone-tint: #fde9cd;
-    --tone-tint-2: #fadcb6;
-    --tone-deep-1: #f0a13a;
-    --tone-deep-2: #b26a09;
-    --tone-glow: rgba(165, 98, 10, .26);
+    --tone-ink: var(--warning);
+    --tone-tint: color-mix(in srgb, var(--warning) 12%, var(--surface));
+    --tone-tint-2: color-mix(in srgb, var(--warning) 20%, var(--surface));
+    --tone-deep-1: var(--warning);
+    --tone-deep-2: var(--warning);
+    --tone-glow: color-mix(in srgb, var(--warning) 26%, transparent);
 }
 
 .insight-card.attention {
-    --tone-ink: #c0355c;
-    --tone-tint: #fcdde6;
-    --tone-tint-2: #f9cbd9;
-    --tone-deep-1: #ef5f86;
-    --tone-deep-2: #b32b52;
-    --tone-glow: rgba(192, 53, 92, .26);
+    --tone-ink: var(--danger);
+    --tone-tint: color-mix(in srgb, var(--danger) 10%, var(--surface));
+    --tone-tint-2: color-mix(in srgb, var(--danger) 18%, var(--surface));
+    --tone-deep-1: var(--danger);
+    --tone-deep-2: var(--danger);
+    --tone-glow: color-mix(in srgb, var(--danger) 26%, transparent);
 }
 
-/* ---- panel shell --------------------------------------------------------
-   Soft tinted sheet with one large out-of-frame highlight blob, so the cards
-   read as sitting on a surface instead of floating on flat white. */
+
 .insights-card {
     position: relative;
+    display: grid;
+    gap: 14px;
     overflow: hidden;
     isolation: isolate;
     padding: 22px;
@@ -3336,7 +3389,6 @@ body.login-active #parentApp {
 }
 
 
-
 .insight-card-grid {
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 15px;
@@ -3354,11 +3406,6 @@ body.login-active #parentApp {
     }
 }
 
-/* ---- hero card ----------------------------------------------------------
-   The headline card carries the learner's overall average, so it is the one
-   saturated surface on the panel — the same tone the data assigned, at full
-   strength, with the copy inverted onto it. Everything else stays tinted so
-   the hero keeps the emphasis. */
 .insight-card-grid>.insight-card:first-child {
     background:
         radial-gradient(90% 70% at 8% 6%, rgba(255, 255, 255, .26) 0%, transparent 56%),
@@ -3388,7 +3435,6 @@ body.login-active #parentApp {
     box-shadow: none;
 }
 
-/* the tile and trend mark switch to white on the saturated hero surface */
 .insight-card-grid>.insight-card:first-child .insight-card-anim {
     color: #fff;
     background:
@@ -3422,14 +3468,6 @@ body.login-active #parentApp {
     opacity: .2;
 }
 
-/* below 700px the hero stops spanning rows; the existing @media 768/480
-   blocks further down already own the phone column count (2-up), so nothing
-   is re-declared for it here. */
-
-/* ---- card surface -------------------------------------------------------
-   Borderless tinted glass: the tone washes in from the top-left and returns
-   at the lower-right corner, with the depth carried by shadow rather than a
-   hard outline. */
 .insight-card {
     position: relative;
     overflow: hidden;
@@ -3458,26 +3496,6 @@ body.login-active #parentApp {
         0 6px 14px rgba(20, 30, 60, .06),
         0 24px 42px -18px var(--tone-glow),
         0 28px 50px -28px rgba(20, 30, 60, .5);
-}
-
-/* ---- SVG trend marks ----------------------------------------------------
-   The rising arc and the wave under it are the card's signature decoration.
-   Drawn as a masked SVG rather than a background image so a single shape
-   picks up whichever tone the data assigned — no per-tone asset needed. */
-.insight-card::after {
-    content: "";
-    position: absolute;
-    right: 6px;
-    bottom: 4px;
-    width: 118px;
-    height: 78px;
-    background: var(--tone-ink);
-    opacity: .5;
-    pointer-events: none;
-    z-index: 0;
-    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 92'%3E%3Cg fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M50 74C80 74 104 54 110 14' stroke-width='7'/%3E%3Cpath d='M6 70C19 53 31 84 47 69C59 57 71 80 88 66' stroke-width='6'/%3E%3C/g%3E%3C/svg%3E") right bottom / contain no-repeat;
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 92'%3E%3Cg fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M50 74C80 74 104 54 110 14' stroke-width='7'/%3E%3Cpath d='M6 70C19 53 31 84 47 69C59 57 71 80 88 66' stroke-width='6'/%3E%3C/g%3E%3C/svg%3E") right bottom / contain no-repeat;
-    transition: opacity 220ms ease, transform 220ms cubic-bezier(.22, .8, .3, 1);
 }
 
 .insight-card:hover::after {
@@ -3542,58 +3560,61 @@ body.login-active #parentApp {
 }
 
 .insight-card[data-insight-type="excellentPerformance"] .insight-card-art {
-    background-image: url("../../shared/scripts/assets/icons/excellentPerformance.png");
+    background-image: url("../../shared/scripts/assets/icons/excellentPerformance.webp");
 }
 
 .insight-card[data-insight-type="overallPerformance"] .insight-card-art {
-    background-image: url("../../shared/scripts/assets/icons/overallPerformance.png");
+    background-image: url("../../shared/scripts/assets/icons/overallPerformance.webp");
 }
 
 .insight-card[data-insight-type="bestSubject"] .insight-card-art,
 .insight-card[data-insight-type="bestStrand"] .insight-card-art {
-    background-image: url("../../shared/scripts/assets/icons/bestSubject.png");
+    background-image: url("../../shared/scripts/assets/icons/bestSubject.webp");
 }
 
 .insight-card[data-insight-type="weakestSubject"] .insight-card-art,
 .insight-card[data-insight-type="weakestStrand"] .insight-card-art {
-    background-image: url("../../shared/scripts/assets/icons/weakestSubject.png");
+    background-image: url("../../shared/scripts/assets/icons/weakestSubject.webp");
 }
 
 .insight-card[data-insight-type="monthlyImprovement"] .insight-card-art {
-    background-image: url("../../shared/scripts/assets/icons/monthlyImprovement.png");
+    background-image: url("../../shared/scripts/assets/icons/monthlyImprovement.webp");
 }
 
 .insight-card[data-insight-type="performanceDecline"] .insight-card-art {
-    background-image: url("../../shared/scripts/assets/icons/performanceDecline.png");
+    background-image: url("../../shared/scripts/assets/icons/performanceDecline.webp");
+}
+
+/* The steady state of the momentum card. It previously had no art rule at all,
+   so a learner holding steady got a blank card face while improving and
+   declining both had one. performanceMomentum.webp is the neutral artwork —
+   momentum itself, neither up nor down. */
+.insight-card[data-insight-type="performanceStable"] .insight-card-art {
+    background-image: url("../../shared/scripts/assets/icons/performanceMomentum.webp");
 }
 
 .insight-card[data-insight-type="outstandingCompletion"] .insight-card-art,
 .insight-card[data-insight-type="assignmentCompletion"] .insight-card-art {
-    background-image: url("../../shared/scripts/assets/icons/outstandingCompletion.png");
+    background-image: url("../../shared/scripts/assets/icons/outstandingCompletion.webp");
 }
 
 .insight-card[data-insight-type="pendingAssignments"] .insight-card-art {
-    background-image: url("../../shared/scripts/assets/icons/pendingAssignments.png");
+    background-image: url("../../shared/scripts/assets/icons/pendingAssignments.webp");
 }
 
 .insight-card[data-insight-type="retakeAssignments"] .insight-card-art {
-    background-image: url("../../shared/scripts/assets/icons/retakeAssignments.png");
+    background-image: url("../../shared/scripts/assets/icons/retakeAssignments.webp");
 }
 
 .insight-card[data-insight-type="learningStreak"] .insight-card-art {
-    background-image: url("../../shared/scripts/assets/icons/learningStreak.png");
+    background-image: url("../../shared/scripts/assets/icons/learningStreak.webp");
 }
 
 .insight-card[data-insight-type="recommendations"] .insight-card-art {
-    background-image: url("../../shared/scripts/assets/icons/recommendations.png");
+    background-image: url("../../shared/scripts/assets/icons/recommendations.webp");
 }
 
-/* ---- 3D icon tile -------------------------------------------------------
-   The flat tone circle becomes a lit, beveled squircle: highlight from the
-   upper left, tone-colored inner shade at the base, a soft cast shadow, and
-   a small gloss dot at the top-right corner. The per-icon SVG motion defined
-   in the block above still runs inside it. */
-.insight-card .insight-card-anim {
+.insight-card .insight-card-anim {/*icons*/
     position: relative;
     width: 62px;
     height: 62px;
@@ -3606,9 +3627,7 @@ body.login-active #parentApp {
         inset 0 2px 3px rgba(255, 255, 255, .95),
         inset 0 -8px 13px color-mix(in srgb, var(--tone-ink) 20%, transparent),
         0 12px 22px -10px var(--tone-glow);
-    animation:
-        insightIconPop 420ms cubic-bezier(.22, .8, .3, 1) both,
-        insightTileFloat 4.2s ease-in-out 600ms infinite;
+    
 }
 
 .insight-card .insight-card-anim::after {
@@ -3632,6 +3651,77 @@ body.login-active #parentApp {
 @keyframes insightTileFloat {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-3px); }
+}
+
+
+.insight-card[data-insight-type="monthlyImprovement"] .insight-card-anim svg,
+.insight-card[data-insight-type="excellentPerformance"] .insight-card-anim svg {
+    transform-box: fill-box;
+    transform-origin: 50% 64%;
+    animation: insightIndicatorRise 2.8s cubic-bezier(.42, 0, .25, 1) 550ms infinite;
+}
+
+.insight-card[data-insight-type="performanceDecline"] .insight-card-anim svg {
+    transform-box: fill-box;
+    transform-origin: 50% 36%;
+    animation: insightFall 2.8s cubic-bezier(.42, 0, .25, 1) 700ms infinite;
+}
+
+.insight-card[data-insight-type="performanceStable"] .insight-card-anim svg {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+    animation: insightSteady 3.4s ease-in-out 700ms infinite;
+}
+
+.insight-card[data-insight-type="retakeAssignments"] .insight-card-anim svg {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+    animation: insightRetry 3.4s cubic-bezier(.45, 0, .25, 1) 650ms infinite;
+}
+
+.insight-card[data-insight-type="learningStreak"] .insight-card-anim svg {
+    transform-box: fill-box;
+    transform-origin: 50% 88%;
+    animation: insightFlame 1.55s ease-in-out 600ms infinite;
+}
+
+.insight-card[data-insight-type="recommendations"] .insight-card-anim svg {
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+    animation: insightIdea 2.7s ease-in-out 600ms infinite;
+}
+
+@keyframes insightIndicatorRise {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    42% { transform: translate(1px, -3px) scale(1.055); }
+    56% { transform: translate(1px, -3px) scale(1.055); }
+}
+
+@keyframes insightFall {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    42% { transform: translate(-1px, 3px) scale(.955); }
+    56% { transform: translate(-1px, 3px) scale(.955); }
+}
+
+@keyframes insightSteady {
+    0%, 100% { transform: translateX(-1px); opacity: .92; }
+    50% { transform: translateX(1px); opacity: 1; }
+}
+
+@keyframes insightRetry {
+    0%, 100% { transform: rotate(0) scale(1); }
+    30% { transform: rotate(-8deg) scale(1.035); }
+    56% { transform: rotate(8deg) scale(1.035); }
+}
+
+@keyframes insightFlame {
+    0%, 100% { transform: rotate(-2deg) scale(1, 1); filter: drop-shadow(0 2px 2px color-mix(in srgb, var(--warning) 26%, transparent)); }
+    48% { transform: rotate(2deg) scale(.92, 1.1); filter: drop-shadow(0 4px 5px color-mix(in srgb, var(--warning) 46%, transparent)); }
+}
+
+@keyframes insightIdea {
+    0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 2px 2px color-mix(in srgb, var(--tone-ink) 26%, transparent)); }
+    48% { transform: translateY(-2px) scale(1.07); filter: drop-shadow(0 3px 5px color-mix(in srgb, var(--tone-ink) 46%, transparent)); }
 }
 
 /* stat pill + momentum marks*/
@@ -3674,8 +3764,11 @@ body.login-active #parentApp {
 }
 
 
-.insight-card-anim.focus { background: #fdefdf; color: #b8730a; }
-.insight-card-stat.focus { background: #fdefdf; color: #b8730a; }
+.insight-card-anim.focus,
+.insight-card-stat.focus {
+    background: color-mix(in srgb, var(--warning) 12%, var(--surface));
+    color: var(--warning);
+}
 
 /* card action link  */
 .insight-card-link {
@@ -3744,6 +3837,16 @@ body.login-active #parentApp {
     .insight-card:hover .insight-card-art {
         transform: none;
     }
+
+    .insight-card[data-insight-type] .insight-card-anim svg {
+        animation: none;
+    }
+
+    .insight-skeleton-icon::after,
+    .insight-skeleton-line::after,
+    .insight-skeleton-pill::after {
+        animation: none;
+    }
 }
 
 
@@ -3786,30 +3889,30 @@ body.login-active #parentApp {
     }
 }
 
-.kid-card .kid-pay-btn {
+.parent-student-card .parent-student-pay-btn {
     align-self: stretch;
     min-height: 40px;
     font-size: 13.5px;
     margin-top: 2px;
 }
 
-.kid-learn-btn:disabled {
+.parent-student-learn-btn:disabled {
     background: #d7dbe3;
     box-shadow: none;
     cursor: not-allowed;
     transform: none;
 }
 
-.kid-learn-btn:disabled span,
-.kid-learn-btn:disabled svg {
+.parent-student-learn-btn:disabled span,
+.parent-student-learn-btn:disabled svg {
     color: #8b93a3;
 }
 
-.kid-learn-btn:disabled::after {
+.parent-student-learn-btn:disabled::after {
     display: none;
 }
 
-.kid-name-edit:disabled {
+.parent-student-name-edit:disabled {
     background: #eef0f4;
     color: #b7bdc9;
     box-shadow: none;
@@ -3817,25 +3920,25 @@ body.login-active #parentApp {
     transform: none;
 }
 
-.kid-name-edit:disabled img {
+.parent-student-name-edit:disabled img {
     opacity: .45;
     filter: grayscale(1);
 }
 
 
 @media (max-width: 380px) {
-    .kid-pill {
+    .parent-student-pill {
         min-height: 46px;
         padding: 4px 10px 4px 4px;
         gap: 6px;
     }
 
-    .kid-pill .kid-avatar {
+    .parent-student-pill .parent-student-avatar {
         width: 34px;
         height: 34px;
     }
 
-    .kid-pill-name {
+    .parent-student-pill-name {
         font-size: 11px;
         letter-spacing: 0;
     }
@@ -3874,17 +3977,17 @@ body.login-active #parentApp {
         box-shadow: 0 10px 24px rgba(31, 39, 72, .06);
     }
 
-    .summary-mobile-card .kid-cell {
+    .summary-mobile-card .parent-student-cell {
         gap: 10px;
     }
 
-    .summary-mobile-card .kid-cell .kid-avatar {
+    .summary-mobile-card .parent-student-cell .parent-student-avatar {
         width: 36px;
         height: 36px;
         font-size: 14px;
     }
 
-    .summary-mobile-card .kid-cell strong {
+    .summary-mobile-card .parent-student-cell strong {
         font-size: 14.5px;
         white-space: nowrap;
         overflow: hidden;
@@ -3937,7 +4040,7 @@ body.login-active #parentApp {
 }
 
 @media (max-width: 360px) {
-    .summary-mobile-card .kid-cell strong {
+    .summary-mobile-card .parent-student-cell strong {
         font-size: 13.5px;
     }
 

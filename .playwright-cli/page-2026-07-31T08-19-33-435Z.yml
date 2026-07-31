@@ -1,0 +1,111 @@
+- generic [ref=e36]:
+  - banner [ref=e37]:
+    - generic "ESOMA Academy" [ref=e38]:
+      - img "ESOMA Academy" [ref=e39]
+    - button "A Admin dropdown" [ref=e41] [cursor=pointer]:
+      - generic [ref=e42]: A
+      - strong [ref=e44]: Admin
+      - img "dropdown" [ref=e45]
+  - main [ref=e46]:
+    - generic [ref=e48]:
+      - generic [ref=e49]: Dashboard
+      - generic [ref=e50]: /
+      - generic [ref=e51]: All Classes
+    - generic [ref=e52]:
+      - generic [ref=e53]:
+        - article [ref=e54]:
+          - generic [ref=e55]:
+            - generic [ref=e56]: Total Classes
+            - generic [ref=e57]: "13"
+        - article [ref=e58]:
+          - generic [ref=e59]:
+            - generic [ref=e60]: Total Students
+            - generic [ref=e61]: "366"
+        - article [ref=e62]:
+          - generic [ref=e63]:
+            - generic [ref=e64]: Total Teachers
+            - generic [ref=e65]: "13"
+      - generic "Class filters" [ref=e66]:
+        - button "All Classes" [ref=e67] [cursor=pointer]
+        - button "PP1" [ref=e68] [cursor=pointer]
+        - button "PP2" [ref=e69] [cursor=pointer]
+        - button "Grade 1" [ref=e70] [cursor=pointer]
+        - button "Grade 2" [ref=e71] [cursor=pointer]
+        - button "Grade 3" [ref=e72] [cursor=pointer]
+        - button "Grade 4" [ref=e73] [cursor=pointer]
+        - button "Grade 5" [ref=e74] [cursor=pointer]
+        - button "Grade 6" [ref=e75] [cursor=pointer]
+        - button "Grade 7" [ref=e76] [cursor=pointer]
+        - button "Grade 8" [ref=e77] [cursor=pointer]
+        - button "Grade 9" [ref=e78] [cursor=pointer]
+      - heading "All Classes" [level=1] [ref=e79]
+      - generic [ref=e80]:
+        - searchbox [ref=e85]
+        - button "+ Add Class" [ref=e86] [cursor=pointer]
+      - generic [ref=e87]:
+        - button "PP1 North 22 students" [ref=e88] [cursor=pointer]:
+          - generic [ref=e89]: PP1 North
+          - generic [ref=e90]: 22 students
+        - button "PP2 North East 25 students" [ref=e91] [cursor=pointer]:
+          - generic [ref=e92]: PP2 North East
+          - generic [ref=e93]: 25 students
+        - button "Grade 1 North 26 students" [ref=e94] [cursor=pointer]:
+          - generic [ref=e95]: Grade 1 North
+          - generic [ref=e96]: 26 students
+        - button "Grade 2 North East 31 students" [ref=e97] [cursor=pointer]:
+          - generic [ref=e98]: Grade 2 North East
+          - generic [ref=e99]: 31 students
+        - button "Grade 3 East 28 students" [ref=e100] [cursor=pointer]:
+          - generic [ref=e101]: Grade 3 East
+          - generic [ref=e102]: 28 students
+        - button "Grade 4 North 30 students" [ref=e103] [cursor=pointer]:
+          - generic [ref=e104]: Grade 4 North
+          - generic [ref=e105]: 30 students
+        - button "Grade 5 South 29 students" [ref=e106] [cursor=pointer]:
+          - generic [ref=e107]: Grade 5 South
+          - generic [ref=e108]: 29 students
+        - button "Grade 6 West 27 students" [ref=e109] [cursor=pointer]:
+          - generic [ref=e110]: Grade 6 West
+          - generic [ref=e111]: 27 students
+        - button "Grade 7 Central 34 students" [ref=e112] [cursor=pointer]:
+          - generic [ref=e113]: Grade 7 Central
+          - generic [ref=e114]: 34 students
+        - button "Grade 8 South 32 students" [ref=e115] [cursor=pointer]:
+          - generic [ref=e116]: Grade 8 South
+          - generic [ref=e117]: 32 students
+        - button "Grade 9 North 33 students" [ref=e118] [cursor=pointer]:
+          - generic [ref=e119]: Grade 9 North
+          - generic [ref=e120]: 33 students
+        - button "Grade 1 East 25 students" [ref=e121] [cursor=pointer]:
+          - generic [ref=e122]: Grade 1 East
+          - generic [ref=e123]: 25 students
+        - button "Grade 5 West 24 students" [ref=e124] [cursor=pointer]:
+          - generic [ref=e125]: Grade 5 West
+          - generic [ref=e126]: 24 students
+  - dialog [ref=e127]:
+    - form "Add class form" [ref=e128]:
+      - generic [ref=e129]:
+        - heading "Add Class" [level=2] [ref=e131]
+        - button "Close add class form" [active] [ref=e132] [cursor=pointer]: X
+      - generic [ref=e133]:
+        - generic [ref=e134]:
+          - text: Class name
+          - textbox "Class name" [ref=e135]:
+            - /placeholder: Grade 1 New Stream
+        - generic [ref=e136]:
+          - text: Class group
+          - combobox "Class group" [ref=e137] [cursor=pointer]:
+            - option "PP1" [selected]
+            - option "PP2"
+            - option "Grade 1"
+            - option "Grade 2"
+            - option "Grade 3"
+            - option "Grade 4"
+            - option "Grade 5"
+            - option "Grade 6"
+            - option "Grade 7"
+            - option "Grade 8"
+            - option "Grade 9"
+      - generic [ref=e138]:
+        - button "Cancel" [ref=e139] [cursor=pointer]
+        - button "Add Class" [ref=e140] [cursor=pointer]

@@ -13,10 +13,6 @@ import {
 
 import { state, setState, initState } from "./state.js";
 
-import { initDashboardUI } from "./ui/dashboard.js";
-import { initClassDetailUI } from "./ui/class-detail.js";
-import { initStudentProfileUI } from "./ui/student-profile.js";
-import { initTeachersUI } from "./ui/teachers.js";
 import { initBulkImportUI } from "./ui/bulk-import.js";
 import { initBulkImportParseUI } from "./ui/bulk-import-parse.js";
 import { initBulkImportActions } from "./ui/bulk-import-actions.js";
@@ -26,6 +22,12 @@ import { navigate } from "./router.js";
 import { buildPerformanceChartSVG, buildSubjectKeyHTML, hasAnyScore, mountPerformancePanel } from "../../shared/scripts/ui/performance-chart.js";
 import { createLoginGate } from "../../shared/scripts/ui/login-gate.js";
 import { maxId } from "../../shared/scripts/utils/id-gen.js";
+import { PORTAL_STORAGE_KEYS } from "../../shared/scripts/constants/storage.js";
+import { configure as configureModals } from "../../shared/scripts/modal.js";
+import {
+  attachAutocomplete as attachSharedAutocomplete,
+  closeAllSuggestions,
+} from "./components/autocomplete.js";
 
 import {
   iconChart,
@@ -45,7 +47,7 @@ import {
   makeAssignmentRow,
 } from "./utils/ui.js";
 
-// working copies (mutated by UI actions). Later, API calls will replace these.
+// working copies.....API calls will replace these
 let classes = initialClasses.map(item => ({ ...item }));
 export { classes };
 const teacherRows = initialTeacherRows.map(row => [...row]);
@@ -121,7 +123,7 @@ const managedModals = [//all modals
   bulkImportModal
 ];
 
-Modals.configure({
+configureModals({
   modals: managedModals,
   beforeOpen: () => closeProfileMenu()
 });
@@ -364,118 +366,8 @@ function getSubjectNameOptions() {
   ]);
 }
 
-function getAutocompleteMatches(term, options) {
-  const searchTerm = normalizeName(term);
-  if (!searchTerm) return [];
-  return uniqueValues(options)
-    .filter(value => normalizeName(value).includes(searchTerm))
-    .sort((first, second) => {
-      const firstName = normalizeName(first);
-      const secondName = normalizeName(second);
-      const firstStarts = firstName.startsWith(searchTerm) ? 0 : 1;
-      const secondStarts = secondName.startsWith(searchTerm) ? 0 : 1;
-      if (firstStarts !== secondStarts) return firstStarts - secondStarts;
-      return first.localeCompare(second);
-    })
-    .slice(0, 5);
-}
-
-const suggestionLists = [];
-
-function closeSuggestionList(list) {
-  if (!list) return;
-  list.classList.remove("open");
-  list.innerHTML = "";
-  const input = document.querySelector(`[aria-controls="${list.id}"]`);
-  input?.setAttribute("aria-expanded", "false");
-}
-
-function closeAllSuggestions(exceptList = null) {
-  suggestionLists.forEach(list => {
-    if (list !== exceptList) closeSuggestionList(list);
-  });
-}
-
 function attachAutocomplete(input, list, getOptions) {
-  if (!input || !list) return;
-  suggestionLists.push(list);
-  let activeIndex = -1;
-
-  function choose(value) {
-    input.value = value;
-    closeSuggestionList(list);
-    input.dispatchEvent(new Event("change", { bubbles: true }));
-  }
-
-  function render() {
-    const matches = getAutocompleteMatches(input.value, getOptions());
-    activeIndex = matches.length ? Math.min(activeIndex, matches.length - 1) : -1;
-    closeAllSuggestions(list);
-    if (!matches.length) {
-      closeSuggestionList(list);
-      return;
-    }
-    list.innerHTML = matches.map((value, index) => `
-          <button class="suggestion-option ${index === activeIndex ? "active" : ""}" type="button" role="option" data-value="${escapeHTML(value)}">
-            ${escapeHTML(value)}
-          </button>
-        `).join("");
-    const inputRect = input.getBoundingClientRect();
-    const modal = input.closest(".modal-form");
-    const modalRect = modal ? modal.getBoundingClientRect() : null;
-
-    const viewportSpaceBelow = window.innerHeight - inputRect.bottom;
-    const modalSpaceBelow = modalRect ? (modalRect.bottom - inputRect.bottom) : viewportSpaceBelow;
-    const spaceBelow = Math.min(viewportSpaceBelow, modalSpaceBelow);
-
-    if (spaceBelow < 220) {
-      list.classList.add("upward");
-    } else {
-      list.classList.remove("upward");
-    }
-
-    list.classList.add("open");
-    input.setAttribute("aria-expanded", "true");
-  }
-
-  input.setAttribute("aria-expanded", "false");
-  input.addEventListener("input", render);
-  input.addEventListener("focus", render);
-  input.addEventListener("keydown", event => {
-    const options = Array.from(list.querySelectorAll(".suggestion-option"));
-    if (!options.length && !["Escape", "Tab"].includes(event.key)) return;
-
-    if (event.key === "ArrowDown") {
-      event.preventDefault();
-      activeIndex = (activeIndex + 1) % options.length;
-      render();
-      return;
-    }
-
-    if (event.key === "ArrowUp") {
-      event.preventDefault();
-      activeIndex = activeIndex <= 0 ? options.length - 1 : activeIndex - 1;
-      render();
-      return;
-    }
-
-    if (event.key === "Enter" && activeIndex >= 0 && options[activeIndex]) {
-      event.preventDefault();
-      choose(options[activeIndex].dataset.value);
-      return;
-    }
-
-    if (event.key === "Escape" || event.key === "Tab") {
-      closeSuggestionList(list);
-    }
-  });
-
-  list.addEventListener("mousedown", event => {
-    const option = event.target.closest(".suggestion-option");
-    if (!option) return;
-    event.preventDefault();
-    choose(option.dataset.value);
-  });
+  attachSharedAutocomplete({ input, list, getOptions, escapeHTML });
 }
 
 attachAutocomplete(addClassTeacherForm?.elements.teacherName, document.getElementById("addTeacherNameSuggestions"), getTeacherNameOptions);
@@ -770,7 +662,7 @@ function renderTeacherProfile(teacher) {
           </section>
         `).join("");
 
-    // Add event listeners to class navigation buttons
+    // + event listeners to class navigation buttons
     subjectsContainer.querySelectorAll(".class-nav-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         const className = btn.dataset.className;
@@ -831,14 +723,10 @@ function renderAssignmentSummary(student) {
 }
 
 function getBestSubject(student) {
-  // real canonical subject name — same one teacher/parent show for this
-  // student, not the short admin chart code (e.g. "CAS").
   return student.bestSubjectName || "-";
 }
 
 function renderPerformanceChart(student) {
-  // only the subjects this student's grade band actually offers — a PP1/
-  // lower-primary student never had SS/SCI/AGRI scores to begin with.
   const labels = getOfferedSubjectCodesForClass(student.classId);
   const scores = student.scores || {};
   const averages = student.classAverage || {};
@@ -1314,7 +1202,7 @@ function closeProfileMenu() {
 }
 
 const loginGate = createLoginGate({
-  storageKey: "esomaLoggedIn",
+  storageKey: PORTAL_STORAGE_KEYS.admin,
   appShellSelector: "#appShell",
   onEnter: showDashboard,
 });
@@ -1323,8 +1211,6 @@ function enterDashboard() {
   loginGate.enterDashboard();
 }
 
-// admin closes any open modal/profile menu before showing the login screen —
-// the one piece of behavior that isn't shared with teacher/parent.
 function showLogin() {
   Modals.closeAll();
   closeProfileMenu();

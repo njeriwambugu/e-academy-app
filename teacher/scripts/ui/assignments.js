@@ -2,56 +2,10 @@
 import { runButtonAction } from "../../../shared/scripts/utils/ui-state.js";
 import { createPager } from "../../../shared/scripts/utils/table-utils.js";
 import { getStudentAssignmentScore, hash } from "../../../shared/scripts/data/mock-data.js";
-
-// status/tone this table shows per learner, mapped from the shared
-// done/retake/pending/ongoing/overdue category so it can't diverge from
-// what the student's own profile (getAssignmentSummary) shows for the same
-// assignment.
-const CATEGORY_TO_LEARNER_STATUS = {
-  done: { status: "Completed", statusClass: "completed" },
-  retake: { status: "Retake", statusClass: "retake" },
-  ongoing: { status: "Ongoing", statusClass: "ongoing" },
-  pending: { status: "Not Started", statusClass: "not-started" },
-  overdue: { status: "Not Started", statusClass: "not-started" },
-};
-
-function formatDuration(totalSeconds) {
-  const seconds = Math.max(0, Number(totalSeconds) || 0);
-  const h = Math.floor(seconds / 3600);
-  const m = Math.floor((seconds % 3600) / 60);
-  const s = seconds % 60;
-  return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
-}
-
-// table-friendly "3m 45s" style because if i used 3.45 it would have been confusing...
-function formatMinutes(totalSeconds) {
-  const seconds = Math.max(0, Number(totalSeconds) || 0);
-  const m = Math.floor(seconds / 60);
-  const s = seconds % 60;
-  return m ? `${m}m ${String(s).padStart(2, "0")}s` : `${s}s`;
-}
-
-function uniqueBy(items, keyFn) {
-  const seen = new Set();
-  return items.filter((item) => {
-    const key = keyFn(item);
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  });
-}
-
-function debounce(fn, delay = 120) {
-  let timer = 0;
-  return (...args) => {
-    window.clearTimeout(timer);
-    timer = window.setTimeout(() => fn(...args), delay);
-  };
-}
-
-function toAssignmentUid({ subjectId, classId, assignmentId }) {
-  return `${subjectId}::${classId}::${assignmentId}`;
-}
+import { LEARNER_STATUS_BY_ASSIGNMENT_CATEGORY as CATEGORY_TO_LEARNER_STATUS, assignmentUid as toAssignmentUid } from "../../../shared/scripts/constants/assignment-status.js";
+import { uniqueBy } from "../../../shared/scripts/utils/collections.js";
+import { formatDurationClock as formatDuration, formatDurationCompact as formatMinutes } from "../../../shared/scripts/utils/duration.js";
+import { debounce } from "../../../shared/scripts/utils/timing.js";
 
 function classParts(klass, fallback = "Class") {
   const group = klass?.group || fallback;
@@ -314,9 +268,6 @@ export function createAssignmentsFeature(deps) {
     return students.map((student) => {
       const override = tieOverrides?.[student.id];
       const isPending = student.status === "pending";
-      // same shared per-assignment computation the student's own profile
-      // uses for this exact assignment, so this table can't disagree with
-      // what they see on their own report.
       const { category, score: sharedScore } = getStudentAssignmentScore(student.id, row.subjectId, row, isPending);
       const score = override ? override.score : sharedScore;
       const seed = hash(`${student.id}:${row.id}`);
