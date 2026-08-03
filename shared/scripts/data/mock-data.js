@@ -33,7 +33,7 @@ export const teachers = [
       { id: 5122, subjectId: "SS", classId: 12, role: "Assistant" },
       { id: 5124, subjectId: "AGRI", classId: 12, role: "Main" },
       { id: 5126, subjectId: "PTECH", classId: 11, role: "Main" }
-      
+
     ]
 
   },
@@ -45,8 +45,8 @@ export const teachers = [
     email: "jane@esoma.com",
 
     assignments: [
-      { id: 5008, subjectId: "ENG", classId: 10, role: "Main"},
-      { id: 5009, subjectId: "ENG", classId: 9, role: "Co-Teacher"},
+      { id: 5008, subjectId: "ENG", classId: 10, role: "Main" },
+      { id: 5009, subjectId: "ENG", classId: 9, role: "Co-Teacher" },
       { id: 5201, subjectId: "ENG", classId: 1, role: "Main" },    // PP1 North
       { id: 5223, subjectId: "ENG", classId: 8, role: "Main" },    // Grade 5 South
       { id: 5237, subjectId: "AGRI", classId: 11, role: "Main" },  // Grade 8 South
@@ -63,8 +63,8 @@ export const teachers = [
     email: "david@esoma.com",
 
     assignments: [
-      { id: 5010, subjectId: "SCI", classId: 8, role: "Main"},
-      { id: 5011, subjectId: "BIO", classId: 12, role: "Assistant"},
+      { id: 5010, subjectId: "SCI", classId: 8, role: "Main" },
+      { id: 5011, subjectId: "BIO", classId: 12, role: "Assistant" },
       { id: 5215, subjectId: "AGRI", classId: 7, role: "Main" },   // Grade 4 North
       { id: 5226, subjectId: "AGRI", classId: 9, role: "Main" },   // Grade 6 West
       { id: 5235, subjectId: "SCI", classId: 10, role: "Main" },   // Grade 7 Central
@@ -79,8 +79,8 @@ export const teachers = [
     contact: "0733456789",
     email: "sarah@esoma.com",
     assignments: [
-      { id: 5012, subjectId: "SS", classId: 6, role: "Main"},
-      { id: 5013, subjectId: "MAT", classId: 5, role: "Temporary"},
+      { id: 5012, subjectId: "SS", classId: 6, role: "Main" },
+      { id: 5013, subjectId: "MAT", classId: 5, role: "Temporary" },
       { id: 5202, subjectId: "MAT", classId: 1, role: "Main" },    // PP1 North
       { id: 5209, subjectId: "MAT", classId: 4, role: "Main" },    // Grade 1 North
       { id: 5219, subjectId: "MAT", classId: 7, role: "Main" },    // Grade 4 North
@@ -97,8 +97,8 @@ export const teachers = [
     contact: "0744567890",
     email: "peter@esoma.com",
     assignments: [
-      { id: 5014, subjectId: "COMP", classId: 12, role: "Main"},
-      { id: 5015, subjectId: "COMP", classId: 11, role: "Co-Teacher"},
+      { id: 5014, subjectId: "COMP", classId: 12, role: "Main" },
+      { id: 5015, subjectId: "COMP", classId: 11, role: "Co-Teacher" },
       { id: 5220, subjectId: "AGRI", classId: 8, role: "Main" },   // Grade 5 South
       { id: 5231, subjectId: "AGRI", classId: 10, role: "Main" },  // Grade 7 Central
       { id: 5240, subjectId: "KIS", classId: 11, role: "Main" },   // Grade 8 South
@@ -114,8 +114,8 @@ export const teachers = [
     email: "emily@esoma.com",
 
     assignments: [
-      { id: 5016, subjectId: "MAT", classId: 10, role: "Main"},
-      { id: 5017, subjectId: "SCI", classId: 9, role: "Assistant"},
+      { id: 5016, subjectId: "MAT", classId: 10, role: "Main" },
+      { id: 5017, subjectId: "SCI", classId: 9, role: "Assistant" },
       { id: 5205, subjectId: "MAT", classId: 3, role: "Main" },    // PP2 North East
       { id: 5214, subjectId: "MAT", classId: 6, role: "Main" },    // Grade 3 East
       { id: 5224, subjectId: "MAT", classId: 8, role: "Main" },    // Grade 5 South
@@ -131,8 +131,8 @@ export const teachers = [
     email: "joseph@esoma.com",
 
     assignments: [
-      { id: 5018, subjectId: "BIO", classId: 12, role: "Main"},
-      { id: 5019, subjectId: "CRE", classId: 1, role: "Temporary"},
+      { id: 5018, subjectId: "BIO", classId: 12, role: "Main" },
+      { id: 5019, subjectId: "CRE", classId: 1, role: "Temporary" },
       { id: 5203, subjectId: "CRE", classId: 3, role: "Main" },    // PP2 North East
       { id: 5211, subjectId: "CRE", classId: 5, role: "Main" },    // Grade 2 North East
       { id: 5222, subjectId: "CRE", classId: 8, role: "Main" },    // Grade 5 South
@@ -237,63 +237,66 @@ export const teachers = [
 
 
 export const classes = [
-  { id: 1, name: "PP1 North", group: "PP1", theme: "pp1", students: 22, classTeacher: "Mrs Lilian Achieng" },
-  { id: 3, name: "PP2 North East", group: "PP2", theme: "pp2", students: 25, classTeacher: "Mrs Caroline Njeri" },
-  { id: 4, name: "Grade 1 North", group: "Grade 1", theme: "grade-1", students: 26, classTeacher: "Mr Kevin Otieno" },
-  { id: 5, name: "Grade 2 North East", group: "Grade 2", theme: "grade-2", students: 31, classTeacher: "Mrs Faith Wambui" },
-  { id: 6, name: "Grade 3 East", group: "Grade 3", theme: "grade-3", students: 28, classTeacher: "Mr Dennis Kariuki" },
-  { id: 7, name: "Grade 4 North", group: "Grade 4", theme: "grade-4", students: 30, classTeacher: "Mrs Beatrice Nyokabi" },
-  { id: 8, name: "Grade 5 South", group: "Grade 5", theme: "grade-5", students: 29, classTeacher: "Mr Victor Mutua" },
-  { id: 9, name: "Grade 6 West", group: "Grade 6", theme: "grade-6", students: 27, classTeacher: "Mrs Alice Chebet" },
-  { id: 10, name: "Grade 7 Central", group: "Grade 7", theme: "grade-7", students: 34, classTeacher: "Mr Patrick Onyango" },
-  { id: 11, name: "Grade 8 South", group: "Grade 8", theme: "grade-8", students: 32, classTeacher: "Mrs Winnie Adhiambo" },
-  { id: 12, name: "Grade 9 North", group: "Grade 9", theme: "grade-9", students: 33, classTeacher: "Mr Charles Kimani" },
-  { id: 13, name: "Grade 1 East", group: "Grade 1", theme: "grade-1", students: 25, classTeacher: "Mrs Grace Wanjiku" },
-  { id: 14, name: "Grade 5 West", group: "Grade 5", theme: "grade-5", students: 24, classTeacher: "Mr Eliud Mwendwa" }
+  { id: 1, name: "PP1 North", group: "PP1", theme: "pp1", classTeacher: "Mrs Lilian Achieng" },
+  { id: 3, name: "PP2 North East", group: "PP2", theme: "pp2", classTeacher: "Mrs Caroline Njeri" },
+  { id: 4, name: "Grade 1 North", group: "Grade 1", theme: "grade-1", classTeacher: "Mr Kevin Otieno" },
+  { id: 5, name: "Grade 2 North East", group: "Grade 2", theme: "grade-2", classTeacher: "Mrs Faith Wambui" },
+  { id: 6, name: "Grade 3 East", group: "Grade 3", theme: "grade-3", classTeacher: "Mr Dennis Kariuki" },
+  { id: 7, name: "Grade 4 North", group: "Grade 4", theme: "grade-4", classTeacher: "Mrs Beatrice Nyokabi" },
+  { id: 8, name: "Grade 5 South", group: "Grade 5", theme: "grade-5", classTeacher: "Mr Victor Mutua" },
+  { id: 9, name: "Grade 6 West", group: "Grade 6", theme: "grade-6", classTeacher: "Mrs Alice Chebet" },
+  { id: 10, name: "Grade 7 Central", group: "Grade 7", theme: "grade-7", classTeacher: "Mr Patrick Onyango" },
+  { id: 11, name: "Grade 8 South", group: "Grade 8", theme: "grade-8", classTeacher: "Mrs Winnie Adhiambo" },
+  { id: 12, name: "Grade 9 North", group: "Grade 9", theme: "grade-9", classTeacher: "Mr Charles Kimani" },
+  { id: 13, name: "Grade 1 East", group: "Grade 1", theme: "grade-1", classTeacher: "Mrs Grace Wanjiku" },
+  { id: 14, name: "Grade 5 West", group: "Grade 5", theme: "grade-5", classTeacher: "Mr Eliud Mwendwa" }
 ];
 
 const students = [
   // PP2 North East (classId 3) — Mr Sammy: English, Creative Arts & Sports
-  { id: 1001, name: "Baraka Otieno",    classId: 3, admissionNo: "EA-2026-PP2-001", status: "active",  invite: "Accepted" },
-  { id: 1002, name: "Zawadi Achieng",   classId: 3, admissionNo: "EA-2026-PP2-002", status: "active",  invite: "Accepted" },
-  { id: 1003, name: "Imani Wanjiru",    classId: 3, admissionNo: "EA-2026-PP2-003", status: "pending", invite: "Pending"  },
-  { id: 1004, name: "Jayden Kiprono",   classId: 3, admissionNo: "EA-2026-PP2-004", status: "active",  invite: "Accepted" },
-  { id: 1005, name: "Neema Mwikali",    classId: 3, admissionNo: "EA-2026-PP2-005", status: "active",  invite: "Accepted" },
-  { id: 1006, name: "Tevin Omondi",     classId: 3, admissionNo: "EA-2026-PP2-006", status: "pending", invite: "Pending"  },
+  { id: 1001, name: "Baraka Otieno", classId: 3, admissionNo: "EA-2026-PP2-001", status: "active", invite: "Accepted" },
+  { id: 1002, name: "Zawadi Achieng", classId: 3, admissionNo: "EA-2026-PP2-002", status: "active", invite: "Accepted" },
+  { id: 1003, name: "Imani Wanjiru", classId: 3, admissionNo: "EA-2026-PP2-003", status: "pending", invite: "Pending" },
+  { id: 1004, name: "Jayden Kiprono", classId: 3, admissionNo: "EA-2026-PP2-004", status: "active", invite: "Accepted" },
+  { id: 1005, name: "Neema Mwikali", classId: 3, admissionNo: "EA-2026-PP2-005", status: "active", invite: "Accepted" },
+  { id: 1006, name: "Tevin Omondi", classId: 3, admissionNo: "EA-2026-PP2-006", status: "pending", invite: "Pending" },
 
-  // Grade 8 South (classId 11) — Mr Sammy: Science & Technology, CRE
-  { id: 1007, name: "Brian Kiptoo",     classId: 11, admissionNo: "EA-2026-G8-001", status: "active",  invite: "Accepted" },
-  { id: 1008, name: "Faith Atieno",     classId: 11, admissionNo: "EA-2026-G8-002", status: "active",  invite: "Accepted" },
-  { id: 1009, name: "Dennis Mwangi",    classId: 11, admissionNo: "EA-2026-G8-003", status: "active",  invite: "Accepted" },
-  { id: 1010, name: "Joan Wanjiku",     classId: 11, admissionNo: "EA-2026-G8-004", status: "pending", invite: "Pending"  },
-  { id: 1011, name: "Kevin Muli",       classId: 11, admissionNo: "EA-2026-G8-005", status: "active",  invite: "Accepted" },
-  { id: 1012, name: "Mercy Jepkoech",   classId: 11, admissionNo: "EA-2026-G8-006", status: "active",  invite: "Accepted" },
-  { id: 1013, name: "Victor Maina",     classId: 11, admissionNo: "EA-2026-G8-007", status: "pending", invite: "Pending"  },
+  // Grade 8 South (classId 11) — Mr Sammy: Mathematics, Science & Technology, CRE,
+  // Computer Studies, Social Studies, Pre-Technical Studies
+  { id: 1007, name: "Brian Kiptoo", classId: 11, admissionNo: "EA-2026-G8-001", status: "active", invite: "Accepted" },
+  { id: 1008, name: "Faith Atieno", classId: 11, admissionNo: "EA-2026-G8-002", status: "active", invite: "Accepted" },
+  { id: 1009, name: "Dennis Mwangi", classId: 11, admissionNo: "EA-2026-G8-003", status: "active", invite: "Accepted" },
+  { id: 1010, name: "Joan Wanjiku", classId: 11, admissionNo: "EA-2026-G8-004", status: "pending", invite: "Pending" },
+  { id: 1011, name: "Kevin Muli", classId: 11, admissionNo: "EA-2026-G8-005", status: "active", invite: "Accepted" },
+  { id: 1012, name: "Mercy Jepkoech", classId: 11, admissionNo: "EA-2026-G8-006", status: "active", invite: "Accepted" },
+  { id: 1013, name: "Victor Maina", classId: 11, admissionNo: "EA-2026-G8-007", status: "pending", invite: "Pending" },
 
-  // Grade 9 North (classId 12) — Mr Sammy: Mathematics, Kiswahili, Environmental
-  { id: 1014, name: "Sharon Cheruiyot", classId: 12, admissionNo: "EA-2026-G9-001", status: "active",  invite: "Accepted" },
-  { id: 1015, name: "Caleb Mutua",      classId: 12, admissionNo: "EA-2026-G9-002", status: "active",  invite: "Accepted" },
-  { id: 1016, name: "Grace Naliaka",    classId: 12, admissionNo: "EA-2026-G9-003", status: "active",  invite: "Accepted" },
-  { id: 1017, name: "Eric Kiplangat",   classId: 12, admissionNo: "EA-2026-G9-004", status: "pending", invite: "Pending"  },
-  { id: 1018, name: "Faith Nyambura",   classId: 12, admissionNo: "EA-2026-G9-005", status: "active",  invite: "Accepted" },
-  { id: 1019, name: "Abel Musyoka",     classId: 12, admissionNo: "EA-2026-G9-006", status: "active",  invite: "Accepted" },
-  { id: 1020, name: "Christine Atieno", classId: 12, admissionNo: "EA-2026-G9-007", status: "active",  invite: "Accepted" },
-  { id: 1021, name: "John Mwenda",      classId: 12, admissionNo: "EA-2026-G9-008", status: "pending", invite: "Pending"  },
-  { id: 1022, name: "Sarah Chepkemoi",  classId: 10, admissionNo: "EA-2026-G7-001", status: "active",  invite: "Accepted" },
-  { id: 1023, name: "Timothy Kamau",    classId: 4,  admissionNo: "EA-2026-G1-001", status: "active",  invite: "Accepted" },
-  { id: 1024, name: "Amani Yusuf",      classId: 12, admissionNo: "EA-2026-G9-009", status: "active",  invite: "Accepted" },
-  { id: 1025, name: "Nia Joy",          classId: 11, admissionNo: "EA-2026-G8-008", status: "active",  invite: "Accepted" },
-  { id: 1026, name: "Zacharia Muteti",  classId: 3,  admissionNo: "EA-2026-PP2-007", status: "pending", invite: "Pending" },
+  // Grade 9 North (classId 12) — Mr Sammy: Mathematics, Kiswahili, Computer Studies,
+  // Social Studies, Agriculture & Nutrition (Environmental Activities is Grade 1 East, classId 13)
+  { id: 1014, name: "Sharon Cheruiyot", classId: 12, admissionNo: "EA-2026-G9-001", status: "active", invite: "Accepted" },
+  { id: 1015, name: "Caleb Mutua", classId: 12, admissionNo: "EA-2026-G9-002", status: "active", invite: "Accepted" },
+  { id: 1016, name: "Grace Naliaka", classId: 12, admissionNo: "EA-2026-G9-003", status: "active", invite: "Accepted" },
+  { id: 1017, name: "Eric Kiplangat", classId: 12, admissionNo: "EA-2026-G9-004", status: "pending", invite: "Pending" },
+  { id: 1018, name: "Faith Nyambura", classId: 12, admissionNo: "EA-2026-G9-005", status: "active", invite: "Accepted" },
+  { id: 1019, name: "Abel Musyoka", classId: 12, admissionNo: "EA-2026-G9-006", status: "active", invite: "Accepted" },
+  { id: 1020, name: "Christine Atieno", classId: 12, admissionNo: "EA-2026-G9-007", status: "active", invite: "Accepted" },
+  { id: 1021, name: "John Mwenda", classId: 12, admissionNo: "EA-2026-G9-008", status: "pending", invite: "Pending" },
+  { id: 1022, name: "Sarah Chepkemoi", classId: 10, admissionNo: "EA-2026-G7-001", status: "active", invite: "Accepted" },
+  { id: 1024, name: "Amani Yusuf", classId: 12, admissionNo: "EA-2026-G9-009", status: "active", invite: "Accepted" },
+  { id: 1025, name: "Nia Joy", classId: 11, admissionNo: "EA-2026-G8-008", status: "active", invite: "Accepted" },
 
   // Kevin Kamau's other children (siblings of Timothy Kamau, id 1023) — parent portal family
-  { id: 1027, name: "Bethany Kamau",    classId: 7,  admissionNo: "EA-2026-G4-010", status: "active",  invite: "Accepted" },
-  { id: 1028, name: "Kelvin Kamau",     classId: 8,  admissionNo: "EA-2026-G5-011", status: "active",  invite: "Accepted" },
-  { id: 1029, name: "Viola Kamau",      classId: 10, admissionNo: "EA-2026-G7-012", status: "active",  invite: "Accepted" },
-  { id: 1030, name: "Cherop Kamau",     classId: 11, admissionNo: "EA-2026-G8-013", status: "active",  invite: "Accepted" },
-  { id: 1031, name: "James Kamau",      classId: 5,  admissionNo: "EA-2026-G2-014", status: "active",  invite: "Accepted" },
-  { id: 1032, name: "Brian Kamau",      classId: 3,  admissionNo: "EA-2026-PP2-008", status: "active",  invite: "Accepted" },
-  { id: 1033, name: "Purity Kamau",     classId: 12, admissionNo: "EA-2026-G9-010", status: "active",  invite: "Accepted" }
+  { id: 1026, name: "Zacharia Muteti", classId: 3, admissionNo: "EA-2026-PP2-007", status: "pending", invite: "Pending" },
+  { id: 1027, name: "Bethany Kamau", classId: 7, admissionNo: "EA-2026-G4-010", status: "active", invite: "Accepted" },
+  { id: 1028, name: "Kelvin Kamau", classId: 8, admissionNo: "EA-2026-G5-011", status: "active", invite: "Accepted" },
+  { id: 1029, name: "Viola Kamau", classId: 10, admissionNo: "EA-2026-G7-012", status: "active", invite: "Accepted" },
+  { id: 1030, name: "Cherop Kamau", classId: 11, admissionNo: "EA-2026-G8-013", status: "active", invite: "Accepted" },
+  { id: 1031, name: "James Kamau", classId: 5, admissionNo: "EA-2026-G2-014", status: "active", invite: "Accepted" },
+  { id: 1032, name: "Brian Kamau", classId: 3, admissionNo: "EA-2026-PP2-008", status: "active", invite: "Accepted" },
+  { id: 1033, name: "Purity Kamau", classId: 12, admissionNo: "EA-2026-G9-010", status: "active", invite: "Accepted" },
+  { id: 1023, name: "Timothy Kamau", classId: 4, admissionNo: "EA-2026-G1-001", status: "active", invite: "Accepted" }
 ];
+
 
 
 const guardianInfo = {
@@ -319,17 +322,18 @@ const guardianInfo = {
   1020: ["Susan Atieno", "0738 562 310"],
   1021: ["Michael Mwenda", "0709 487 651"],
   1022: ["Janet Chepkemoi", "0747 130 829"],
-  1023: ["Kevin Kamau", "0721859532"],
   1024: ["Abdi Rahim", "0712456789"],
   1025: ["James Otieno", "0799555123"],
-  1026: ["Jamain Mutati", "0733208417"],
-  1027: ["Kevin Kamau", "0721859532"],
-  1028: ["Kevin Kamau", "0721859532"],
-  1029: ["Kevin Kamau", "0721859532"],
-  1030: ["Kevin Kamau", "0721859532"],
-  1031: ["Kevin Kamau", "0721859532"],
-  1032: ["Kevin Kamau", "0721859532"],
-  1033: ["Kevin Kamau", "0721859532"],
+  //kevin
+  1027: ["Kevin Kamau", "0721859532"],//Bethany Kamau
+  1028: ["Kevin Kamau", "0721859532"],//Kelvin Kamau
+  1029: ["Kevin Kamau", "0721859532"],//Viola Kamau
+  1030: ["Kevin Kamau", "0721859532"],//Cherop Kamau
+  1031: ["Kevin Kamau", "0721859532"],//James Kamau
+  1032: ["Kevin Kamau", "0721859532"],//Brian Kamau
+  1033: ["Kevin Kamau", "0721859532"],//Purity Kamau
+  1023: ["Kevin Kamau", "0721859532"],//Timothy Kamau
+  1026: ["Kevin Kamau", "0733208417"]//Zacharia Muteti
 };
 students.forEach((student) => {
   const info = guardianInfo[student.id];
@@ -349,61 +353,61 @@ const subjects = [
     id: "KIS",
     name: "Kiswahili",
     icon: icon("kiswahili.webp"),
-    
+
   },
   {
     id: "MAT",
     name: "Mathematics",
     icon: icon("mathematics.webp"),
-    
+
   },
   {
     id: "INT",
     name: "Integrated Science",
     icon: icon("integrated_sci.webp"),
-   
+
   },
   {
     id: "COMP",
     name: "Computer Studies",
     icon: icon("computer_studies.webp"),
-    
+
   },
   {
     id: "CRE",
     name: "Christian Religious Education",
     icon: icon("cre.webp"),
-    
+
   },
   {
     id: "ART",
     name: "Creative Arts and Sports",
     icon: icon("creative_arts.webp"),
-    
+
   },
   {
     id: "IRE",
-    name: "Islam Religious Education",
+    name: "Islamic Religious Education",
     icon: icon("ire.webp"),
-   
+
   },
   {
     id: "ENV",
     name: "Environmental Activities",
     icon: icon("enviromental_activities.webp"),
-    
+
   },
   {
     id: "ENG",
     name: "English",
     icon: icon("english.webp"),
-    
+
   },
   {
     id: "SS",
     name: "Social Studies",
     icon: icon("social_studies.webp"),
-    
+
   },
   {
     id: "PTECH",
@@ -418,7 +422,7 @@ const subjects = [
 
   },
 
-  
+
   { id: "BIO", name: "Biology", icon: icon("science_tech.webp") },//junior high or som'
   { id: "CHEM", name: "Chemistry", icon: icon("science_tech.webp") },
   { id: "PHY", name: "Physics", icon: icon("science_tech.webp") },
@@ -427,12 +431,7 @@ const subjects = [
   { id: "PE", name: "Physical Education", icon: icon("creative_arts.webp") },
 ];
 
-// Per-subject base (the class-level tendency for that subject) plus a spread
-// that is seeded per subject AND per student. The offset used to key off the
-// student's array index alone, which was the same number in every subject —
-// so every learner's subject ranking came out identical and Creative Arts read
-// as the "strongest learning area" for all 33 of them. Seeding per pair gives
-// each learner a real strength profile while keeping the subject bases intact.
+
 function makeScores(subjectId, base = 68) {
   return students.map((student) => {
     const spread = (hash(`score:${subjectId}:${student.id}`) % 5) - 2;
@@ -460,13 +459,12 @@ const subjectStudentScores = {
   IRE: makeScores("IRE", 77),
   PTECH: makeScores("PTECH", 70),
   AGRI: makeScores("AGRI", 79),
-  BIO: makeScores("BIO", 38), // Grade 9 North's only subject Mr Sammy doesn't teach- kept low so it visibly drags the all-subjects avg below the teacher avg
+  BIO: makeScores("BIO", 38), // one of the Grade 9 North subjects Mr Sammy doesn't teach- kept low so it visibly drags the all-subjects avg below the teacher avg
 };
 
 const strandPerformance = {
   MAT: {
-    // CBC math strand names/complexity genuinely change by grade band — PP1 learner and a Grade 9 learner should never see the same
-    // "Mathematics" assignment list.
+    
     "pre-primary": [
       {
         name: "NUMBER WORK",
@@ -1038,7 +1036,7 @@ const strandPerformance = {
       ],
     },
   ],
-  
+
   INT: [
     {
       name: "LIVING THINGS AND THEIR ENVIRONMENT",
@@ -1083,12 +1081,7 @@ const strandPerformance = {
   ],
 };
 
-// CBC grade bands — PP1 through Grade 9 don't all take the same version of
-// a subject: a Grade 1 learner's "Mathematics" strands aren't a JSS
-// learner's. Subjects whose strand content genuinely changes by band
-// (MAT/ENG/KIS below) are keyed by band; subjects that are already
-// band-specific by subject id (e.g. ENV for lower grades vs SCI for upper
-// primary vs INT for JSS) stay a flat strand list.
+
 function gradeBandForClass(classId) {
   const group = classes.find((c) => c.id === Number(classId))?.group || "";
   if (group === "PP1" || group === "PP2") return "pre-primary";
@@ -1118,16 +1111,10 @@ function defaultStrands(subjectId, classId) {
   if (!entry) return fallback;
   if (Array.isArray(entry)) return entry;
 
-  // band-keyed subject (MAT/ENG/KIS) — resolve by this class's real grade band
   const band = gradeBandForClass(classId);
   return entry[band] || entry["upper-primary"] || fallback;
 }
 
-/* ---- assignment dates -------------------------------------------------
- * Shared by the assignment generator below, the done/pending/overdue
- * categorization, and the due-soon notifications at the bottom of this
- * file, so all three read one set of dates instead of each re-deriving
- * its own. */
 
 function addDays(date, days) {
   const d = date instanceof Date
@@ -1169,6 +1156,7 @@ export function isPastDue(assignment) {
 
 function buildAssignments(subjectId, classId) {
   const strands = defaultStrands(subjectId, classId);
+  const roster = students.filter((s) => Number(s.classId) === Number(classId));
   const rows = [];
 
   strands.forEach((strand, strandIndex) => {
@@ -1187,11 +1175,19 @@ function buildAssignments(subjectId, classId) {
         // the actual teacher who set it, from the same subject+class 
         setBy: teacherForClassSubject(subjectId, classId),
         status: sub.completion >= 70 ? "Active" : "Needs Review",
-        completed: Math.round((sub.completion / 100) * 28),
-        total: 28,
+        completed: 0,
+        total: roster.length,
         average: sub.averageScore,
       });
     });
+  });
+
+  
+  rows.forEach((row) => {
+    row.completed = roster.reduce((count, student) => {
+      const { score } = getStudentAssignmentScore(student.id, subjectId, row, student.status === "pending");
+      return score != null ? count + 1 : count;
+    }, 0);
   });
 
   return rows;
@@ -1235,15 +1231,14 @@ export function getStudentSubjectAverage(studentId, sharedSubjectId) {
 }
 
 function buildClassData(subjectId, classId) {
-  const classStudents = students.filter((s) => Number(s.classId) === Number(classId));
-  const selectedStudents = classStudents.length ? classStudents : students.slice(0, 6);
+  
+  const selectedStudents = students.filter((s) => Number(s.classId) === Number(classId));
   const abilities = (subjectStudentScores[subjectId] || makeScores(subjectId, 70)).filter((score) =>
     selectedStudents.some((student) => student.id === score.studentId)
   );
   const strands = defaultStrands(subjectId, classId);
   const assignments = assignmentsFor(subjectId, classId);
 
-  // real marked results, not the generator's ability figure as before, yeah the one in admin and teacher 
   const marks = selectedStudents
     .map((student) => getStudentSubjectAverage(student.id, subjectId))
     .filter((value) => value != null);
@@ -1251,7 +1246,7 @@ function buildClassData(subjectId, classId) {
     ? Math.round(marks.reduce((sum, value) => sum + value, 0) / marks.length)
     : 0;
   const completion = assignments.length
-    ? Math.round(assignments.reduce((sum, assignment) => sum + (assignment.completed / assignment.total) * 100, 0) / assignments.length)
+    ? Math.round(assignments.reduce((sum, assignment) => sum + (assignment.total ? (assignment.completed / assignment.total) * 100 : 0), 0) / assignments.length)
     : 0;
 
   return {
@@ -1307,7 +1302,8 @@ export function getClassMock(subjectId, classId) {
 
 export const classMock = getClassMock("MAT", 12);
 
-const SUBJECT_CODE_TO_SHARED = {
+
+export const SUBJECT_CODE_TO_SHARED = {
   MAT: "MAT",
   ENG: "ENG",
   KIS: "KIS",
@@ -1315,19 +1311,39 @@ const SUBJECT_CODE_TO_SHARED = {
   CAS: "ART",
   SS: "SS",
   SCI: "SCI",
-  AGRI: "AGRI"
+  AGRI: "AGRI",
+  ENV: "ENV",
+  COMP: "COMP",
+  PTECH: "PTECH",
+  BIO: "BIO",
+  IRE: "IRE",
+  INT: "INT"
 };
+
 
 const SUBJECT_OFFERING_BY_BAND = {
-  "pre-primary": ["MAT", "ENG", "KIS", "CAS", "CRE"],
-  "lower-primary": ["MAT", "ENG", "KIS", "CAS", "CRE"],
+  "pre-primary": ["MAT", "ENG", "KIS", "CAS", "CRE", "ENV"],
+  "lower-primary": ["MAT", "ENG", "KIS", "CAS", "CRE", "ENV"],
   "upper-primary": ["MAT", "ENG", "KIS", "CAS", "CRE", "SS", "SCI", "AGRI"],
-  "junior-secondary": ["MAT", "ENG", "KIS", "CAS", "CRE", "SS", "SCI", "AGRI"],
+  "junior-secondary": ["MAT", "ENG", "KIS", "CAS", "CRE", "SS", "SCI", "AGRI", "COMP", "PTECH", "BIO"],
 };
 
-// a student's chart/legend never shows a subject their grade doesn't take.
+const SHARED_TO_SUBJECT_CODE = Object.fromEntries(
+  Object.entries(SUBJECT_CODE_TO_SHARED).map(([code, sharedId]) => [sharedId, code])
+);
+
+
+
 export function getOfferedSubjectCodesForClass(classId) {
-  return SUBJECT_OFFERING_BY_BAND[gradeBandForClass(classId)] || Object.keys(SUBJECT_CODE_TO_SHARED);
+  const taught = new Set(subjectIdsForClass(classId));
+  const band = SUBJECT_OFFERING_BY_BAND[gradeBandForClass(classId)] || Object.keys(SUBJECT_CODE_TO_SHARED);
+
+  const fromBand = band.filter((code) => taught.has(SUBJECT_CODE_TO_SHARED[code]));
+  const extras = [...taught]
+    .map((subjectId) => SHARED_TO_SUBJECT_CODE[subjectId])
+    .filter((code) => code && !fromBand.includes(code));
+
+  return [...fromBand, ...extras];
 }
 
 function classNameById(classId) {
@@ -1340,6 +1356,11 @@ function subjectNameById(subjectId) {
 
 export function hash(value) {
   return String(value).split("").reduce((sum, ch) => (sum * 31 + ch.charCodeAt(0)) >>> 0, 7);
+}
+
+
+export function getClassStudentCount(classId) {
+  return students.filter((student) => Number(student.classId) === Number(classId)).length;
 }
 
 export function subjectIdsForClass(classId) {
@@ -1435,7 +1456,7 @@ export function getStudentStrandAverages(studentId) {
   const student = students.find((s) => s.id === studentId);
   if (!student || student.status === "pending") return [];
 
- 
+
   const totals = {};
   subjectIdsForClass(student.classId).forEach((subjectId) => {
     const classData = getClassMock(subjectId, student.classId);
@@ -1571,7 +1592,13 @@ export const subjectLabels = {
   CAS: "CREATIVE ARTS AND SPORTS",
   SS: "SOCIAL STUDIES",
   SCI: "SCIENCE AND TECHNOLOGY",
-  AGRI: "AGRICULTURE AND NUTRITION"
+  AGRI: "AGRICULTURE AND NUTRITION",
+  COMP: "COMPUTER STUDIES",
+  IRE: "ISLAMIC RELIGIOUS EDUCATION",
+  PTECH: "PRE-TECHNICAL STUDIES",
+  INT: "INTEGRATED SCIENCE",
+  ENV: "ENVIRONMENTAL ACTIVITIES",
+  BIO: "BIOLOGY",
 };
 
 export const subjectOptions = subjects.map((s) => s.name);
@@ -1589,8 +1616,7 @@ export function getStudentPerformanceProfile(studentId) {
     (s) => Number(s.classId) === Number(student.classId) && s.status !== "pending"
   );
 
-  const offeredCodes = SUBJECT_OFFERING_BY_BAND[gradeBandForClass(student.classId)]
-    || Object.keys(SUBJECT_CODE_TO_SHARED);
+  const offeredCodes = getOfferedSubjectCodesForClass(student.classId);
 
   offeredCodes.forEach((code) => {
     const sharedId = SUBJECT_CODE_TO_SHARED[code];
@@ -1711,25 +1737,25 @@ export const parent = {
 
 export const avatarThemes = {
   buffalo: { c1: "#e3c7ae", c2: "#f6ebdd", soft: "#f6ebdd", ink: "#5d3a1e", accent: "#8a5a3b" },
-  "0":     { c1: "#f0d5b1", c2: "#faefdd", soft: "#faefdd", ink: "#6b4312", accent: "#a9743f" }, // monkey
-  lion:    { c1: "#fcd9a0", c2: "#fdf0d4", soft: "#fdf0d4", ink: "#7a4d05", accent: "#e8930c" },
-  elephant:{ c1: "#ccd8e6", c2: "#e9eef5", soft: "#e9eef5", ink: "#33455c", accent: "#6b7a8d" },
+  "0": { c1: "#f0d5b1", c2: "#faefdd", soft: "#faefdd", ink: "#6b4312", accent: "#a9743f" }, // monkey
+  lion: { c1: "#fcd9a0", c2: "#fdf0d4", soft: "#fdf0d4", ink: "#7a4d05", accent: "#e8930c" },
+  elephant: { c1: "#ccd8e6", c2: "#e9eef5", soft: "#e9eef5", ink: "#33455c", accent: "#6b7a8d" },
 };
 
 // presentation only decoration
 const PARENT_STUDENT_DECORATION = {
-  1023: { gender: "NONE",    avatar: "buffalo",  plan: "Monthly", daysLeft: 158 },
-  1027: { gender: "FEMALE",  avatar: "0",        plan: "Monthly", daysLeft: 158 },
-  1028: { gender: "MALE",    avatar: "0",        plan: "Monthly", daysLeft: 158 },
-  1029: { gender: "FEMALE",  avatar: "lion",     plan: "Monthly", daysLeft: 19 },
-  1030: { gender: "NONE",    avatar: "0",        plan: "Monthly", daysLeft: 158 },
-  1031: { gender: "MALE",    avatar: "elephant", plan: "Monthly", daysLeft: 5 },
-  1032: { gender: "MALE",    avatar: "0",        plan: "Monthly", daysLeft: 158 },
-  1033: { gender: "FEMALE",  avatar: "lion",     plan: "Monthly", daysLeft: -3 },
+  1023: { gender: "NONE", avatar: "buffalo", plan: "Monthly", daysLeft: 158 },
+  1026: { gender: "MALE", avatar: "elephant", plan: "Termly", daysLeft: 30 },
+  1027: { gender: "FEMALE", avatar: "0", plan: "Monthly", daysLeft: 158 },
+  1028: { gender: "MALE", avatar: "buffalo", plan: "Monthly", daysLeft: 158 },
+  1029: { gender: "FEMALE", avatar: "lion", plan: "Monthly", daysLeft: 19 },
+  1030: { gender: "NONE", avatar: "0", plan: "Monthly", daysLeft: 158 },
+  1031: { gender: "MALE", avatar: "elephant", plan: "Monthly", daysLeft: 5 },
+  1032: { gender: "MALE", avatar: "0", plan: "Monthly", daysLeft: 0 },
+  1033: { gender: "FEMALE", avatar: "lion", plan: "Yearly", daysLeft: 0 },
 };
 
-// stream words in use for now are compass directions, but the code is written generically enough to also cover color named streams if any class is ever
-// named that way (Blue/Yellow reserved below even though unused right now) ama any other stream name eg continents,shapes....
+
 const STREAM_LETTERS = {
   North: "North",
   South: "South",
@@ -1813,10 +1839,14 @@ export const subjectKey = [
   ["MAT", "Mathematics"],
   ["SCI", "Science and Technology"],
   ["SS", "Social Studies"],
+  ["COMP", "Computer Studies"],
+  ["IRE", "Islamic Religious Education"],
+  ["PTECH", "Pre-Technical Studies"],
+  ["INT", "Integrated Science"],
+  ["ENV", "Environmental Activities"],
+  ["BIO", "Biology"],
 ];
 
-// the real teacher for this subject+class, same lookup admin/teacher already do a subject can be taught by different teachers in different classes,
-// so this must match on classId too, not just subjectId.
 function teacherForClassSubject(sharedSubjectId, classId) {
   for (const teacher of teachers) {
     const match = (teacher.assignments || []).find(
@@ -1832,8 +1862,8 @@ parentStudents.forEach((parentStudent) => {
   const studentRecord = students.find((item) => item.id === parentStudent.id);
   const classId = studentRecord?.classId;
 
-  const offeredCodes = SUBJECT_OFFERING_BY_BAND[gradeBandForClass(classId)]
-    || subjectKey.map(([code]) => code);
+  const offered = getOfferedSubjectCodesForClass(classId);
+  const offeredCodes = offered.length ? offered : subjectKey.map(([code]) => code);
   const studentSubjectKey = subjectKey.filter(([code]) => offeredCodes.includes(code));
   const subjectCodes = studentSubjectKey.map(([code]) => code);
 
@@ -1850,7 +1880,7 @@ parentStudents.forEach((parentStudent) => {
     const subjectName = subjectNameById(sharedSubjectId);
     const teacherName = teacherForClassSubject(sharedSubjectId, classId);
 
-    
+
     return (classData.assignments || []).slice(0, 1).map((assignment) => ({
       title: assignment.name,
       subject: subjectName,
@@ -1877,8 +1907,6 @@ parentStudents.forEach((parentStudent) => {
   };
 });
 
-/* assignment deployed / due soon(expired) notifications ???which teacher deployed which real assignment for which real parentStudent, and when it's
- * really due. everything here traces back to the same teachers/getClassMock data every portal already renders from */
 
 function formatNotifDate(d) {
   return d.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" });
@@ -1894,7 +1922,8 @@ parentStudents.forEach((parentStudent) => {
 
   const classId = students.find((s) => s.id === parentStudent.id)?.classId;
   const classTeacherName = classes.find((c) => Number(c.id) === Number(classId))?.classTeacher;
-  const offeredCodes = SUBJECT_OFFERING_BY_BAND[gradeBandForClass(classId)] || subjectKey.map(([code]) => code);
+  const offeredForNotifs = getOfferedSubjectCodesForClass(classId);
+  const offeredCodes = offeredForNotifs.length ? offeredForNotifs : subjectKey.map(([code]) => code);
   const studentSubjectKeyForNotifs = subjectKey.filter(([code]) => offeredCodes.includes(code));
 
   let newest = null;

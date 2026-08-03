@@ -365,6 +365,13 @@ body.login-active .app {
   display: none;
 }
 
+/* the sign-in screen owns the viewport. App chrome that sits outside the app
+   root - header, bottom nav, floating back, FABs - would otherwise stay on
+   screen, so hide every top-level element except the login page and modals. */
+body.login-active>*:not(.login-page):not(.login-success-modal):not(.modal-layer) {
+  display: none !important;
+}
+
 body:not(.login-active) .login-page {
   display: none;
 }
@@ -910,6 +917,18 @@ body:not(.login-active) .login-page {
   text-underline-offset: 4px;
 }
 
+/* sign-in failure message, injected by shared/scripts/ui/login-gate.js */
+.login-error {
+  margin: 0;
+  padding: 10px 14px;
+  border: 1px solid rgba(191, 97, 127, 0.35);
+  border-radius: 12px;
+  background: rgba(191, 97, 127, 0.08);
+  color: #a33a5c;
+  font-size: 13.5px;
+  font-weight: 800;
+}
+
 .login-submit {
   min-height: 54px;
   display: inline-flex;
@@ -1172,7 +1191,7 @@ body:not(.login-active) .login-page {
   }
 }
 
-/* Route skeletons live in tmain.css (.view-loading system). */
+/* Route skeletons live in shared/styles/skeleton.css (.sk-loading system). */
 
 .stats, 
 .student-overview {
@@ -3356,6 +3375,9 @@ tbody tr:last-child td {
        Student detail summary, subject chart, and supporting metric panels. NB: remove chart  */
 .profile-shell {
   display: grid;
+  /* minmax(0,1fr) so a wide child (chart min-width, tables) cannot stretch the
+     single auto track and drag every sibling card past the viewport on mobile */
+  grid-template-columns: minmax(0, 1fr);
   gap: 24px;
 }
 

@@ -1,5 +1,2 @@
 /* lives in shared/styles/components.css*/
-body.login-active .app-header,
-body.login-active #teacherApp {
-    display: none;
-}
+/* login-screen hiding is handled once in shared/styles/base.css (body.login-active > *) */

@@ -1,8 +1,37 @@
 import { open as openModal, close as closeModal, showTransient as showTransientModal } from "../modal.js";
+import { setButtonLoading } from "../utils/ui-state.js";
 
-export function createLoginGate({ storageKey, onEnter, appShellSelector, logoutSelectors = [] } = {}) {
+// single backend integration point for sign-in. Pass `authenticate` when the API
+// exists (e.g. fetch("/api/auth/login", {method:"POST", body}) -> {ok, token});
+// until then every submit is accepted, exactly as before.
+function acceptAnyCredentials() {
+  return Promise.resolve({ ok: true });
+}
+
+export function createLoginGate({
+  storageKey,
+  onEnter,
+  appShellSelector,
+  logoutSelectors = [],
+  authenticate = acceptAnyCredentials,
+} = {}) {
   const loginPage = document.getElementById("loginPage");
   const appShell = appShellSelector ? document.querySelector(appShellSelector) : null;
+
+  // the sign-in form has no error slot in the markup, so the gate owns one
+  function setLoginError(message) {
+    const form = document.getElementById("loginForm");
+    if (!form) return;
+    let el = form.querySelector(".login-error");
+    if (!el) {
+      el = document.createElement("p");
+      el.className = "login-error";
+      el.setAttribute("role", "alert");
+      form.insertBefore(el, form.querySelector(".login-submit") || null);
+    }
+    el.textContent = message || "";
+    el.hidden = !message;
+  }
 
   function enterDashboard() {
     document.body.classList.remove("login-active");
@@ -40,15 +69,33 @@ export function createLoginGate({ storageKey, onEnter, appShellSelector, logoutS
 
     loginForm?.addEventListener("submit", (event) => {
       event.preventDefault();
-      if (!loginSuccessModal) {
-        enterDashboard();
-        return;
-      }
-      try {
-        showTransientModal(loginSuccessModal, { onAfterHide: enterDashboard });
-      } catch (err) {
-        enterDashboard();
-      }
+      const submitBtn = loginForm.querySelector("[type='submit']");
+      setLoginError("");
+      setButtonLoading(submitBtn, true);
+
+      Promise.resolve(
+        authenticate({
+          identity: document.getElementById("loginIdentity")?.value || "",
+          password: loginPassword?.value || "",
+        })
+      )
+        .then((result) => {
+          if (result && result.ok === false) {
+            setLoginError(result.message || "Wrong username or password.");
+            return;
+          }
+          if (!loginSuccessModal) {
+            enterDashboard();
+            return;
+          }
+          try {
+            showTransientModal(loginSuccessModal, { onAfterHide: enterDashboard });
+          } catch (err) {
+            enterDashboard();
+          }
+        })
+        .catch(() => setLoginError("We could not sign you in. Try again."))
+        .finally(() => setButtonLoading(submitBtn, false));
     });
 
     togglePasswordBtn?.addEventListener("click", () => {

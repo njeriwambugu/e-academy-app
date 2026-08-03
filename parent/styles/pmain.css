@@ -74,9 +74,11 @@ body {
     }
 }
 
+/* min-height, not height: a fixed 100% body box ends the sticky header's
+   containing block one viewport down, so it scrolled away mid-page */
 html,
 body {
-    height: 100%;
+    min-height: 100%;
     overscroll-behavior-y: none;
 }
 
@@ -223,6 +225,35 @@ body {
     font-size: 15px;
     font-weight: 700;
     transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+/* plan-driven fields: shown, never typed into. The doubled [readonly] outranks
+   the generic input / :focus-visible rules further down this file. */
+.deploy-field input[readonly][readonly] {
+    background: #f1f3f8;
+    color: #4d5584;
+    cursor: default;
+    user-select: none;
+}
+
+.deploy-field input[readonly][readonly]:focus,
+.deploy-field input[readonly][readonly]:focus-visible {
+    outline: 0;
+    border-color: var(--line, #e4e8f1);
+    box-shadow: none;
+    background: #f1f3f8;
+}
+
+/* number spinners would still nudge the value on a readonly field in some browsers */
+.deploy-field input[readonly]::-webkit-outer-spin-button,
+.deploy-field input[readonly]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.deploy-field input[type="number"][readonly] {
+    -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 .deploy-field select {
@@ -2877,10 +2908,7 @@ body {
 }
 
 
-body.login-active .app-header,
-body.login-active #parentApp {
-    display: none;
-}
+/* login-screen hiding is handled once in shared/styles/base.css (body.login-active > *) */
 
 #parentDashboardView .status-key-item {
     cursor: default;
@@ -3945,119 +3973,89 @@ body.login-active #parentApp {
 }
 
 
-.th-mobile-label {
-    display: none;
-}
-
-
-.summary-mobile-cards {
-    display: none;
-}
-
+/* mobile: same table, minus the Completed and Retakes columns */
 @media (max-width: 880px) {
-    .parent-summary-table {
+    .parent-summary-table .col-done,
+    .parent-summary-table .col-retake,
+    .status-key .status-key-item.completed,
+    .status-key .status-key-item.retake {
         display: none;
     }
 
-    .summary-mobile-cards {
-        display: grid;
-        gap: 12px;
-        margin: 0;
-        padding: 0;
-        list-style: none;
+    .parent-summary-table {
+        overflow-x: hidden;
     }
 
-    .summary-mobile-card {
-        display: grid;
-        gap: 12px;
-        padding: 14px;
-        border: 1px solid rgba(226, 231, 242, .95);
-        border-radius: 16px;
-        background: #fff;
-        box-shadow: 0 10px 24px rgba(31, 39, 72, .06);
+    .parent-summary-table th,
+    .parent-summary-table td {
+        padding: 12px 8px;
     }
 
-    .summary-mobile-card .parent-student-cell {
-        gap: 10px;
+    .parent-summary-table th {
+        font-size: 11px;
+        letter-spacing: 0;
     }
 
-    .summary-mobile-card .parent-student-cell .parent-student-avatar {
-        width: 36px;
-        height: 36px;
-        font-size: 14px;
+    .parent-summary-table .col-name {
+        width: 50%;
+        text-align: left;
     }
 
-    .summary-mobile-card .parent-student-cell strong {
-        font-size: 14.5px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    .parent-summary-table .col-ongoing,
+    .parent-summary-table .col-pending {
+        width: 25%;
+        text-align: center;
+    }
+
+    .parent-summary-table .parent-student-cell {
+        gap: 8px;
         min-width: 0;
     }
 
-    .summary-mobile-status {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 8px;
+    .parent-summary-table .parent-student-cell .parent-student-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
     }
 
-    .summary-mobile-status .count-chip {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        min-height: 38px;
-        padding: 6px 10px;
-        border-radius: 12px;
+    .parent-summary-table .parent-student-cell strong {
+        min-width: 0;
+        font-size: 13.5px;
         white-space: nowrap;
-        overflow: hidden;
-    }
-
-    .summary-mobile-status .count-chip .learner-dot {
-        flex: 0 0 auto;
-        width: 8px;
-        height: 8px;
-    }
-
-    .summary-mobile-status .count-chip-label {
-        display: inline-block;
-        font-size: 11.5px;
-        font-weight: 800;
         overflow: hidden;
         text-overflow: ellipsis;
     }
-
-    .summary-mobile-status .count-chip-value {
-        margin-left: auto;
-        flex: 0 0 auto;
-        font-size: 15px;
-        font-weight: 900;
-    }
-
-    .summary-mobile-status .count-chip.done.is-zero { background: #e9f9ef; color: #1d7c3f; }
-    .summary-mobile-status .count-chip.ongoing.is-zero { background: #e8f1fb; color: #2b6fb3; }
-    .summary-mobile-status .count-chip.pending.is-zero { background: #eef1f6; color: #5b6474; }
-    .summary-mobile-status .count-chip.retake.is-zero { background: #fdeaea; color: #b93232; }
 }
 
 @media (max-width: 360px) {
-    .summary-mobile-card .parent-student-cell strong {
-        font-size: 13.5px;
+    .parent-summary-table th,
+    .parent-summary-table td {
+        padding: 10px 6px;
     }
 
-    .summary-mobile-status {
-        gap: 6px;
+    /* wrap between words only - never mid-word ("Ongoin/g") */
+    .parent-summary-table th {
+        font-size: 10px;
+        overflow-wrap: normal;
+        word-break: keep-all;
     }
 
-    .summary-mobile-status .count-chip {
-        padding: 5px 8px;
-        gap: 4px;
+    .parent-summary-table .col-name {
+        width: 46%;
     }
 
-    .summary-mobile-status .count-chip-label {
-        font-size: 10.5px;
+    .parent-summary-table .col-ongoing,
+    .parent-summary-table .col-pending {
+        width: 27%;
     }
 
-    .summary-mobile-status .count-chip-value {
-        font-size: 13px;
+    .parent-summary-table .parent-student-cell strong {
+        font-size: 12.5px;
+    }
+
+    .parent-summary-table .count-chip {
+        min-width: 30px;
+        padding: 2px 8px;
+        font-size: 12px;
     }
 }

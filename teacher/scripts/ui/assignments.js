@@ -398,14 +398,21 @@ export function createAssignmentsFeature(deps) {
         node.textContent = Math.round(target);
         return;
       }
+      const settle = () => { node.textContent = Math.round(target); };
       const start = performance.now();
       const tick = (now) => {
-        const progress = Math.min(1, (now - start) / 780);
+        // clamp both ends: a rAF timestamp can predate the captured start (the
+        // frame began before this code ran), which rendered "-1%" on the ring
+        const progress = Math.min(1, Math.max(0, (now - start) / 780));
+        if (progress >= 1) return settle();
         const eased = 1 - Math.pow(1 - progress, 3);
         node.textContent = Math.round(target * eased);
-        if (progress < 1) requestAnimationFrame(tick);
+        requestAnimationFrame(tick);
       };
       requestAnimationFrame(tick);
+      // the number must not depend on the animation finishing: a throttled or
+      // dropped frame loop would otherwise leave the ring reading 0
+      window.setTimeout(settle, 900);
     });
 
     root.querySelectorAll("[data-count-duration]").forEach((node) => {
@@ -414,14 +421,17 @@ export function createAssignmentsFeature(deps) {
         node.textContent = formatDuration(target);
         return;
       }
+      const settle = () => { node.textContent = formatDuration(target); };
       const start = performance.now();
       const tick = (now) => {
-        const progress = Math.min(1, (now - start) / 780);
+        const progress = Math.min(1, Math.max(0, (now - start) / 780));
+        if (progress >= 1) return settle();
         const eased = 1 - Math.pow(1 - progress, 3);
         node.textContent = formatDuration(Math.round(target * eased));
-        if (progress < 1) requestAnimationFrame(tick);
+        requestAnimationFrame(tick);
       };
       requestAnimationFrame(tick);
+      window.setTimeout(settle, 900);
     });
 
     requestAnimationFrame(() => root.classList.add("is-ready"));
@@ -503,16 +513,8 @@ export function createAssignmentsFeature(deps) {
       ? Math.round(completedLearners.reduce((sum, student) => sum + (student.secondsTaken || 0), 0) / completedLearners.length)
       : 0;
 
-    const title = $("#assignmentProfileTitle");
-    if (title) title.textContent = row.name;
-    const subtitle = $("#assignmentProfileSubtitle");
-    if (subtitle) subtitle.textContent = `${row.subjectName} \u2022 ${row.className} \u2022 ${row.strand}`;
-    const status = $("#assignmentProfileStatus");
-    if (status) {
-      status.textContent = row.status;
-      status.className = `student-status ${row.status === "Active" ? "active" : "pending"}`;
-    }
-
+    // name/subtitle/status now live in the meta block below, rendered by
+    // renderAssignmentMeta - the old header elements no longer exist
     renderMetricPills({
       score: row.average,
       time: completedLearners.length ? formatDuration(avgSeconds) : "",

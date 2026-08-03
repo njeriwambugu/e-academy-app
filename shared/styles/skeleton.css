@@ -1,9 +1,11 @@
+/* parents/teachers*/
 
 .sk-loading {
     pointer-events: none;
     user-select: none;
 }
 
+/* the grey blocks */
 .sk-loading .welcome-pill,
 .sk-loading .stat,
 .sk-loading .segmented,
@@ -28,7 +30,18 @@
 .sk-loading .mobile-placeholder-card,
 .sk-loading .breadcrumb-back,
 .sk-loading .section-head,
-.sk-loading .page-subtitle {
+.sk-loading .page-subtitle,
+/* teacher portal */
+.sk-loading .subject-card,
+.sk-loading .student-overview-card,
+.sk-loading .student-grade-filters > *,
+.sk-loading .assignment-command-center,
+.sk-loading .assignment-detail-card,
+.sk-loading .class-panel,
+.sk-loading .profile-hero,
+.sk-loading .performance-panel,
+.sk-loading .student-grade-filters,
+.sk-loading .assignment-results-meta {
     position: relative;
     overflow: hidden;
     background: #e7ebf2 !important;
@@ -61,7 +74,16 @@
 .sk-loading .help-card > *,
 .sk-loading .mobile-placeholder-card > *,
 .sk-loading .breadcrumb-back > *,
-.sk-loading .section-head > * {
+.sk-loading .section-head > *,
+/* teacher portal */
+.sk-loading .subject-card > *,
+.sk-loading .student-overview-card > *,
+.sk-loading .student-grade-filters > * > *,
+.sk-loading .assignment-command-center > *,
+.sk-loading .assignment-detail-card > *,
+.sk-loading .class-panel > *,
+.sk-loading .profile-hero > *,
+.sk-loading .performance-panel > * {
     visibility: hidden !important;
 }
 
@@ -69,7 +91,12 @@
 .sk-loading .parent-student-card::before,
 .sk-loading .parent-student-card::after,
 .sk-loading .student-detail-hero::before,
-.sk-loading .student-detail-hero::after {
+.sk-loading .student-detail-hero::after,
+.sk-loading .subject-card::before,
+.sk-loading .student-overview-card::before,
+.sk-loading .student-overview-card::after,
+.sk-loading .profile-hero::before,
+.sk-loading .profile-metric::before {
     content: none !important;
 }
 
@@ -98,7 +125,16 @@
 .sk-loading .chart-card::after,
 .sk-loading .help-card::after,
 .sk-loading .mobile-placeholder-card::after,
-.sk-loading .section-head::after {
+.sk-loading .section-head::after,
+/* teacher portal */
+.sk-loading .subject-card::after,
+.sk-loading .student-overview-card::after,
+.sk-loading .student-grade-filters > *::after,
+.sk-loading .assignment-command-center::after,
+.sk-loading .assignment-detail-card::after,
+.sk-loading .class-panel::after,
+.sk-loading .profile-hero::after,
+.sk-loading .performance-panel::after {
     content: "" !important;
     position: absolute;
     inset: 0;
@@ -129,7 +165,10 @@
 .sk-loading .notif-item:nth-child(2)::after,
 .sk-loading .report-student-card:nth-child(2)::after,
 .sk-loading .stat:nth-child(2)::after,
-.sk-loading .help-card:nth-child(2)::after {
+.sk-loading .help-card:nth-child(2)::after,
+.sk-loading .subject-card:nth-child(2)::after,
+.sk-loading .student-overview-card:nth-child(2)::after,
+.sk-loading .profile-metric:nth-child(2)::after {
     animation-delay: 120ms !important;
 }
 
@@ -138,7 +177,10 @@
 .sk-loading .notif-item:nth-child(3)::after,
 .sk-loading .report-student-card:nth-child(3)::after,
 .sk-loading .stat:nth-child(3)::after,
-.sk-loading .help-card:nth-child(3)::after {
+.sk-loading .help-card:nth-child(3)::after,
+.sk-loading .subject-card:nth-child(3)::after,
+.sk-loading .student-overview-card:nth-child(3)::after,
+.sk-loading .profile-metric:nth-child(3)::after {
     animation-delay: 240ms !important;
 }
 
@@ -146,7 +188,8 @@
 .sk-loading .parent-student-pill:nth-child(n+4)::after,
 .sk-loading .notif-item:nth-child(n+4)::after,
 .sk-loading .report-student-card:nth-child(n+4)::after,
-.sk-loading .help-card:nth-child(n+4)::after {
+.sk-loading .help-card:nth-child(n+4)::after,
+.sk-loading .subject-card:nth-child(n+4)::after {
     animation-delay: 360ms !important;
 }
 
@@ -161,12 +204,26 @@
     border-radius: 18px;
 }
 
-.sk-loading .student-detail-hero {
+.sk-loading .student-detail-hero,
+.sk-loading .profile-hero {
     min-height: 200px;
 }
 
-.sk-loading .chart-card {
+.sk-loading .chart-card,
+.sk-loading .performance-panel {
     min-height: 320px;
+}
+
+.sk-loading .subject-card {
+    min-height: 150px;
+}
+
+.sk-loading .student-overview-card {
+    min-height: 96px;
+}
+
+.sk-loading .assignment-command-center {
+    min-height: 120px;
 }
 
 .sk-loading .section-head {

@@ -12,6 +12,7 @@ export function initBulkImportActions({
   renderDetailTable,
   renderCards,
   updateStats,
+  refreshStudentCounts,
   renderTeachersTable,
 }) {
   const { bulkImportModal } = elements;
@@ -40,11 +41,7 @@ export function initBulkImportActions({
       added += 1;
     });
 
-    if (state.currentClass) {
-      state.currentClass.students += added;
-      const detailStudentNumber = document.getElementById("detailStudentNumber");
-      if (detailStudentNumber) detailStudentNumber.textContent = state.currentClass.students;
-    }
+    refreshStudentCounts();
 
     setState({ activePanel: "students" });
     document.querySelectorAll(".segment").forEach((item) =>
@@ -52,8 +49,6 @@ export function initBulkImportActions({
     );
 
     renderDetailTable();
-    renderCards();
-    updateStats();
 
     Modals.close(bulkImportModal);
     resetImportModal();

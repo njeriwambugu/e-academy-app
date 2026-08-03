@@ -15,6 +15,7 @@ import {
   subjectLabels,
   isPastDue,
   MOCK_TODAY,
+  SUBJECT_CODE_TO_SHARED,
 } from "./mock-data.js";
 import { calculateSubjectAverages } from "./insights-engine.js";
 
@@ -40,7 +41,8 @@ function list(items, max = 5) {
 
 /* shared derivations*/
 
-const CODE_TO_SHARED = { MAT: "MAT", ENG: "ENG", KIS: "KIS", CRE: "CRE", CAS: "ART", SS: "SS", SCI: "SCI", AGRI: "AGRI" };
+// imported, not re-declared: a local copy went stale the moment a subject was added
+const CODE_TO_SHARED = SUBJECT_CODE_TO_SHARED;
 const CHART_SUBJECTS = new Set(Object.values(CODE_TO_SHARED));
 const subjects = teacherContext.subjects;
 const subjectStudentScores = teacherContext.subjectStudentScores;

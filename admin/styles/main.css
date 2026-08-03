@@ -3438,6 +3438,9 @@ tbody tr:last-child td {
        Student detail summary, subject chart, and supporting metric panels. NB: remove chart  */
 .profile-shell {
   display: grid;
+  /* minmax(0,1fr) so a wide child (chart min-width, tables) cannot stretch the
+     single auto track and drag every sibling card past the viewport on mobile */
+  grid-template-columns: minmax(0, 1fr);
   gap: 24px;
 }
 

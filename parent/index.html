@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="../shared/styles/components.css" />
   <link rel="stylesheet" href="../shared/styles/utilities.css" />
   <link rel="stylesheet" href="./styles/pmain.css?v=25" />
-  <link rel="stylesheet" href="./styles/pskeleton.css" />
+  <link rel="stylesheet" href="../shared/styles/skeleton.css" />
   <link rel="stylesheet" href="../shared/styles/responsive.css" />
 </head>
 
@@ -376,21 +376,15 @@
               <thead>
                 <tr>
                   <th class="col-name">Learner</th>
-                  <th><span class="th-text">Completed</span><span class="th-mobile-label">Status</span></th>
+                  <th class="col-done"><span class="th-text">Completed</span></th>
                   <th class="col-ongoing"><span class="th-text">Ongoing</span></th>
                   <th class="col-pending"><span class="th-text">Not Started</span></th>
-                  <th><span class="th-text">Retakes</span></th>
+                  <th class="col-retake"><span class="th-text">Retakes</span></th>
                 </tr>
               </thead>
               <tbody id="parentSummaryBody"></tbody>
             </table>
           </div>
-
-          <!-- mobile-only: same dataset/markup helpers as the desktop table
-               above, rendered as cards instead of forcing a 5-column table
-               into a narrow screen. Table and cards are swapped purely via
-               CSS (see the max-width:880px rule), never both visible. -->
-          <ul class="summary-mobile-cards" id="parentSummaryCards" aria-label="Assignments summary per kid"></ul>
 
           <div class="table-pagination" id="parentSummaryPagination" hidden></div>
         </div>
@@ -984,9 +978,12 @@
           </div>
         </div>
 
+        <!-- amount is set by the plan buttons only - readonly, not disabled, so
+             the value still reads back when the STK push is sent -->
         <label class="deploy-field">
           <span>Amount (KES)</span>
-          <input type="number" id="parentPayAmount" min="1" value="125" inputmode="numeric" />
+          <input type="number" id="parentPayAmount" min="1" value="125" inputmode="numeric" readonly
+            aria-readonly="true" tabindex="-1" />
         </label>
         <label class="deploy-field">
           <span>M-Pesa Phone Number</span>

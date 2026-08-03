@@ -52,6 +52,24 @@ let classes = initialClasses.map(item => ({ ...item }));
 export { classes };
 const teacherRows = initialTeacherRows.map(row => [...row]);
 const studentRows = initialStudentRows.map(item => ({ ...item }));
+
+// class headcounts are counted off the learner list - no stored number to drift
+function classStudentCount(classId) {
+  return studentRows.filter(student => Number(student.classId) === Number(classId)).length;
+}
+
+// after any add/import/delete: repaint the class-detail counters and the cards
+function refreshStudentCounts() {
+  if (state.currentClass) {
+    const total = classStudentCount(state.currentClass.id);
+    const detailStudentNumber = document.getElementById("detailStudentNumber");
+    if (detailStudentNumber) detailStudentNumber.textContent = total;
+    const detailStudents = document.getElementById("detailStudents");
+    if (detailStudents) detailStudents.textContent = `${total} Students`;
+  }
+  renderCards();
+  updateStats();
+}
 let teachers = initialTeachers.map(item => ({ ...item }));
 
 initState({ classes });
@@ -168,7 +186,7 @@ function renderCards() {
             <span class="shape tiny" aria-hidden="true"></span>
             <span class="shape ghost" aria-hidden="true"></span>
             <span class="class-name tracking-in-expand anim-delay-${delay}">${item.name}</span>
-            <span class="student-count">${item.students} students</span>
+            <span class="student-count">${classStudentCount(item.id)} student${classStudentCount(item.id) === 1 ? "" : "s"}</span>
           </button>
         `;
   }).join("");
@@ -180,7 +198,7 @@ function renderCards() {
 
 function updateStats() {
   document.getElementById("totalClasses").textContent = classes.length;
-  document.getElementById("totalStudents").textContent = classes.reduce((sum, item) => sum + item.students, 0);
+  document.getElementById("totalStudents").textContent = studentRows.length;
 }
 
 function setActiveView(view) {
@@ -215,7 +233,7 @@ function getUniqueDetailCount(cellIndex) {
 }
 
 function updateDetailStats() {
-  const studentTotal = state.currentClass ? state.currentClass.students : studentRows.length;
+  const studentTotal = state.currentClass ? classStudentCount(state.currentClass.id) : studentRows.length;
   document.getElementById("detailStudentNumber").textContent = studentTotal;
   document.getElementById("detailSubjectNumber").textContent = getUniqueDetailCount(1);
   document.getElementById("detailTeacherNumber").textContent = getUniqueDetailCount(0);
@@ -406,8 +424,9 @@ export function openClass(item, options = {}) {
   void detailTitle.offsetWidth;
   detailTitle.classList.add("title-animate");
   const detailStudents = document.getElementById("detailStudents");
-  if (detailStudents) detailStudents.textContent = `${item.students} Students`;
-  document.getElementById("detailStudentNumber").textContent = item.students;
+  const classTotal = classStudentCount(item.id);
+  if (detailStudents) detailStudents.textContent = `${classTotal} Students`;
+  document.getElementById("detailStudentNumber").textContent = classTotal;
   const heroArt = document.getElementById("heroArt");
   if (heroImages[item.theme]) {
     heroArt.style.display = "block";
@@ -791,13 +810,7 @@ function showActionSuccess(title, subtitle, isError = false) {
 }
 
 function refreshStudentCountsAfterDelete() {
-  if (!state.currentClass) return;
-  state.currentClass.students = Math.max(0, state.currentClass.students - 1);
-  document.getElementById("detailStudentNumber").textContent = state.currentClass.students;
-  const detailStudents = document.getElementById("detailStudents");
-  if (detailStudents) detailStudents.textContent = `${state.currentClass.students} Students`;
-  renderCards();
-  updateStats();
+  refreshStudentCounts();
 }
 
 function setTeacherActionsMode(mode, teacherIndex) {
@@ -1048,8 +1061,7 @@ addClassForm.addEventListener("submit", event => {
     id: maxId(classes) + 1,
     name: String(data.get("className") || "").trim(),
     group,
-    theme: groupToTheme(group),
-    students: Number(data.get("studentCount")) || 0
+    theme: groupToTheme(group)
   };
   if (!newClass.name) return;
   classes.push(newClass);
@@ -1107,10 +1119,7 @@ addChildForm.addEventListener("submit", event => {
   student.admissionNumber = String(data.get("admissionNumber") || "Not recorded").trim();
   student.classId = state.currentClass?.id || "";
   studentRows.push(student);
-  if (state.currentClass) {
-    state.currentClass.students += 1;
-    document.getElementById("detailStudentNumber").textContent = state.currentClass.students;
-  }
+  refreshStudentCounts();
   setState({ detailSearch: "" });
   detailSearchInput.value = "";
   setState({ studentStatusFilter: "all" });
@@ -1118,8 +1127,6 @@ addChildForm.addEventListener("submit", event => {
   setState({ activePanel: "students" });
   document.querySelectorAll(".segment").forEach(item => item.classList.toggle("active", item.dataset.panel === "students"));
   renderDetailTable();
-  renderCards();
-  updateStats();
   addChildForm.reset();
   Modals.close(addChildModal);
   showActionSuccess("Student Added", `${student.name} was added successfully.`);
@@ -1250,6 +1257,7 @@ const bulkImportActions = initBulkImportActions({
   renderDetailTable,
   renderCards,
   updateStats,
+  refreshStudentCounts,
   renderTeachersTable,
   elements: {
     bulkImportModal,

@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../shared/styles/components.css" />
   <link rel="stylesheet" href="../shared/styles/utilities.css" />
   <link rel="stylesheet" href="./styles/tmain.css" />
+  <link rel="stylesheet" href="../shared/styles/skeleton.css" />
   <link rel="stylesheet" href="../shared/styles/responsive.css" />
 
 
@@ -114,7 +115,7 @@
           <img src="assets/icons/user.svg" alt="avatar" class="icon">
         </span>
         <span class="profile-copy">
-          <strong>Teacher</strong>
+          <strong id="teacherNameMobile">Teacher</strong>
         </span>
         <img src="assets/icons/arrow_down.svg" alt="dropdown" class="chevron">
       </button>
@@ -355,11 +356,11 @@
           <section class="profile-hero student-profile-hero">
             <div class="profile-title">
               <div>
-                <h1 id="profileName">Timothy</h1>
+                <h1 id="profileName">&mdash;</h1>
                 <p id="profileSummary">Student information is ready for review.</p>
               </div>
               <div class="profile-badges">
-                <span class="profile-badge" id="profileClassBadge">Grade 4 East</span>
+                <span class="profile-badge" id="profileClassBadge">&mdash;</span>
                 <span class="profile-badge" id="profileInviteBadge">Invite Accepted</span>
                 <span class="profile-badge" id="profileActiveBadge">Active</span>
               </div>
@@ -371,16 +372,15 @@
               <div class="profile-info-grid">
                 <div class="profile-info-row editable-row">
                   <span>Student Name / Nickname</span>
-                  <strong id="profileInfoName">Timothy</strong>
+                  <strong id="profileInfoName">&mdash;</strong>
 
                 </div>
-                <div class="profile-info-row"><span>Parent/Guardian Name</span><strong id="profileGuardian">Kevin
-                    Mutiso</strong></div>
+                <div class="profile-info-row"><span>Parent/Guardian Name</span><strong id="profileGuardian">&mdash;</strong></div>
                 <div class="profile-info-row"><span>Parent/Guardian Contact</span><strong
-                    id="profileContact">0721859532</strong></div>
+                    id="profileContact">&mdash;</strong></div>
                 <div class="profile-info-row editable-row">
                   <span>Class</span>
-                  <strong id="profileClassName">Grade 4 East</strong>
+                  <strong id="profileClassName">&mdash;</strong>
 
                 </div>
               </div>
@@ -398,7 +398,7 @@
             <article class="profile-metric">
               <img src="assets/icons/high-performance.svg" alt="" aria-hidden="true">
               <div class="metric-copy">
-                <strong id="profilePerformance">85%</strong>
+                <strong id="profilePerformance">&mdash;</strong>
                 <span>Performance Average</span>
                 <small class="metric-compare" id="profilePerformanceCompare"></small>
               </div>
@@ -406,7 +406,7 @@
             <article class="profile-metric">
               <img src="assets/icons/book.svg" alt="" aria-hidden="true">
               <div class="metric-copy">
-                <strong id="profileBestSubject">CRE</strong>
+                <strong id="profileBestSubject">&mdash;</strong>
                 <span>Strongest Subject</span>
               </div>
             </article>
@@ -692,7 +692,7 @@
       </span>
       <span class="nav-label">Dashboard</span>
     </button>
-    <button type="button" data-teacher-nav="students" data-nav-index="1" aria-label="Students">
+    <button type="button" data-teacher-nav="students" data-nav-index="1" aria-label="Learners">
       <span class="nav-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
           stroke-linejoin="round">
@@ -702,7 +702,7 @@
           <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
         </svg>
       </span>
-      <span class="nav-label">Students</span>
+      <span class="nav-label">Learners</span>
     </button>
     <button type="button" data-teacher-nav="assignments" data-nav-index="2" aria-label="Assignments">
       <span class="nav-icon" aria-hidden="true">

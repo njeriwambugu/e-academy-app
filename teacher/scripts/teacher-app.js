@@ -96,9 +96,7 @@ function getSubjectName(subjectId) {
  
 const subjectsGrid = $("#teacherSubjectsGrid");
 const emptyEl = $("#teacherNoSubjects");
-const countEl = $("#subjectCount");
 
-const teacherNameEl = $("#teacherName");
 const teacherNameMobileEl = $("#teacherNameMobile");
 const teacherDashboardNameEl = $("#teacherDashboardName");
 
@@ -139,7 +137,6 @@ const selectClassModalApi = createSelectClassModal({//modal
 
 function renderTeacherName() {//stats
   const name = teacherContext?.teacher?.name || "Teacher";
-  if (teacherNameEl) teacherNameEl.textContent = name;
   if (teacherNameMobileEl) teacherNameMobileEl.textContent = name;
   if (teacherDashboardNameEl) teacherDashboardNameEl.textContent = name;
 }
@@ -158,10 +155,6 @@ function renderSubjects() {
   if (!subjectsGrid) return;
 
   const subjects = getTeacherSubjects();
-
-  if (countEl) {
-    countEl.textContent = `${subjects.length} subject${subjects.length === 1 ? "" : "s"}`;
-  }
 
   if (emptyEl) {
     emptyEl.hidden = subjects.length > 0;
@@ -1267,42 +1260,29 @@ function showView(name) {
   if (name !== "class") syncAssignFab(false);
 }
 
-let routeTransitionId = 0;
+const teacherAppRoot = $("#teacherApp");
+let skeletonTimer = null;
 
-function setViewLoading(name, loading) {
-  const view = views[name];
-  if (!view) return;
-  view.classList.toggle("view-loading", loading);
-  view.setAttribute("aria-busy", String(loading));
+// same shimmer the parent portal uses: the real markup renders straight away and
+// the skeleton greys it out briefly. Mock data is instant - with a real API call
+// setSkeleton(true) before the fetch and clear it after.
+function flashSkeleton(duration = 480) {
+  if (!teacherAppRoot) return;
+  window.clearTimeout(skeletonTimer);
+  teacherAppRoot.classList.add("sk-loading");
+  teacherAppRoot.setAttribute("aria-busy", "true");
+  skeletonTimer = window.setTimeout(() => {
+    teacherAppRoot.classList.remove("sk-loading");
+    teacherAppRoot.removeAttribute("aria-busy");
+  }, duration);
 }
 
 function transitionToView(name, render, options = {}) {
-  const token = ++routeTransitionId;
-  const useSkeleton = options.loading !== false;
-  const delay = useSkeleton ? options.delay ?? 180 : 0;
-
   showView(name);
-
-  if (!useSkeleton) {
-    render?.();
-    clearButtonLoading();
-    restoreScrollPosition(options.scrollKey || name);
-    return;
-  }
-
-  setViewLoading(name, true);
-
-  window.setTimeout(() => {
-    if (token !== routeTransitionId) return;
-    render?.();
-
-    requestAnimationFrame(() => {
-      if (token !== routeTransitionId) return;
-      setViewLoading(name, false);
-      clearButtonLoading();
-      restoreScrollPosition(options.scrollKey || name);
-    });
-  }, delay);
+  if (options.loading !== false) flashSkeleton();
+  render?.();
+  clearButtonLoading();
+  restoreScrollPosition(options.scrollKey || name);
 }
 
 function setActiveNav(nav) {
@@ -1418,9 +1398,16 @@ function handleRoute() {
   }
 
   if (view === "class" && params.get("classId")) {
+    const cls = getClassById(params.get("classId"));
+    // a stale link or a class removed on the server must not open an empty
+    // shell dressed as a real class - send the teacher back with a reason
+    if (!cls) {
+      notifyTeacher("That class is no longer available.");
+      goToNav("dashboard");
+      return;
+    }
     currentNav = "class";
     setActiveNav(null);
-    const cls = getClassById(params.get("classId"));
     setBreadcrumb([
       { label: "Dashboard", nav: "dashboard" },
       { label: cls ? cls.name : "Class" },
@@ -1434,8 +1421,15 @@ function handleRoute() {
   }
 
   if (view === "student" && params.get("studentId")) {
-    currentNav = "studentProfile";
     const profilePreview = getStudentProfile(params.get("studentId"));
+    // without this the view opens on the markup's placeholder learner - a name,
+    // guardian and phone number that belong to nobody
+    if (!profilePreview) {
+      notifyTeacher("That learner is no longer available.");
+      goToNav("students");
+      return;
+    }
+    currentNav = "studentProfile";
     setActiveNav("students");
     setBreadcrumb([
       { label: "Dashboard", nav: "dashboard" },

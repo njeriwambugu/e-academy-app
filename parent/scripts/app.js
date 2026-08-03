@@ -9,6 +9,7 @@ import { dateOnly } from "../../shared/scripts/utils/date.js";
 import { open as openModal, close as closeModal } from "../../shared/scripts/modal.js";
 import { PORTAL_STORAGE_KEYS } from "../../shared/scripts/constants/storage.js";
 import { addNavigationRipple, syncBottomNavigation } from "../../shared/scripts/ui/bottom-navigation.js";
+import { setButtonLoading } from "../../shared/scripts/utils/ui-state.js";
 
 (function () {
   "use strict";
@@ -131,12 +132,12 @@ import { addNavigationRipple, syncBottomNavigation } from "../../shared/scripts/
 
   const COUNT_CHIP_DOT_TONE = { done: "completed", ongoing: "ongoing", pending: "not-started", retake: "retake" };
 
-  function countCell(value, tone, label, { visibleLabel = false } = {}) {//summary table
+  function countCell(value, tone, label) {//summary table
     const zero = !value;
     return `
       <span class="count-chip ${tone}${zero ? " is-zero" : ""}">
         <i class="learner-dot ${COUNT_CHIP_DOT_TONE[tone] || ""}" aria-hidden="true"></i>
-        <span class="${visibleLabel ? "count-chip-label" : "sr-only"}">${label}</span>
+        <span class="sr-only">${label}</span>
         <strong class="count-chip-value">${value || 0}</strong>
       </span>`;
   }
@@ -158,36 +159,22 @@ import { addNavigationRipple, syncBottomNavigation } from "../../shared/scripts/
   });
 
   
+  // one table everywhere - mobile keeps Learner/Ongoing/Not Started and drops
+  // the Completed and Retakes columns via CSS (see the max-width:880px rule).
   function renderSummaryTable() {
     const body = $("#parentSummaryBody");
-    const cardList = $("#parentSummaryCards");
-    if (!body && !cardList) return;
+    if (!body) return;
 
     const pageRows = summaryPager.paginate(STUDENTS);
 
-    if (body) {
-      body.innerHTML = pageRows.map((student) => `
+    body.innerHTML = pageRows.map((student) => `
       <tr>
         <td>${studentCellMarkup(student)}</td>
-        <td>${countCell(student.done, "done", "Completed")}</td>
+        <td class="col-done">${countCell(student.done, "done", "Completed")}</td>
         <td class="col-ongoing">${countCell(student.ongoing, "ongoing", "Ongoing")}</td>
         <td class="col-pending">${countCell(student.pending, "pending", "Not Started")}</td>
-        <td>${countCell(student.retakes, "retake", "Retakes")}</td>
+        <td class="col-retake">${countCell(student.retakes, "retake", "Retakes")}</td>
       </tr>`).join("");
-    }
-
-    if (cardList) {
-      cardList.innerHTML = pageRows.map((student) => `
-      <li class="summary-mobile-card">
-        ${studentCellMarkup(student)}
-        <div class="summary-mobile-status">
-          ${countCell(student.done, "done", "Completed", { visibleLabel: true })}
-          ${countCell(student.ongoing, "ongoing", "Ongoing", { visibleLabel: true })}
-          ${countCell(student.pending, "pending", "Not Started", { visibleLabel: true })}
-          ${countCell(student.retakes, "retake", "Retakes", { visibleLabel: true })}
-        </div>
-      </li>`).join("");
-    }
 
     summaryPager.renderControls();
   }
@@ -672,6 +659,14 @@ import { addNavigationRipple, syncBottomNavigation } from "../../shared/scripts/
     openModal("parentPayModal");
   }
 
+  // single backend integration point for payments. Replace the body with the real
+  // call (e.g. fetch("/api/payments/mpesa/stk-push", {method:"POST", body})) and
+  // the flow below keeps working - it already handles pending and failure.
+  function requestMpesaPushAPI(payload) {
+    console.info("requestMpesaPushAPI", payload);
+    return new Promise((resolve) => window.setTimeout(() => resolve({ ok: true }), 250));
+  }
+
   function bindPayModal() {
     $("#managePayBtn")?.addEventListener("click", () => openPayModal(manageStudent));
 
@@ -680,23 +675,44 @@ import { addNavigationRipple, syncBottomNavigation } from "../../shared/scripts/
       if (btn) applyPayPlan(btn);
     });
 
-    $("#parentPaySend")?.addEventListener("click", () => {
+    $("#parentPaySend")?.addEventListener("click", (event) => {
+      const sendBtn = event.currentTarget;
       const amount = Number($("#parentPayAmount").value);
       const phone = ($("#parentPayPhone").value || "").replace(/\s+/g, "");
+      const errorEl = $("#parentPayError");
       const valid = amount > 0 && /^(?:\+?254|0)?[17]\d{8}$/.test(phone);
 
       if (!valid) {
-        $("#parentPayError").hidden = false;
+        errorEl.textContent = "Enter a valid amount and phone number.";
+        errorEl.hidden = false;
         return;
       }
 
-      $("#parentPayError").hidden = true;
-      $("#parentPayFields").hidden = true;
-      $("#parentPayActions").hidden = true;
-      $("#parentPaySuccessNote").textContent =
-        `STK push sent to ${phone}. Enter your M-Pesa PIN on your phone to complete KES ${amount} for ${payStudent?.name || "your child"}.`;
-      $("#parentPaySuccess").hidden = false;
-      $("#parentPayDoneActions").hidden = false;
+      errorEl.hidden = true;
+      setButtonLoading(sendBtn, true);
+
+      // the push is only confirmed once the server accepts it - showing success
+      // before that told parents a payment was sent when it may never have been
+      requestMpesaPushAPI({
+        studentId: payStudent?.id || null,
+        plan: $("#parentPayPlanSelect .pay-plan-btn.active")?.dataset.plan || null,
+        amount,
+        phone,
+      })
+        .then((result) => {
+          if (!result?.ok) throw new Error("push rejected");
+          $("#parentPayFields").hidden = true;
+          $("#parentPayActions").hidden = true;
+          $("#parentPaySuccessNote").textContent =
+            `STK push sent to ${phone}. Enter your M-Pesa PIN on your phone to complete KES ${amount} for ${payStudent?.name || "your child"}.`;
+          $("#parentPaySuccess").hidden = false;
+          $("#parentPayDoneActions").hidden = false;
+        })
+        .catch(() => {
+          errorEl.textContent = "We could not reach M-Pesa. Try again.";
+          errorEl.hidden = false;
+        })
+        .finally(() => setButtonLoading(sendBtn, false));
     });
 
     $("#parentPayOk")?.addEventListener("click", () => {
