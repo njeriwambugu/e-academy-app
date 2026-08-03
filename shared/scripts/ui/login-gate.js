@@ -1,9 +1,6 @@
 import { open as openModal, close as closeModal, showTransient as showTransientModal } from "../modal.js";
 import { setButtonLoading } from "../utils/ui-state.js";
 
-// single backend integration point for sign-in. Pass `authenticate` when the API
-// exists (e.g. fetch("/api/auth/login", {method:"POST", body}) -> {ok, token});
-// until then every submit is accepted, exactly as before.
 function acceptAnyCredentials() {
   return Promise.resolve({ ok: true });
 }

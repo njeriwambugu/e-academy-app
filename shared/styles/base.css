@@ -54,9 +54,8 @@ select option {
 [hidden] {
   display: none !important;
 }
-
-/* shell and navigation
-       Sticky header, brand area, user menu, and app-wide layout scaffolding. */
+ 
+/* shell and navigation sticky header, brand area, user menu, and app-wide layout scaffolding. */
 .app {
   min-height: 100vh;
   display: flex;
@@ -365,9 +364,7 @@ body.login-active .app {
   display: none;
 }
 
-/* the sign-in screen owns the viewport. App chrome that sits outside the app
-   root - header, bottom nav, floating back, FABs - would otherwise stay on
-   screen, so hide every top-level element except the login page and modals. */
+
 body.login-active>*:not(.login-page):not(.login-success-modal):not(.modal-layer) {
   display: none !important;
 }
@@ -376,8 +373,7 @@ body:not(.login-active) .login-page {
   display: none;
 }
 
-/*Login screen
-       Full-screen sign-in layout and its transient success state. */
+/*Login screen*/
 .login-page {
   position: relative;
   min-height: 100svh;
@@ -1191,7 +1187,7 @@ body:not(.login-active) .login-page {
   }
 }
 
-/* Route skeletons live in shared/styles/skeleton.css (.sk-loading system). */
+/* route skeletons live in shared/styles/skeleton.css (.sk-loading system). */
 
 .stats, 
 .student-overview {
@@ -1227,8 +1223,6 @@ body:not(.login-active) .login-page {
   inset: -50% auto auto -12%;
   width: 160px;
   height: 160px;
-  /*clip-path: polygon(0% 15%, 40% 35%, 0% 55%, 40% 75%, 0% 95%, 50% 95%, 90% 75%, 50% 55%, 90% 35%, 50% 15%, 0% 15%);
-      background: color-mix(in srgb, var(--theme-soft), transparent 34%);*/
   pointer-events: none;
 }
 
@@ -1497,8 +1491,7 @@ body:not(.login-active) .login-page {
   display: block;
 }
 
-/*  Modal system(a.k.a pop ups) and forms
-       Shared dialog shell, form fields, confirmation panels, and modal actions. */
+/*  modal system(a.k.a pop ups) and forms, shared dialog shell, form fields, confirmation panels, and modal actions. */
 .modal-layer {
   position: fixed;
   inset: 0;
@@ -1712,7 +1705,6 @@ body:not(.login-active) .login-page {
   display: none;
   gap: 4px;
   max-height: 140px;
-  /*to fit 4-5 options without scrolling on smaller screens*/
   overflow: auto;
   padding: 6px;
   border: 1px solid rgba(210, 218, 236, 0.96);
@@ -1728,7 +1720,6 @@ body:not(.login-active) .login-page {
 }
 
 .suggestion-list.upward {
-  /*when there's not enough space below the field, like in the add teacher form on smaller screens*/
   top: auto;
   bottom: calc(100% + 8px);
 }
@@ -1805,8 +1796,7 @@ body:not(.login-active) .login-page {
   font-weight: 950;
 }
 
-/*Dashboard cards and stats
-       Grade cards, dashboard counters, and animated decorative shapes. */
+/*dashboard cards and stats ,grade cards, dashboard counters, and animated decorative shapes. */
 .class-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(210px, 1fr));
@@ -2293,8 +2283,7 @@ body:not(.login-active) .login-page {
   filter: drop-shadow(0 16px 18px rgba(55, 40, 92, 0.12));
 }
 
-/* Class detail views
-       Teacher/student tables, summaries, filters, and class hero states. */
+/* class detail views,teacher/student tables, summaries, filters, and class hero states. */
 .detail-stats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2867,7 +2856,7 @@ thead {
   background: #f7fafb;
 }
 
-/* Teachers management — Actions column */
+/* Teachers management(actions)*/
 .table th.col-mgmt-actions {
   display: table-cell !important;
   width: 30% !important;
@@ -3105,7 +3094,7 @@ tbody tr:last-child td {
   font-size: 22px;
 }
 
-/* Bulk Import Modal */
+/* bulk import pop up */
 .bulk-import-body {
   display: flex;
   flex-direction: column;
@@ -3371,12 +3360,9 @@ tbody tr:last-child td {
   border-color: rgba(169, 139, 230, 0.5);
 }
 
-/*Student profile and charts
-       Student detail summary, subject chart, and supporting metric panels. NB: remove chart  */
+/*student profile and charts, student detail summary, subject chart, and supporting metric panels. NB: remove chart  */
 .profile-shell {
   display: grid;
-  /* minmax(0,1fr) so a wide child (chart min-width, tables) cannot stretch the
-     single auto track and drag every sibling card past the viewport on mobile */
   grid-template-columns: minmax(0, 1fr);
   gap: 24px;
 }
@@ -3544,7 +3530,6 @@ tbody tr:last-child td {
   white-space: nowrap;
 }
 
-/* Decorative accent ring (keeps badges looking "fixed" and intentional) */
 .profile-badge::before {
   content: "";
   position: absolute;
@@ -3560,7 +3545,6 @@ tbody tr:last-child td {
   pointer-events: none;
 }
 
-/* Optional semantic styling if badges use these classes in HTML */
 .profile-badge.is-pending::before {
   background: linear-gradient(90deg, rgba(155, 89, 182, 0.38), rgba(52, 152, 219, 0.32));
 }
@@ -3924,7 +3908,7 @@ tbody tr:last-child td {
   font-weight: 900;
 }
 
-/* Assignment summary (Student profile) */
+/* assignment summary (student profile) */
 .assignment-summary {
   margin-top: 18px;
   padding: 18px;
@@ -3967,7 +3951,7 @@ tbody tr:last-child td {
   filter: blur(1px);
 }
 
-/* Status color overlays (all screen sizes) */
+/* status color overlays (all screen sizes) */
 .assignment-summary-card.done::after {
   background: rgba(46, 204, 113, 0.28);
 }
@@ -4024,14 +4008,12 @@ tbody tr:last-child td {
   border-color: rgba(191, 97, 127, 0.42);
 }
 
-/* Mobile: keep assignment summary text readable */
 @media (max-width: 420px) {
   .assignment-summary {
     padding: 14px;
   }
 
   .assignment-summary-grid {
-    /* Use 3 columns so labels stay readable */
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 10px;
   }
@@ -4058,7 +4040,6 @@ tbody tr:last-child td {
     line-height: 1;
   }
 
-  /* Stronger, clearer status colors on mobile */
   .assignment-summary-card::after {
     inset: -70% -45% auto auto;
     width: 140px;
@@ -4088,8 +4069,6 @@ tbody tr:last-child td {
   }
 }
 
-/* Responsive states and reduced motion
-       Tablet/mobile refinements plus motion opt-outs. */
 @media (max-width: 1120px) {
   .login-page {
     grid-template-columns: 1fr;
@@ -4738,7 +4717,7 @@ tbody tr:last-child td {
 
 }
 
-/* Mobile table responsiveness */
+/* mobile table responsiveness */
 @media (max-width: 768px) {
 
   .col-invite,
@@ -4771,7 +4750,6 @@ tbody tr:last-child td {
     overflow-x: hidden;
   }
 
-  /* Students/Teachers panel: keep Name + Actions only */
   #detailTableWrap[data-panel="students"] .col-actions {
     display: table-cell !important;
     width: 30% !important;
@@ -4785,26 +4763,6 @@ tbody tr:last-child td {
     width: 70% !important;
     visibility: visible !important;
   }
-
-  /*#teachersTableWrap th:nth-child(2),
-  #teachersTableWrap td:nth-child(2) {
-    display: none;
-  }
-
-  #teachersTableWrap th.col-mgmt-actions,
-  #teachersTableWrap td:last-child {
-    display: table-cell;
-    width: 92px;
-    text-align: center;
-  }
-
-  #teachersTableWrap table {
-    min-width: 100%;
-  }
-
-  #teachersTableWrap {
-    overflow-x: hidden;
-  }*/
 
 }
 

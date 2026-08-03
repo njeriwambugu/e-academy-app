@@ -1,23 +1,3 @@
-/* =========================================================================
- * Performance Insights Engine — rule-based, deterministic, no AI.
- *
- * Every function here is a pure calculation over the one canonical mock
- * dataset (mock-data.js). Nothing is invented at insight-generation time:
- * scores, strands, assignment status, and activity dates all come from the
- * same real per-student computations every portal already renders from.
- * The one place this leans on a formula rather than a stored field is the
- * monthly trend series (the dataset only carries a single "latest score"
- * per subject, not a real month-by-month history) — that series is built
- * deterministically from the student's real current average, seeded per
- * student so it's stable and explainable, not randomized per render. That
- * mirrors the same modeling approach mock-data.js already uses for the
- * class-level "Performance Overview for the Last 6 Months" chart.
- *
- * Every insight/recommendation is returned as a typed, severity-tagged
- * object — { type, title, message, priority } — so the frontend can pick
- * icon/color/emphasis without re-deriving any of the logic.
- * ========================================================================= */
-
 import {
   getStudentSubjectBreakdown,
   getStudentStrandAverages,
@@ -340,9 +320,6 @@ export function calculateInsightCards(studentId, period) {
     ));
   }
 
-  //a card covers the lowest-scoring learning area in all three bands, always appears, because "which area needs the most practice" is useful
-  // even for a learner who is doing well everywhere but a healthy score is never called "weakest". > 50 it is flagged, 50-69 it is a focus area,
-  // and at 70+ the wording says outright that nothing here is a weak area.
   if (weakest && subjects.length > 1) {
     const needsWork = weakest.average < PERFORMANCE_THRESHOLDS.onTrack;
     const urgent = needsUrgentSupport(weakest.average);

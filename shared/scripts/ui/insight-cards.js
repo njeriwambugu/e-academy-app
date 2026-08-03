@@ -10,10 +10,6 @@ const CHECKLIST_ICON = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" view
 // pending work is a "not done yet" signal, so it reads as time rather than as a checklist....the checklist icon it used to share with the completion cards made the two look like the same kind of result.
 const CLOCK_ICON = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>';
 
-// "Scores have held steady" — a level trend line between two markers. The three
-// momentum states now read as one family: the same line rising, falling, or
-// staying flat. Sparkles previously stood in here and said "something nice
-// happened", which is not what a steady result means.
 const TREND_FLAT_ICON = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 12h16.5" /><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h4.5m-4.5 10.5h4.5m7.5-10.5h4.5m-4.5 10.5h4.5" opacity=".45" /></svg>';
 
 export const insightIcons = {

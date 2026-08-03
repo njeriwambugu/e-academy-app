@@ -203,7 +203,6 @@ const DOODLE_SLOTS = 24;
 
 function subjectDoodles(subjectId) {
   const glyphs = SUBJECT_DOODLES[subjectId] || ["🕮", "✎", "☀", "+", "❝", "%", "𓂃🖊", "📜︎"];
-  // cycle the array so every slot fills and the card is covered edge to edge
   return Array.from({ length: DOODLE_SLOTS }, (_, i) => glyphs[i % glyphs.length]);
 }
 
@@ -1051,8 +1050,9 @@ const SUBJECT_ABBR = {
   KIS: "Kis",
   CRE: "CRE",
   IRE: "IRE",
-  ART: "Art",
+  ART: "C-Art",
   ENV: "Env",
+  SS: "SS",
 };
 
 function abbreviateSubject(id, name) {
@@ -1166,8 +1166,7 @@ function renderStudentProfilePage(studentId) {
   const bestSubject = $("#profileBestSubject");
   if (bestSubject) bestSubject.textContent = profile.strongestSubject || "\u2014";
 
-  // same shared chart admin/parent use for this exact student \u2014 same
-  // structure, colors, and subject order, so it reads identically everywhere.
+  
   const chartTitle = $("#profileChartTitle");
   if (chartTitle) chartTitle.textContent = `${profile.firstName}'s Overall Performance`;
   const chartEl = $("#profileChart");
@@ -1263,9 +1262,7 @@ function showView(name) {
 const teacherAppRoot = $("#teacherApp");
 let skeletonTimer = null;
 
-// same shimmer the parent portal uses: the real markup renders straight away and
-// the skeleton greys it out briefly. Mock data is instant - with a real API call
-// setSkeleton(true) before the fetch and clear it after.
+
 function flashSkeleton(duration = 480) {
   if (!teacherAppRoot) return;
   window.clearTimeout(skeletonTimer);
@@ -1339,8 +1336,7 @@ function navigateToHash(params) {
 }
 
 function handleRoute() {
-  // routing resumes after login when the app shell is shown, same guard
-  // admin's router.js uses.
+  
   if (document.body.classList.contains("login-active")) return;
 
   const params = new URLSearchParams(location.hash.replace(/^#/, ""));
@@ -1399,8 +1395,7 @@ function handleRoute() {
 
   if (view === "class" && params.get("classId")) {
     const cls = getClassById(params.get("classId"));
-    // a stale link or a class removed on the server must not open an empty
-    // shell dressed as a real class - send the teacher back with a reason
+    
     if (!cls) {
       notifyTeacher("That class is no longer available.");
       goToNav("dashboard");
@@ -1422,8 +1417,7 @@ function handleRoute() {
 
   if (view === "student" && params.get("studentId")) {
     const profilePreview = getStudentProfile(params.get("studentId"));
-    // without this the view opens on the markup's placeholder learner - a name,
-    // guardian and phone number that belong to nobody
+    
     if (!profilePreview) {
       notifyTeacher("That learner is no longer available.");
       goToNav("students");
@@ -1511,7 +1505,6 @@ function bindNav() {
 
   $("#teacherClassBack")?.addEventListener("click", () => {
     const btn = $("#teacherClassBack");
-    // real browser back so the user returns exactly where they were if there is no in-app history (fresh tab / deep link) fall back to the view this page belongs under.
     const fallback = btn?.dataset.backTo || "dashboard";
     const hashBefore = location.hash;
     runButtonAction(btn, () => {
@@ -1566,9 +1559,7 @@ function bindSubjectCards() {
   });
 }
 
-/* demo login gate — shared/scripts/ui/login-gate.js; no real auth backend,
-   any submission succeeds. */
-
+/* login gate */
 const teacherLoginGate = createLoginGate({
   storageKey: PORTAL_STORAGE_KEYS.teacher,
   appShellSelector: "#teacherApp",

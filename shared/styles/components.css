@@ -889,8 +889,6 @@ button {
     align-items: center;
 }
 
-/* same pill as the parent learner-card chips (.parent-student-chip), in the
-   lavender of the parent .manage-edit-btn - flat tint, raised edge, soft drop */
 #teacherSubjectsGrid .subject-meta {
     grid-column: 1 / -1;
     grid-row: 2 / 3;
@@ -916,10 +914,8 @@ button {
         0 8px 16px -6px rgba(96, 66, 143, .3);
 }
 
-/* the subject art is a faded watermark filling the right half of the card, not a
-   thumbnail in its own column - masked out toward the left so the title and the
-   class pill keep a clean, high-contrast background to sit on */
-#teacherSubjectsGrid .subject-icon {
+
+#teacherSubjectsGrid .subject-icon {/*watermark vibe*/
     position: absolute;
     z-index: 0;
     right: -6%;
@@ -934,7 +930,6 @@ button {
     box-shadow: none;
     opacity: .62;
     pointer-events: none;
-    /* mask holds the text side clear, so the art can carry its real colour */
     -webkit-mask-image: linear-gradient(105deg, transparent 0 18%, #000 56%);
     mask-image: linear-gradient(105deg, transparent 0 18%, #000 56%);
     transition: opacity 180ms ease, transform 180ms ease;
@@ -991,8 +986,7 @@ button {
     }
 }
 
-/* modal keyframes live in main.css (modal-layer-in etc.) */
-/* class modal selection/option buttons */
+/* class modal selection/option buttons(key frames */
 #teacherClassOptions,
 #teacherClassOptions.option-list {
     display: grid;
@@ -1348,7 +1342,6 @@ button {
     transform: translateY(-1px);
 }
 
-/* status pills mirror the admin .invite-status / .status-dot design */
 .student-status {
     display: inline-flex;
     align-items: center;
@@ -1626,8 +1619,7 @@ button {
         right: auto;
     }
 
-    /* fixed back chip sits over the topbar on mobile - indent the crumbs so the
-       first crumb is not hidden underneath it */
+    
     .floating-back:not([hidden])~.topbar .breadcrumb-row {
         padding-left: 44px;
     }
@@ -2273,7 +2265,6 @@ button {
     letter-spacing: .04em;
 }
 
-/* reuses main.css .button; styled like the assignments Filter button */
 .assignment-card .button {
     margin-top: auto;
     color: var(--brand-navy-900, #101B3D);
@@ -2308,7 +2299,6 @@ button {
     margin: 0;
 }
 
-/* reuses main.css .button; orange delta for assign CTA */
 .assignment-detail-head .button {
     background: linear-gradient(180deg, #f48221, #f06405);
     cursor: pointer;
@@ -2678,7 +2668,6 @@ button {
     font-weight: 800;
 }
 
-/* assignment-summary-styles live in main.css */
 #teacherStudentProfileView .performance-panel .table {
     margin: 0;
     box-shadow: none;
@@ -2816,7 +2805,7 @@ button {
     box-shadow: 0 14px 34px rgba(29, 37, 72, .07);
 }
 
-.assignment-command-center .toolbar {/*reuses main.css .toolbar/.search; deltas only */
+.assignment-command-center .toolbar {
     margin-bottom: 0;
 }
 
@@ -3068,7 +3057,7 @@ button {
     -webkit-overflow-scrolling: touch;
 }
 
-/* phones: stay 2-up with tighter buttons so ten classes need barely any scrolling; only very narrow screens fall back to one column */
+/* phones/small screens: stay 2-up with tighter buttons so ten classes need barely any scrolling; only very narrow screens fall back to one column */
 @media (max-width: 460px) {
     #teacherSelectClassModal .modal-form {
         max-height: 92dvh;
@@ -3134,7 +3123,6 @@ button {
     color: #fff;
 }
 
-/* text sized like the dashboard stat cards */
 #teacherClassView .class-stat-card .stat-value {
     color: #fff;
     font-size: clamp(32px, 9vw, 46px);
@@ -3282,7 +3270,6 @@ button {
     will-change: opacity, transform;
 }
 
-/* transform must end at none a kept transform turns position:fixed children (floating back / assign FAB) into absolutely-positioned ones */
 .teacher-app .view.active {
     opacity: 1;
     transform: none;
@@ -4158,7 +4145,6 @@ button {
 }
 
 @media (max-width: 880px) {
-    /* clear the floating bottom nav */
     .deploy-fab {
         right: 16px;
         bottom: 128px;
@@ -4289,7 +4275,6 @@ button {
     box-shadow: 0 0 0 3px rgba(240, 100, 5, .12);
 }
 
-/* animated "Assignment Deployed" state inside the modal */
 .deploy-success {
     display: grid;
     justify-items: center;
