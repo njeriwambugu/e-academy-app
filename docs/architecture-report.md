@@ -6,7 +6,7 @@ reasoning behind each change stays on record.
 
 Every finding was measured against the code, not estimated.
 
-## Executive summary
+## Executive summary blah blah blagh
 
 Much of the intended sharing already exists: one canonical `mock-data.js`, a shared
 insights engine, shared pager/chart/login-gate/bottom-nav, and shared style sheets.
